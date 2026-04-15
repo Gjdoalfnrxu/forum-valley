@@ -1184,7 +1184,7 @@ function doPrestige() {
   postAccumulator = 0;
   boostActive = false; clickBoostActive = false;
   postLog.unshift({ n: 0, msg: `✨ PRESTIGE LEVEL ${prestigeLevel}! Production ×${(1+prestigeLevel*0.5).toFixed(1)} permanently.`, date: formatDate(), type: 'prestige' });
-  nextEventAt = getEventInterval();
+  nextEventAt = postCount + getEventInterval();
   showToast(`✨ <b>Prestige Level ${prestigeLevel}!</b> All production ×${(1+prestigeLevel*0.5).toFixed(1)} permanently.`, '#f5eeff', '#441188');
   save();
   render();
@@ -1723,6 +1723,10 @@ setInterval(() => {
     if (newRank.name !== oldRank.name) {
       postLog.unshift({ n: postCount, msg: `Auto-post reached rank: ${newRank.name}`, date: formatDate(), type: 'post', rankUp: newRank.name, auto: true });
       showToast(`${newRank.icon} Rank up! You are now <b style="color:${newRank.color}">${newRank.name}</b>`, '#fffbe6', '#664400');
+    }
+    // advance event threshold so auto-posts don't make events fire every click
+    if (!banActive && !goodEventActive && postCount >= nextEventAt) {
+      nextEventAt = postCount + getEventInterval();
     }
   }
 
