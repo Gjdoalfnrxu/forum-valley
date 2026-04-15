@@ -801,6 +801,7 @@ const RANKS = [
   { name: 'Moderator',       min: 15000, color: '#0066aa', icon: '🛡️', stars: 9, starColor: '#00aaff', sig: '||| keep it civil |||' },
   { name: 'Super Moderator', min: 25000, color: '#004488', icon: '⚔️', stars: 10, starColor: '#0088ff', sig: '||| senior staff |||' },
   { name: 'Administrator',   min: 50000, color: '#aa0000', icon: '💎', stars: 10, starColor: '#ffcc00', sig: '— site founder —' },
+  { id:25, avatar:'🤨', name:'stefan_k',        arch:'Omniscient Douche',      replies:["actually thats not entirely accurate lol","lol did u even google this before posting","im a software engineer n this is just wrong on multiple levels","the dunning kruger effect is real n its showing in this thread","technically speaking ur oversimplifying this","as someone who actually works in this field let me explain","lol source? because i actually know about this","ur not wrong but ur missing the bigger picture which is...","interesting take but have u read the wikipedia article on this lol","just gonna leave this here: [RFC 2616 section 4.3]"], dms:["hey m8 not trying 2 be a dick but that post had a few inaccuracies lol","hey just fyi the thing u said about that is not quite right, happy 2 explain","lol hey m8 interesting post but might wanna research that a bit more b4 posting"] },
 ];
 
 // ── troll posts ──────────────────────────────────────────
@@ -819,36 +820,48 @@ const TROLL_EVENTS = [
 
 // ── sample posts ─────────────────────────────────────────
 const MESSAGES = [
-  "Hello there! Just wanted to introduce myself.",
-  "Great community here. Happy to be posting.",
-  "Just bumping my post count lol",
-  "Another day another post",
-  "Anyone else just here to watch the counter go up?",
-  "This thread is great for post count grinding",
-  "Been lurking for years. Finally posting.",
-  "Not sure what to say but +1",
-  "Post.",
-  "Watching my rank increase in real time",
-  "The grind never stops",
-  "Mid post",
-  "I have nothing to say but I will say it anyway",
-  "Just hit a new milestone fellas",
-  "gm",
-  "gn",
-  "Post number {n}. Feeling good.",
-  "Remember when forums were everything?",
-  "Anyway",
-  ".",
-  "Still here",
-  "The dedication is real",
-  "Power user energy",
-  "I am become post",
-  "The forum is my church",
-  "another one",
-  "+1 to the count",
-  "just vibing",
-  "peak forum activity",
-  "this is my job now",
+  "lol first!!",
+  "in b4 the lock",
+  "bump",
+  "anyone else saw that digg story lol",
+  "tl;dr",
+  "o rly",
+  "over 9000",
+  "this thread needs moar cowbell",
+  "cool story bro",
+  "epic fail",
+  "u mad bro",
+  "lol lurk moar",
+  "do a barrel roll",
+  "inb4 404",
+  "this is relevant to my interests",
+  "thread delivering",
+  "lmao so true",
+  "^ this guy gets it",
+  "been lurking since 2003 finally posting",
+  "wtf did i just read lol",
+  "someone post the gif",
+  "relevant username",
+  "Post number {n}. still here.",
+  "cant stop wont stop",
+  "still not as bad as the digg redesign",
+  "remember when myspace was a thing lol",
+  "lol at this whole thread",
+  "good thread keeping it alive",
+  "obligatory post",
+  "10/10 would post again",
+  "i came i saw i posted",
+  "this is y i have no life lol",
+  "bandwidth wasted successfully",
+  "another day another post count",
+  "my iphone cant load this thread properly",
+  "lol bitcoin is never gonna catch on",
+  "anyone watching the game tonight",
+  "420 blaze it",
+  "the cake is a lie",
+  "arrow to the knee etc",
+  "somebody that i used to know is stuck in my head lol",
+  "gangnam style was 2 years ago feel old yet",
 ];
 
 // ── auto-posters ──────────────────────────────────────────
@@ -926,7 +939,8 @@ const MEMBER_UNLOCK_POSTS = [
   100, 200, 300, 500, 750,  // 5-9
   1000, 1500, 2000, 3000, 4000,  // 10-14
   5000, 7000, 9000, 12000, 15000, // 15-19
-  20000, 25000, 35000, 45000, 60000 // 20-24
+  20000, 25000, 35000, 45000, 60000, // 20-24
+  75 // 25: stefan_k
 ];
 
 const SULKY_REPLIES = ["ok", "...", "sure I guess", "wow. cool post. 👍", "not that anyone asked my opinion"];
