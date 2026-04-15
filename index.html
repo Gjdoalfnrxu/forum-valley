@@ -117,9 +117,29 @@
     border-radius: 50%; background: #44cc44; border: 1px solid #22aa22;
     margin-left: 3px; vertical-align: middle;
   }
-  .user-rank { font-size: 11px; font-weight: bold; margin: 4px 0 6px; text-align: center; }
+  .user-rank { font-size: 11px; font-weight: bold; margin: 4px 0 2px; text-align: center; }
   .rank-icon { font-size: 15px; margin-right: 2px; vertical-align: middle; }
   .star-row { text-align: center; margin: 3px 0; font-size: 12px; line-height: 1; }
+
+  /* ── Site Administrator badge ── */
+  .site-admin-badge {
+    display: inline-block;
+    background: linear-gradient(to bottom, #8b0000, #5a0000);
+    border: 1px solid #3a0000;
+    color: #ffd700;
+    font-size: 9px;
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    letter-spacing: 0.04em;
+    padding: 2px 5px;
+    border-radius: 2px;
+    margin: 3px auto 4px;
+    text-align: center;
+    display: block;
+    text-shadow: 0 0 4px rgba(255,200,0,0.6);
+    box-shadow: 0 0 3px rgba(180,0,0,0.5), inset 0 1px 0 rgba(255,200,0,0.2);
+  }
+
   .user-stats { font-size: 10px; color: #666; margin-top: 8px; line-height: 1.7; }
   .user-stats strong { color: #444; }
   .rank-progress { margin-top: 8px; font-size: 10px; color: #666; }
@@ -233,6 +253,45 @@
   .good-event-name { font-size: 13px; font-weight: bold; color: #116611; margin-bottom: 4px; }
   .good-event-desc { font-size: 12px; color: #337733; line-height: 1.5; }
   .good-event-timer { font-size: 10px; color: #448844; margin-top: 6px; }
+
+  /* ── MEMBER REPLY postbit ── */
+  .member-reply-postbit {
+    border: 1px solid #a0a8c0;
+    border-top: none;
+    background: #fafbff;
+    display: none;
+  }
+  .member-reply-head {
+    background: linear-gradient(to bottom, #e8ecf8, #d4d9ec);
+    border-bottom: 1px solid #a0a8c0;
+    padding: 2px 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #666;
+  }
+  .member-reply-body { display: flex; }
+  .member-reply-user {
+    width: 120px; min-width: 120px;
+    border-right: 1px solid #d0d4e8;
+    padding: 7px 6px;
+    background: #f4f5fa;
+    text-align: center;
+  }
+  .member-reply-avatar { font-size: 22px; margin-bottom: 4px; }
+  .member-reply-name { font-size: 10px; font-weight: bold; color: #3d5080; }
+  .member-reply-role {
+    font-size: 9px; margin-top: 2px;
+    display: inline-block; padding: 1px 4px; border-radius: 2px;
+    font-weight: bold;
+  }
+  .role-guest     { background: #eee; color: #999; border: 1px solid #ccc; }
+  .role-member    { background: #e8eef8; color: #3d5080; border: 1px solid #a0b0d0; }
+  .role-senior    { background: #e8f0e8; color: #336633; border: 1px solid #90b890; }
+  .role-mod       { background: #e8f4ff; color: #0066aa; border: 1px solid #88b8dd; }
+  .role-supermod  { background: #ffe8e8; color: #880000; border: 1px solid #cc8888; }
+  .member-reply-content { flex: 1; padding: 7px 10px; font-size: 12px; color: #555; line-height: 1.5; }
+  .member-sulking { font-style: italic; color: #999; }
 
   /* ── two-column layout ── */
   .game-cols {
@@ -358,6 +417,83 @@
   .upg-done {
     font-size: 11px; color: #448844; font-weight: bold;
   }
+
+  /* ── Members tab ── */
+  .members-scroll { max-height: 520px; overflow-y: auto; }
+  .member-card {
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid #eef; padding: 7px 10px;
+    transition: background 0.1s;
+  }
+  .member-card:hover { background: #f8f9ff; }
+  .member-card.locked-card { opacity: 0.45; background: #f7f7f9; }
+  .member-card-avatar { font-size: 26px; flex-shrink: 0; width: 34px; text-align: center; }
+  .member-card-info { flex: 1; min-width: 0; }
+  .member-card-name { font-size: 11px; font-weight: bold; color: #3d5080; }
+  .member-card-arch { font-size: 10px; color: #888; margin-top: 1px; }
+  .member-online-dot {
+    display: inline-block; width: 6px; height: 6px;
+    border-radius: 50%; background: #44cc44; border: 1px solid #22aa22;
+    margin-right: 3px; vertical-align: middle;
+  }
+  .loyalty-bar-outer {
+    height: 5px; background: #ddd; border: 1px solid #ccc;
+    border-radius: 1px; margin-top: 4px; width: 100%;
+  }
+  .loyalty-bar-inner { height: 100%; border-radius: 1px; transition: width 0.3s; }
+  .loyalty-label { font-size: 9px; color: #888; margin-top: 2px; }
+  .member-sulk-state { font-size: 9px; color: #cc4444; font-style: italic; margin-top: 2px; }
+  .member-card-actions { flex-shrink: 0; text-align: right; }
+  .member-promote-btn, .member-demote-btn {
+    display: inline-block;
+    border: 1px solid; font-size: 9px; font-family: Verdana, sans-serif;
+    padding: 2px 5px; cursor: pointer; border-radius: 2px; font-weight: bold;
+    margin-left: 2px;
+  }
+  .member-promote-btn {
+    background: linear-gradient(to bottom, #7080b8, #3d5080);
+    border-color: #2a3a60; color: #fff;
+  }
+  .member-promote-btn:hover { background: linear-gradient(to bottom, #8090c8, #4d6090); }
+  .member-promote-btn:disabled { background: #aaa; border-color: #888; color: #ddd; cursor: not-allowed; }
+  .member-demote-btn {
+    background: linear-gradient(to bottom, #c05050, #882222);
+    border-color: #661111; color: #fff;
+  }
+  .member-demote-btn:hover { background: linear-gradient(to bottom, #d06060, #993333); }
+  .member-demote-btn:disabled { background: #aaa; border-color: #888; color: #ddd; cursor: not-allowed; }
+  .member-unlock-text { font-size: 10px; color: #999; font-style: italic; margin-top: 3px; }
+
+  /* ── DM / Scheming popups ── */
+  .dm-popup {
+    position: fixed; bottom: 20px; right: 20px;
+    width: 280px; border-radius: 3px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.35);
+    z-index: 1000; font-family: Verdana, sans-serif;
+    animation: slideInRight 0.25s ease-out;
+  }
+  @keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+  }
+  .dm-popup-head {
+    padding: 5px 10px; font-size: 11px; font-weight: bold;
+    color: #fff; display: flex; justify-content: space-between; align-items: center;
+    border-radius: 3px 3px 0 0;
+  }
+  .dm-popup-head.dm-type   { background: linear-gradient(to bottom, #2a3a6e, #1a2a5e); }
+  .dm-popup-head.scm-type  { background: linear-gradient(to bottom, #8b4400, #5a2a00); }
+  .dm-popup-body {
+    background: #fff; padding: 8px 10px; font-size: 11px;
+    color: #333; line-height: 1.5; border-radius: 0 0 3px 3px;
+    border: 1px solid #ccc; border-top: none;
+  }
+  .dm-popup-close {
+    cursor: pointer; font-size: 13px; color: rgba(255,255,255,0.7);
+    background: none; border: none; font-family: Verdana, sans-serif;
+    padding: 0 2px;
+  }
+  .dm-popup-close:hover { color: #fff; }
 
   /* ── prestige section ── */
   .prestige-section {
@@ -497,6 +633,7 @@
 
             <div class="user-rank" id="rank-display"></div>
             <div class="star-row" id="stars-display"></div>
+            <div class="site-admin-badge">★ Site Administrator ★</div>
             <div class="user-stats">
               Join Date: <strong>Today</strong><br>
               Posts: <strong id="post-count-sidebar">0</strong><br>
@@ -519,6 +656,22 @@
               <span class="vb-btn">Edit</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- MEMBER REPLY postbit (shown after each post) -->
+      <div class="member-reply-postbit" id="member-reply-postbit">
+        <div class="member-reply-head">
+          <span id="member-reply-head-text">Reply from a member</span>
+          <span id="member-reply-date"></span>
+        </div>
+        <div class="member-reply-body">
+          <div class="member-reply-user">
+            <div class="member-reply-avatar" id="member-reply-avatar">🤓</div>
+            <div class="member-reply-name" id="member-reply-name">username</div>
+            <div class="member-reply-role" id="member-reply-role-badge"></div>
+          </div>
+          <div class="member-reply-content" id="member-reply-content"></div>
         </div>
       </div>
 
@@ -595,12 +748,16 @@
         <div class="shop-tabs">
           <div class="shop-tab active" id="tab-autoposters" onclick="switchTab('autoposters')">⚙️ Auto-Posters</div>
           <div class="shop-tab" id="tab-upgrades" onclick="switchTab('upgrades')">⬆️ Upgrades</div>
+          <div class="shop-tab" id="tab-members" onclick="switchTab('members')">👥 Members</div>
         </div>
         <div class="shop-content active" id="content-autoposters">
           <div class="shop-scroll" id="ap-list"></div>
         </div>
         <div class="shop-content" id="content-upgrades">
           <div class="shop-scroll" id="upg-list"></div>
+        </div>
+        <div class="shop-content" id="content-members">
+          <div class="members-scroll" id="members-list"></div>
         </div>
       </div>
     </div><!-- end .game-right -->
@@ -618,6 +775,8 @@
 </div><!-- end .forum-wrap -->
 
 <div class="rank-toast" id="rank-toast"></div>
+<!-- DM popup container -->
+<div id="dm-popup-container"></div>
 
 <script>
 // ── ranks ────────────────────────────────────────────────
@@ -705,18 +864,19 @@ const AUTOPOSTERS = [
 
 // ── upgrades ──────────────────────────────────────────────
 const UPGRADES = [
-  { id:'mech_kb',     name:'Mechanical Keyboard',    desc:'Click power ×2',           cost:100,    type:'click',    mult:2,   icon:'⌨️', req_posts:0 },
-  { id:'touch_type',  name:'Touch Typing Course',    desc:'Click power ×2',           cost:500,    type:'click',    mult:2,   icon:'📝', req_posts:50 },
-  { id:'gaming_chair',name:'Gaming Chair',           desc:'Click power ×3',           cost:5000,   type:'click',    mult:3,   icon:'🪑', req_posts:400 },
-  { id:'energy_drink',name:'Energy Drink Habit',     desc:'Click power ×2',           cost:25000,  type:'click',    mult:2,   icon:'🥤', req_posts:2000 },
-  { id:'broadband',   name:'Broadband Upgrade',      desc:'Auto-posters ×2',          cost:1000,   type:'auto',     mult:2,   icon:'🌐', req_posts:150 },
-  { id:'dual_mon',    name:'Dual Monitor Setup',     desc:'Auto-posters ×2',          cost:10000,  type:'auto',     mult:2,   icon:'🖥️', req_posts:1200 },
-  { id:'sleep_dep',   name:'72hr Posting Marathon',  desc:'Auto-posters ×3',          cost:50000,  type:'auto',     mult:3,   icon:'😴', req_posts:6000 },
-  { id:'caffeine',    name:'Caffeine Dependency',    desc:'All production ×1.5',      cost:2000,   type:'global',   mult:1.5, icon:'☕', req_posts:250 },
-  { id:'no_life',     name:'No Social Life',         desc:'All production ×2',        cost:15000,  type:'global',   mult:2,   icon:'💻', req_posts:2500 },
-  { id:'quit_job',    name:'Quit Day Job',           desc:'All production ×3',        cost:75000,  type:'global',   mult:3,   icon:'📦', req_posts:10000 },
+  { id:'mech_kb',     name:'Mechanical Keyboard',    desc:'Click power ×2',           cost:100,    type:'click',    mult:2,    icon:'⌨️', req_posts:0 },
+  { id:'touch_type',  name:'Touch Typing Course',    desc:'Click power ×2',           cost:500,    type:'click',    mult:2,    icon:'📝', req_posts:50 },
+  { id:'gaming_chair',name:'Gaming Chair',           desc:'Click power ×3',           cost:5000,   type:'click',    mult:3,    icon:'🪑', req_posts:400 },
+  { id:'energy_drink',name:'Energy Drink Habit',     desc:'Click power ×2',           cost:25000,  type:'click',    mult:2,    icon:'🥤', req_posts:2000 },
+  { id:'broadband',   name:'Broadband Upgrade',      desc:'Auto-posters ×2',          cost:1000,   type:'auto',     mult:2,    icon:'🌐', req_posts:150 },
+  { id:'dual_mon',    name:'Dual Monitor Setup',     desc:'Auto-posters ×2',          cost:10000,  type:'auto',     mult:2,    icon:'🖥️', req_posts:1200 },
+  { id:'sleep_dep',   name:'72hr Posting Marathon',  desc:'Auto-posters ×3',          cost:50000,  type:'auto',     mult:3,    icon:'😴', req_posts:6000 },
+  { id:'caffeine',    name:'Caffeine Dependency',    desc:'All production ×1.5',      cost:2000,   type:'global',   mult:1.5,  icon:'☕', req_posts:250 },
+  { id:'no_life',     name:'No Social Life',         desc:'All production ×2',        cost:15000,  type:'global',   mult:2,    icon:'💻', req_posts:2500 },
+  { id:'quit_job',    name:'Quit Day Job',           desc:'All production ×3',        cost:75000,  type:'global',   mult:3,    icon:'📦', req_posts:10000 },
   { id:'lurker_boost',name:'Lurker Encouragement',  desc:'Lurkers produce ×3',       cost:200,    type:'building', target:'lurker', mult:3, icon:'💬', req_posts:5 },
   { id:'bot_v2',      name:'Bot Optimization v2',   desc:'Bot accounts produce ×4',  cost:12000,  type:'building', target:'bot',    mult:4, icon:'⚙️', req_posts:400 },
+  { id:'automod',     name:'AutoMod System',         desc:'Ban popups 75% less frequent', cost:3000, type:'automod', mult:0.25, icon:'🤖', req_posts:100 },
 ];
 
 // ── positive events ───────────────────────────────────────
@@ -727,6 +887,49 @@ const POSITIVE_EVENTS = [
   { name:'Forum Sponsor 💰',    desc:"A VPN company found your thread. +1000 posts!",          type:'bonus',      bonus:1000 },
   { name:'Trending Portal 📈',  desc:"×3 click power for 30 seconds!",                        type:'clickboost', duration:30000, mult:3 },
 ];
+
+// ── MEMBERS ───────────────────────────────────────────────
+const MEMBERS = [
+  { id:0,  avatar:'🤓', name:'xX_AdminFan_Xx',      arch:'Total Void',             replies:["EXACTLY what I was thinking!!","Admin is so right about this it's insane","I could never have said it better 😭","This is why you're THE admin","Quoting for truth 🙏"], dms:["Hey admin just wanted to say you're doing amazing","I tell everyone this forum would be nothing without you","You're actually the reason I still come online"] },
+  { id:1,  avatar:'🧑‍💻', name:'TechGuru_2003',        arch:'Help-Desk Worshipper',   replies:["From a technical perspective, admin is 100% correct","I've been in IT for 20 years and admin just solved it","Screenshotting this for my notes","Admin-verified information right here 👆"], dms:["Just wanted to flag that I'm available for mod duties anytime","I've been monitoring the forum health and wanted to update you personally","Your post earlier was cited in a thread on three other forums"] },
+  { id:2,  avatar:'👸', name:'ForumQueen_Lisa',       arch:'Since Day One',          replies:["I've been here since 2003 and THIS is the kind of content that made me stay","The admin has spoken 🙌","Lisa approves of this message","Been waiting years for someone to say this"], dms:["I just want you to know I remember when this forum was nothing before you","Some of the newer members don't appreciate what you do","I do not trust [MEMBER] btw, something is off about them"] },
+  { id:3,  avatar:'🧙', name:'GrandWizard_Doug',      arch:'Conspiracy Convert',     replies:["The only person I trust on this forum 🙏","Admin sees through the matrix","THIS is what they don't want you to know","The algorithm buries posts like this for a reason"], dms:["I know this sounds crazy but I think some members are working against you","You're one of the last honest voices online","I've been compiling a list of suspicious activity, want me to send it?"] },
+  { id:4,  avatar:'📬', name:'PostMaster_General',    arch:'Post Count Maniac',      replies:["Post of the YEAR","Adding this to my favourites","Quality over quantity but admin has BOTH","This just became my most quoted post"], dms:["I noticed your post count milestone, truly inspiring","I've been posting more because of you tbh","Nobody matches your posting efficiency, studied it"] },
+  { id:5,  avatar:'🦅', name:'LoyalPatriot_99',       arch:'Forum Nationalist',      replies:["This is what keeps this forum great","Admin is the backbone of this community","Real ones know 🫡","Standing ovation from me"], dms:["This forum would fall apart without your leadership","I've defended your reputation in at least four threads this week","Some people don't deserve to post here honestly"] },
+  { id:6,  avatar:'🦉', name:'NightOwl_Mitch',        arch:'Always Awake',           replies:["3am and admin still delivering 🙏","Can't sleep, reading admin posts, worth it","This is my comfort post","Mitch has logged on just to agree"], dms:["Saw your post at 2am and had to reply","You're literally the only reason I stay up this late","Sometimes I just refresh your profile page"] },
+  { id:7,  avatar:'👴', name:'ForumFather_Steve',      arch:'Creepy Elder',           replies:["That's my admin, folks","Son, you've done it again","Steve is proud","From someone who's been online since 1997: respect"], dms:["Proud of you, son. Genuinely.","I showed my wife your latest post. She agrees with you.","I think of you as the son I never had on this forum"] },
+  { id:8,  avatar:'💬', name:'Quoter_Queen',           arch:'Compulsive Quoter',      replies:["THIS ^^^","Quoting because it needs to be seen twice","↑↑↑ READ THIS ↑↑↑","I will be quoting this in every relevant thread"], dms:["I quoted you in 7 threads today, hope that's ok","Your words deserve to be preserved forever","I have a spreadsheet of your best quotes"] },
+  { id:9,  avatar:'🚨', name:'ShadowMod_Karen',        arch:'Unofficial Sheriff',     replies:["As someone who basically moderates this forum anyway: agreed","Already reported anyone who disagrees","The rules were written with admin in mind","Watching this thread closely 👀"], dms:["I reported three users who were being disrespectful toward you","I can monitor certain members if you'd like","Just to let you know I've been keeping notes on suspicious behaviour"] },
+  { id:10, avatar:'🏅', name:'PrestigeMember',         arch:'Status Obsessive',       replies:["Only a true forum legend could have written this","The gap between admin and the rest of us is widening","I've been here 8 years. This tops everything.","Elite tier content"], dms:["I turned down a mod position on another forum because of my loyalty here","Mentioned you in my forum anniversary post","My reputation on this forum is built entirely on agreeing with you"] },
+  { id:11, avatar:'💾', name:'DataHoarder_Rex',        arch:'Archivist',              replies:["Archiving this post immediately","Added to the Rex Database","This will be studied by future forum historians","Preservation in progress 📁"], dms:["I have every post you've ever made saved offline","My archive of your content is now 4.3GB","I made a timeline of your forum activity, want a copy?"] },
+  { id:12, avatar:'🥊', name:'Debate_Champion',        arch:'Hollow Contrarian',      replies:["I've debated thousands of people. Admin is correct.","As a debate champion I can confirm: flawless logic","I was going to disagree on principle but no, admin's right","Conceding the point immediately 🫡"], dms:["I told someone admin was wrong once and regretted it for weeks","Your argumentation style has influenced my whole approach","I no longer debate anyone who challenges you"] },
+  { id:13, avatar:'📜', name:'ForumHistorian',         arch:'Revisionist Biographer', replies:["This is a historic moment","For the record books","Chapter 7 of my forum history will reference this","Witnessed 🖊️"], dms:["I'm writing a comprehensive history of this forum and you are every chapter","Would you be willing to do an interview for the archive?","I've named the golden era of this forum after you"] },
+  { id:14, avatar:'🏆', name:'The_Real_MVP',           arch:'Superlative Addict',     replies:["GOAT behaviour","There is no competition","Most valuable post I've read this year","The MVP speaks and we listen"], dms:["You're the only person who deserved MVP every single month","I've nominated you for every award this forum has or will have","The league table doesn't capture how above everyone you are"] },
+  { id:15, avatar:'⭐', name:'TrueBeliever_Stan',      arch:'Unironic Stan',          replies:["ADMIN ATE 🔥","Not me crying at a forum post","This is why I stan 😭","The way this just hit different"], dms:["I made a fan account for your posting career","Stream admin's greatest hits (my playlist of your best threads)","I've been a stan since post #47 and will never leave"] },
+  { id:16, avatar:'🔧', name:'ServerMonkey_Dale',      arch:'IT Guy',                 replies:["From a server infrastructure perspective: perfect","Admin understands the backend AND the community. Rare.","Technically speaking this is optimal","10/10 uptime on this take"], dms:["I keep the servers running for you personally tbh","Rejected a $40k raise elsewhere to stay here near you","I optimised the database this week in your honour"] },
+  { id:17, avatar:'🧓', name:'VetMember_Phil',         arch:'Forum Elder',            replies:["In 15 years I've never seen posting this consistent","The forum needed this. Admin delivered.","Old guard respects this","Phil has logged his approval"], dms:["I remember when this forum was dying. You saved it.","The young members don't know what it was like before you","I've turned down admin on four forums because none of them are you"] },
+  { id:18, avatar:'👁️', name:'QuietObserver_9000',     arch:'Awakened Lurker',        replies:["I made this account just to agree with this","First post in 3 years: agreed","The lurkers see you even when you don't know it","Coming out of lurk mode for this one"], dms:["I've been watching you post for 2 years without an account","I only made an account because I needed you to know I agree","You brought me out of lurk mode. That's sacred."] },
+  { id:19, avatar:'📋', name:'ModApplicant_Tim',       arch:'Permanent Applicant',    replies:["As someone who applied for mod 8 times: admin is right","One day I'll be mod and protect these posts personally","Taking notes for my mod application essay","Tim is here, Tim agrees, Tim is available"], dms:["I resubmitted my mod application with your recent posts as evidence I'd be good","I would do anything for this forum. Anything.","Please just consider me. I'll be so good at it."] },
+  { id:20, avatar:'🙏', name:'ForumGodFanatic',        arch:'Devoted Worshipper',     replies:["The ForumGod has spoken","Bow 🙏","I was having a terrible day until this post","This is religious to me"], dms:["I genuinely pray for your continued posting career","You are the reason I believe in online communities","I light a candle when you hit a post milestone. True story."] },
+  { id:21, avatar:'📝', name:'LongPost_Larry',         arch:'Essay Agreer',           replies:["I wrote a 1,500 word response but it basically just says: yes","Paragraph 1 of my reply: agreed. Paragraph 2: deeply agreed. Paragraph 3: further agreement.","I'll spare you the essay: correct.","TL;DR: admin right, full analysis in my next post"], dms:["I wrote a 3,000 word analysis of your recent activity and the conclusion is: flawless","I can send you my essay on why your moderation philosophy is optimal","People say I write too much but I think I don't write enough about how good you are"] },
+  { id:22, avatar:'✍️', name:'SignatureSpam_Kev',      arch:'Quote Collector',        replies:["Adding this to my signature immediately","New sig dropped","Forum signature updated in real time","I've had to rotate signatures because there are too many good ones"], dms:["My signature has been a rotating collection of your quotes for three years","Someone asked me who my favourite poster was. I showed them my signature.","I ran out of signature space. This is a crisis."] },
+  { id:23, avatar:'⬆️', name:'BumpBot_Barry',          arch:'Thread Necromancer',     replies:["BUMP because this deserves to be on top","Bumping for visibility","This is too important to let die","Barry has bumped this thread"], dms:["I bumped 14 of your old threads today to keep them active","Found a thread from 2019 where you were already right about everything","Your archives deserve to live forever"] },
+  { id:24, avatar:'🟢', name:'AlwaysOnline_Glen',      arch:'Omnipresent',            replies:["Glen responds within seconds","I was literally just about to say this","Glen has no life outside of agreeing with you and that's fine","Instant agree. Clock starts."], dms:["I refreshed your profile 47 times today just to be ready","My response time to your posts is under 4 seconds on average","I've restructured my sleep schedule around your peak posting hours"] },
+];
+
+const MEMBER_ROLES = ['Guest', 'Member', 'Senior Member', 'Moderator', 'Super Moderator'];
+const ROLE_CLASSES  = ['role-guest','role-member','role-senior','role-mod','role-supermod'];
+
+// unlock thresholds (index = member id)
+const MEMBER_UNLOCK_POSTS = [
+  1, 5, 15, 30, 50,         // 0-4
+  100, 200, 300, 500, 750,  // 5-9
+  1000, 1500, 2000, 3000, 4000,  // 10-14
+  5000, 7000, 9000, 12000, 15000, // 15-19
+  20000, 25000, 35000, 45000, 60000 // 20-24
+];
+
+const SULKY_REPLIES = ["ok", "...", "sure I guess", "wow. cool post. 👍", "not that anyone asked my opinion"];
 
 // ── state ────────────────────────────────────────────────
 let postCount   = parseInt(localStorage.getItem('cn_posts') || '0');
@@ -754,17 +957,33 @@ let clicksSinceCheck = 0;
 const BAN_PENALTY  = 50;
 const BAN_GRACE    = 10;
 const PRESTIGE_THRESHOLD = 25000;
-let nextEventAt    = postCount + 15 + Math.floor(Math.random() * 16);
+
+// ── Member state ─────────────────────────────────────────
+let memberLoyalty = JSON.parse(localStorage.getItem('cn_member_loyalty') || 'null') || MEMBERS.map(() => 50);
+let memberRoles   = JSON.parse(localStorage.getItem('cn_member_roles')   || 'null') || MEMBERS.map(() => 1);
+// track which members have already joined (shown toast)
+let memberJoined  = JSON.parse(localStorage.getItem('cn_member_joined')  || 'null') || MEMBERS.map(() => false);
+
+// DM popup queue
+let dmQueue = [];
+let dmShowing = false;
+
+function getEventInterval() {
+  if (purchasedUpgrades.has('automod')) {
+    return 60 + Math.floor(Math.random() * 41); // 60-100
+  }
+  return 15 + Math.floor(Math.random() * 16); // 15-30
+}
+
+let nextEventAt = postCount + getEventInterval();
 
 // ── production math ───────────────────────────────────────
 function getBuildingPPS(ap) {
   const count = buildingCounts[ap.id] || 0;
   if (count === 0) return 0;
   let pps = ap.base_pps * count;
-  // building-specific upgrades
   const bUpg = UPGRADES.filter(u => u.type === 'building' && u.target === ap.id && purchasedUpgrades.has(u.id));
   for (const u of bUpg) pps *= u.mult;
-  // auto upgrades
   const autoUpg = UPGRADES.filter(u => u.type === 'auto' && purchasedUpgrades.has(u.id));
   for (const u of autoUpg) pps *= u.mult;
   return pps;
@@ -773,12 +992,9 @@ function getBuildingPPS(ap) {
 function calcPPS() {
   let pps = 0;
   for (const ap of AUTOPOSTERS) pps += getBuildingPPS(ap);
-  // global upgrades
   const globalUpg = UPGRADES.filter(u => u.type === 'global' && purchasedUpgrades.has(u.id));
   for (const u of globalUpg) pps *= u.mult;
-  // prestige multiplier
   pps *= (1 + prestigeLevel * 0.5);
-  // active boost
   const now = Date.now();
   if (boostActive && now < boostUntil) pps *= boostMult;
   return pps;
@@ -786,18 +1002,13 @@ function calcPPS() {
 
 function calcPPC() {
   let ppc = 1;
-  // click upgrades
   const clickUpg = UPGRADES.filter(u => u.type === 'click' && purchasedUpgrades.has(u.id));
   for (const u of clickUpg) ppc *= u.mult;
-  // global upgrades
   const globalUpg = UPGRADES.filter(u => u.type === 'global' && purchasedUpgrades.has(u.id));
   for (const u of globalUpg) ppc *= u.mult;
-  // prestige multiplier
   ppc *= (1 + prestigeLevel * 0.5);
-  // active click boost
   const now = Date.now();
   if (clickBoostActive && now < clickBoostUntil) ppc *= clickBoostMult;
-  // active general boost also affects clicks
   if (boostActive && now < boostUntil) ppc *= boostMult;
   return ppc;
 }
@@ -876,6 +1087,63 @@ function renderShop() {
       <div class="upg-right">${rightBlock}</div>
     </div>`;
   }).join('');
+
+  // members
+  renderMembersTab();
+}
+
+function renderMembersTab() {
+  const list = document.getElementById('members-list');
+  const lifeRef = Math.max(postCount, lifetimePosts);
+  list.innerHTML = MEMBERS.map(m => {
+    const unlocked = lifeRef >= MEMBER_UNLOCK_POSTS[m.id];
+    if (!unlocked) {
+      return `<div class="member-card locked-card">
+        <div class="member-card-avatar" style="filter:grayscale(1)">👤</div>
+        <div class="member-card-info">
+          <div class="member-card-name" style="color:#aaa">???</div>
+          <div class="member-unlock-text">Unlocks at ${fmtNum(MEMBER_UNLOCK_POSTS[m.id])} lifetime posts</div>
+        </div>
+      </div>`;
+    }
+
+    const loyalty  = memberLoyalty[m.id];
+    const roleIdx  = memberRoles[m.id];
+    const roleName = MEMBER_ROLES[roleIdx];
+    const roleCls  = ROLE_CLASSES[roleIdx];
+    const isSulking = loyalty < 20;
+
+    // loyalty bar colour
+    let loyaltyColor;
+    if (loyalty < 20)       loyaltyColor = '#cc2222';
+    else if (loyalty < 50)  loyaltyColor = '#cc8800';
+    else if (loyalty < 75)  loyaltyColor = '#aaaa00';
+    else                    loyaltyColor = '#22aa22';
+
+    const canPromote = roleIdx < MEMBER_ROLES.length - 1;
+    const canDemote  = roleIdx > 0;
+
+    const sulkIndicator = isSulking
+      ? `<div class="member-sulk-state">😤 sulking (loyalty: ${loyalty})</div>`
+      : `<div class="loyalty-label"><span style="color:${loyaltyColor}">Loyalty: ${loyalty}/100</span></div>`;
+
+    return `<div class="member-card" id="mcard-${m.id}">
+      <div class="member-card-avatar">${m.avatar}</div>
+      <div class="member-card-info">
+        <div class="member-card-name"><span class="member-online-dot"></span>${m.name}</div>
+        <div class="member-card-arch">${m.arch}</div>
+        <span class="member-reply-role ${roleCls}" style="font-size:9px;margin-top:3px;display:inline-block">${roleName}</span>
+        <div class="loyalty-bar-outer">
+          <div class="loyalty-bar-inner" style="width:${loyalty}%;background:${loyaltyColor}"></div>
+        </div>
+        ${sulkIndicator}
+      </div>
+      <div class="member-card-actions">
+        <button class="member-promote-btn" onclick="promoteMember(${m.id})" ${canPromote ? '' : 'disabled'}>▲</button>
+        <button class="member-demote-btn"  onclick="demoteMember(${m.id})"  ${canDemote  ? '' : 'disabled'}>▼</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ── buy building ──────────────────────────────────────────
@@ -916,7 +1184,7 @@ function doPrestige() {
   postAccumulator = 0;
   boostActive = false; clickBoostActive = false;
   postLog.unshift({ n: 0, msg: `✨ PRESTIGE LEVEL ${prestigeLevel}! Production ×${(1+prestigeLevel*0.5).toFixed(1)} permanently.`, date: formatDate(), type: 'prestige' });
-  nextEventAt = 15 + Math.floor(Math.random() * 16);
+  nextEventAt = getEventInterval();
   showToast(`✨ <b>Prestige Level ${prestigeLevel}!</b> All production ×${(1+prestigeLevel*0.5).toFixed(1)} permanently.`, '#f5eeff', '#441188');
   save();
   render();
@@ -929,7 +1197,7 @@ function triggerGoodEvent() {
   goodEventActive = true;
   const el = document.getElementById('good-event');
   document.getElementById('good-event-title').textContent = '🎉 ' + pendingGoodEvent.name;
-  document.getElementById('good-event-icon').textContent = pendingGoodEvent.name.slice(-2); // emoji at end
+  document.getElementById('good-event-icon').textContent = pendingGoodEvent.name.slice(-2);
   document.getElementById('good-event-name').textContent = pendingGoodEvent.name;
   document.getElementById('good-event-desc').textContent = pendingGoodEvent.desc;
   const timerEl = document.getElementById('good-event-timer');
@@ -998,6 +1266,9 @@ function save() {
   localStorage.setItem('cn_buildings', JSON.stringify(buildingCounts));
   localStorage.setItem('cn_upgrades', JSON.stringify([...purchasedUpgrades]));
   localStorage.setItem('cn_prestige', prestigeLevel);
+  localStorage.setItem('cn_member_loyalty', JSON.stringify(memberLoyalty));
+  localStorage.setItem('cn_member_roles', JSON.stringify(memberRoles));
+  localStorage.setItem('cn_member_joined', JSON.stringify(memberJoined));
 }
 function formatDate() {
   const now = new Date();
@@ -1076,7 +1347,7 @@ function banUser() {
   banActive = false;
   document.getElementById('ban-event').style.display = 'none';
   postLog.unshift({ n: postCount, msg: `🔨 Banned ${banEvent.name} for: "${banEvent.post.slice(0,60)}..."`, date: formatDate(), type: 'ban' });
-  nextEventAt = postCount + 15 + Math.floor(Math.random() * 16);
+  nextEventAt = postCount + getEventInterval();
   save();
   renderLog();
   showToast(`🔨 ${banEvent.name} has been banned. Good moderation!`, '#ffe0e0', '#880000');
@@ -1088,10 +1359,184 @@ function applyBanPenalty() {
   const lost = Math.min(BAN_PENALTY, postCount);
   postCount -= lost;
   postLog.unshift({ n: postCount, msg: `⚠️ PENALTY: Failed to ban ${banEvent.name}. Lost ${lost} posts.`, date: formatDate(), type: 'penalty' });
-  nextEventAt = postCount + 15 + Math.floor(Math.random() * 16);
+  nextEventAt = postCount + getEventInterval();
   save();
   render();
   showToast(`⚠️ You ignored a rule-breaker and lost ${lost} posts!`, '#fff0d0', '#884400');
+}
+
+// ── Members: promote / demote ────────────────────────────
+function promoteMember(id) {
+  if (memberRoles[id] >= MEMBER_ROLES.length - 1) return;
+  memberRoles[id]++;
+  memberLoyalty[id] = 100;
+  const promoted = MEMBERS[id];
+
+  // other lower-ranked members get -10 loyalty and scheming notification
+  const scheming_msgs = [
+    `[name] is not pleased that ${promoted.name} was elevated. You sense tension brewing.`,
+    `[name] has been conspicuously quiet since ${promoted.name}'s promotion.`,
+    `[name] has started posting more frequently. Clearly trying to impress you.`,
+  ];
+  // +5 loyalty to everyone
+  for (let i = 0; i < MEMBERS.length; i++) {
+    if (i === id) continue;
+    const lifeRef = Math.max(postCount, lifetimePosts);
+    if (lifeRef < MEMBER_UNLOCK_POSTS[i]) continue;
+    memberLoyalty[i] = Math.min(100, memberLoyalty[i] + 5);
+    if (memberRoles[i] < memberRoles[id]) {
+      memberLoyalty[i] = Math.max(0, memberLoyalty[i] - 10);
+      // scheming popup for one random lower-rank member (only first)
+      if (Math.random() < 0.5 && memberLoyalty[i] >= 20) {
+        const msg = scheming_msgs[Math.floor(Math.random() * scheming_msgs.length)].replace('[name]', MEMBERS[i].name);
+        queueDMPopup(MEMBERS[i].name, MEMBERS[i].avatar, msg, 'scm-type');
+      }
+    }
+  }
+  save();
+  renderMembersTab();
+}
+
+function demoteMember(id) {
+  if (memberRoles[id] <= 0) return;
+  memberRoles[id]--;
+  memberLoyalty[id] = Math.max(0, memberLoyalty[id] - 40);
+  const demoted = MEMBERS[id];
+  // "threaten to leave" notification if loyalty drops low enough
+  if (memberLoyalty[id] < 30) {
+    queueDMPopup(demoted.name, demoted.avatar, `I can't believe you demoted me. After everything I've done for this forum. I might just... leave.`, 'dm-type');
+  }
+  save();
+  renderMembersTab();
+}
+
+// ── DM popup system ───────────────────────────────────────
+function queueDMPopup(name, avatar, message, type) {
+  if (dmQueue.length >= 3) return; // max 3 queued
+  dmQueue.push({ name, avatar, message, type });
+  if (!dmShowing) showNextDM();
+}
+
+function showNextDM() {
+  if (dmQueue.length === 0) { dmShowing = false; return; }
+  dmShowing = true;
+  const item = dmQueue.shift();
+  const container = document.getElementById('dm-popup-container');
+
+  const popupId = 'dmpop_' + Date.now();
+  const headLabel = item.type === 'dm-type'
+    ? `📨 Private Message from ${item.name}`
+    : `⚠️ Scheming Activity`;
+
+  const popup = document.createElement('div');
+  popup.className = 'dm-popup';
+  popup.id = popupId;
+  popup.innerHTML = `
+    <div class="dm-popup-head ${item.type}">
+      <span>${headLabel}</span>
+      <button class="dm-popup-close" onclick="closeDMPopup('${popupId}')">✕</button>
+    </div>
+    <div class="dm-popup-body">${item.avatar} ${item.message}</div>
+  `;
+  container.appendChild(popup);
+
+  // stack above previous if any other popups visible (shift position)
+  const existing = container.querySelectorAll('.dm-popup');
+  let bottomOffset = 20;
+  existing.forEach((el, i) => {
+    if (el.id !== popupId) bottomOffset += el.offsetHeight + 8;
+  });
+  popup.style.bottom = bottomOffset + 'px';
+
+  const timer = setTimeout(() => closeDMPopup(popupId), 8000);
+  popup._closeTimer = timer;
+}
+
+function closeDMPopup(id) {
+  const popup = document.getElementById(id);
+  if (!popup) return;
+  clearTimeout(popup._closeTimer);
+  popup.remove();
+  setTimeout(showNextDM, 300);
+}
+
+// ── Periodic DM from a random non-sulking member ─────────
+function scheduleMemberDM() {
+  const delay = 45000 + Math.floor(Math.random() * 30001); // 45-75s
+  setTimeout(() => {
+    // pick unlocked, non-sulking members
+    const lifeRef = Math.max(postCount, lifetimePosts);
+    const candidates = MEMBERS.filter(m =>
+      lifeRef >= MEMBER_UNLOCK_POSTS[m.id] && memberJoined[m.id] && memberLoyalty[m.id] >= 20
+    );
+    if (candidates.length > 0) {
+      const m = candidates[Math.floor(Math.random() * candidates.length)];
+      const msg = m.dms[Math.floor(Math.random() * m.dms.length)];
+      queueDMPopup(m.name, m.avatar, msg, 'dm-type');
+    }
+    scheduleMemberDM();
+  }, delay);
+}
+scheduleMemberDM();
+
+// ── Loyalty regen: +1 every 30s per member ───────────────
+setInterval(() => {
+  const lifeRef = Math.max(postCount, lifetimePosts);
+  let changed = false;
+  for (let i = 0; i < MEMBERS.length; i++) {
+    if (lifeRef < MEMBER_UNLOCK_POSTS[i]) continue;
+    if (memberLoyalty[i] < 100) {
+      memberLoyalty[i] = Math.min(100, memberLoyalty[i] + 1);
+      changed = true;
+    }
+  }
+  if (changed) { save(); renderMembersTab(); }
+}, 30000);
+
+// ── Member join check ─────────────────────────────────────
+function checkMemberJoins() {
+  const lifeRef = Math.max(postCount, lifetimePosts);
+  for (let i = 0; i < MEMBERS.length; i++) {
+    if (!memberJoined[i] && lifeRef >= MEMBER_UNLOCK_POSTS[i]) {
+      memberJoined[i] = true;
+      showToast(`👋 <b>${MEMBERS[i].name}</b> has joined CybarNexus and immediately likes all your posts.`, '#e8f0ff', '#2a3a6e');
+    }
+  }
+}
+
+// ── member reply postbit ─────────────────────────────────
+function showMemberReply() {
+  const lifeRef = Math.max(postCount, lifetimePosts);
+  const candidates = MEMBERS.filter(m =>
+    lifeRef >= MEMBER_UNLOCK_POSTS[m.id] && memberJoined[m.id]
+  );
+  if (candidates.length === 0) return;
+
+  const m = candidates[Math.floor(Math.random() * candidates.length)];
+  const isSulking = memberLoyalty[m.id] < 20;
+  const replyText = isSulking
+    ? SULKY_REPLIES[Math.floor(Math.random() * SULKY_REPLIES.length)]
+    : m.replies[Math.floor(Math.random() * m.replies.length)];
+
+  const roleIdx  = memberRoles[m.id];
+  const roleName = MEMBER_ROLES[roleIdx];
+  const roleCls  = ROLE_CLASSES[roleIdx];
+
+  const postbit = document.getElementById('member-reply-postbit');
+  document.getElementById('member-reply-head-text').textContent = `Re: Introduce Yourself + Post Count Thread`;
+  document.getElementById('member-reply-date').textContent = formatDate();
+  document.getElementById('member-reply-avatar').textContent = m.avatar;
+  document.getElementById('member-reply-name').textContent = m.name;
+
+  const roleBadge = document.getElementById('member-reply-role-badge');
+  roleBadge.textContent = roleName;
+  roleBadge.className = `member-reply-role ${roleCls}`;
+
+  const content = document.getElementById('member-reply-content');
+  content.textContent = replyText;
+  content.className = 'member-reply-content' + (isSulking ? ' member-sulking' : '');
+
+  postbit.style.display = 'block';
 }
 
 // ── main post action ─────────────────────────────────────
@@ -1114,6 +1559,12 @@ function makePost() {
     showToast(`${newRank.icon} Rank up! You are now <b style="color:${newRank.color}">${newRank.name}</b>`, '#fffbe6', '#664400');
   }
 
+  // check for new member joins
+  checkMemberJoins();
+
+  // show a sycophantic reply from a member
+  showMemberReply();
+
   // ban mechanic: decrement grace if active (1 per click regardless of ppc)
   if (banActive) {
     banClicksLeft--;
@@ -1129,7 +1580,7 @@ function makePost() {
     } else {
       triggerBanEvent();
     }
-    nextEventAt = postCount + 15 + Math.floor(Math.random() * 16);
+    nextEventAt = postCount + getEventInterval();
   }
 
   save();
@@ -1267,6 +1718,7 @@ setInterval(() => {
     const oldRank = getRank(postCount);
     postCount += whole;
     lifetimePosts += whole;
+    checkMemberJoins();
     const newRank = getRank(postCount);
     if (newRank.name !== oldRank.name) {
       postLog.unshift({ n: postCount, msg: `Auto-post reached rank: ${newRank.name}`, date: formatDate(), type: 'post', rankUp: newRank.name, auto: true });
