@@ -15,7 +15,7 @@
     padding: 20px;
     min-height: 100vh;
   }
-  .forum-wrap { max-width: 740px; margin: 0 auto; }
+  .forum-wrap { max-width: 1040px; margin: 0 auto; }
 
   /* ── site header ── */
   .site-header {
@@ -25,11 +25,37 @@
     padding: 10px 16px;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
   .site-header img { width: 48px; height: 48px; image-rendering: pixelated; margin-right: 14px; }
   .site-name { color: #aaccff; font-size: 22px; font-weight: bold; letter-spacing: 0.05em; text-shadow: 0 0 8px #4466ff; }
   .site-tagline { color: #6688bb; font-size: 10px; margin-top: 2px; }
+
+  /* ── stats bar ── */
+  .stats-bar {
+    background: linear-gradient(to bottom, #2a2a4e, #1a1a38);
+    border: 1px solid #0a0a1e;
+    border-top: none;
+    border-bottom: 3px solid #4444aa;
+    padding: 6px 14px;
+    display: flex;
+    gap: 4px;
+    align-items: stretch;
+    margin-bottom: 10px;
+  }
+  .stats-bar-item {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(100,100,200,0.3);
+    border-radius: 2px;
+    padding: 4px 8px;
+    text-align: center;
+  }
+  .stats-bar-label { font-size: 9px; color: #6688bb; text-transform: uppercase; letter-spacing: 0.08em; }
+  .stats-bar-value { font-size: 13px; font-weight: bold; color: #aaccff; margin-top: 1px; }
+  .stats-bar-item.prestige-stat { border-color: rgba(180,100,255,0.5); background: rgba(100,0,180,0.15); }
+  .stats-bar-item.prestige-stat .stats-bar-value { color: #cc88ff; }
+  .stats-bar-item.prestige-stat .stats-bar-label { color: #aa66dd; }
 
   /* ── forum chrome ── */
   .forum-title {
@@ -59,7 +85,6 @@
     border-right: 1px solid #d0d4e8; padding: 10px 8px;
     background: #f0f2f8;
   }
-  /* editable avatar */
   .avatar-wrap {
     width: 64px; height: 64px; margin: 0 auto 8px;
     border: 2px solid #a0a8c0; background: #dde2f0;
@@ -137,6 +162,15 @@
     0%,100% { box-shadow: 0 0 4px rgba(200,0,0,0.5); }
     50% { box-shadow: 0 0 12px rgba(200,0,0,0.9); }
   }
+  .vb-btn-collect {
+    background: linear-gradient(to bottom, #44aa44, #227722);
+    color: #fff; font-weight: bold; border-color: #116611;
+    font-size: 12px; padding: 5px 14px; animation: pulse-green 1s infinite;
+  }
+  @keyframes pulse-green {
+    0%,100% { box-shadow: 0 0 4px rgba(0,160,0,0.5); }
+    50% { box-shadow: 0 0 12px rgba(0,200,0,0.9); }
+  }
 
   /* ── reply box ── */
   .reply-box {
@@ -179,8 +213,181 @@
   }
   .ban-timer-bar { height: 100%; background: #cc0000; transition: width 0.15s; border-radius: 1px; }
 
+  /* ── GOOD EVENT ── */
+  .good-event {
+    border: 2px solid #22aa22; background: #f5fff5;
+    margin-top: 0; padding: 0; display: none;
+  }
+  .good-event-head {
+    background: linear-gradient(to bottom, #22aa22, #116611);
+    color: #fff; padding: 4px 10px; font-weight: bold; font-size: 11px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .good-event-body { display: flex; }
+  .good-event-icon-col {
+    width: 80px; min-width: 80px; border-right: 1px solid #aaeaaa;
+    padding: 8px; background: #f0fff0; text-align: center; font-size: 36px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .good-event-content { flex: 1; padding: 10px 12px; }
+  .good-event-name { font-size: 13px; font-weight: bold; color: #116611; margin-bottom: 4px; }
+  .good-event-desc { font-size: 12px; color: #337733; line-height: 1.5; }
+  .good-event-timer { font-size: 10px; color: #448844; margin-top: 6px; }
+
+  /* ── two-column layout ── */
+  .game-cols {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .game-left {
+    flex: 0 0 60%;
+    min-width: 0;
+  }
+  .game-right {
+    flex: 0 0 38%;
+    min-width: 0;
+  }
+
+  /* ── shop panel ── */
+  .shop-panel {
+    border: 1px solid #a0a8c0;
+    background: #fff;
+  }
+  .shop-panel-header {
+    background: linear-gradient(to bottom, #6b7898, #3d5080);
+    color: #fff; font-size: 13px; font-weight: bold;
+    padding: 6px 12px; border-bottom: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  .shop-tabs {
+    display: flex;
+    background: linear-gradient(to bottom, #dce0ee, #c8cde0);
+    border-bottom: 1px solid #a0a8c0;
+  }
+  .shop-tab {
+    flex: 1; padding: 5px 8px; font-size: 11px; font-weight: bold;
+    color: #556; text-align: center; cursor: pointer;
+    border-right: 1px solid #b0b8d0;
+    background: linear-gradient(to bottom, #dce0ee, #c8cde0);
+    border-bottom: 2px solid transparent;
+    transition: background 0.1s;
+  }
+  .shop-tab:last-child { border-right: none; }
+  .shop-tab:hover { background: linear-gradient(to bottom, #eceef8, #d8dced); }
+  .shop-tab.active {
+    background: linear-gradient(to bottom, #f4f5fa, #eceef8);
+    border-bottom: 2px solid #3d5080;
+    color: #3d5080;
+  }
+  .shop-content { display: none; }
+  .shop-content.active { display: block; }
+  .shop-scroll { max-height: 520px; overflow-y: auto; }
+
+  /* ── auto-poster items ── */
+  .ap-item {
+    display: flex; align-items: center;
+    border-bottom: 1px solid #eef;
+    padding: 7px 10px; gap: 8px;
+    transition: background 0.1s;
+  }
+  .ap-item:last-child { border-bottom: none; }
+  .ap-item.affordable { background: #fff; }
+  .ap-item.affordable:hover { background: #f0f2ff; }
+  .ap-item.unaffordable { background: #f9f9f9; opacity: 0.7; }
+  .ap-icon { font-size: 22px; flex-shrink: 0; width: 28px; text-align: center; }
+  .ap-info { flex: 1; min-width: 0; }
+  .ap-name { font-size: 11px; font-weight: bold; color: #3d5080; }
+  .ap-desc { font-size: 10px; color: #777; margin-top: 1px; }
+  .ap-stats { font-size: 10px; color: #559; margin-top: 2px; }
+  .ap-right { text-align: right; flex-shrink: 0; }
+  .ap-owned {
+    font-size: 18px; font-weight: bold; color: #3d5080;
+    line-height: 1; margin-bottom: 3px;
+  }
+  .ap-cost-label { font-size: 10px; color: #888; }
+  .ap-cost-val { font-size: 11px; font-weight: bold; color: #444; }
+  .ap-buy {
+    display: inline-block; margin-top: 4px;
+    background: linear-gradient(to bottom, #7080b8, #3d5080);
+    border: 1px solid #2a3a60; color: #fff;
+    font-size: 10px; font-family: Verdana, sans-serif;
+    padding: 2px 8px; cursor: pointer; border-radius: 2px;
+    font-weight: bold;
+  }
+  .ap-buy:hover { background: linear-gradient(to bottom, #8090c8, #4d6090); }
+  .ap-buy:disabled {
+    background: linear-gradient(to bottom, #c0c4d8, #a8acc4);
+    border-color: #8890b0; color: #aaa; cursor: not-allowed;
+  }
+
+  /* ── upgrade items ── */
+  .upg-item {
+    display: flex; align-items: center;
+    border-bottom: 1px solid #eef;
+    padding: 7px 10px; gap: 8px;
+    transition: background 0.1s;
+  }
+  .upg-item:last-child { border-bottom: none; }
+  .upg-item.available { background: #fff; }
+  .upg-item.available:hover { background: #f0f2ff; }
+  .upg-item.locked { background: #f7f7f7; opacity: 0.5; }
+  .upg-item.purchased { background: #f4fff4; opacity: 0.75; }
+  .upg-icon { font-size: 20px; flex-shrink: 0; width: 26px; text-align: center; }
+  .upg-info { flex: 1; min-width: 0; }
+  .upg-name { font-size: 11px; font-weight: bold; color: #3d5080; }
+  .upg-item.locked .upg-name { color: #888; }
+  .upg-item.purchased .upg-name { color: #448844; }
+  .upg-desc { font-size: 10px; color: #777; margin-top: 1px; }
+  .upg-req { font-size: 10px; color: #aa7700; margin-top: 1px; }
+  .upg-right { text-align: right; flex-shrink: 0; }
+  .upg-cost { font-size: 11px; font-weight: bold; color: #444; }
+  .upg-buy {
+    display: inline-block; margin-top: 4px;
+    background: linear-gradient(to bottom, #558855, #336633);
+    border: 1px solid #225522; color: #fff;
+    font-size: 10px; font-family: Verdana, sans-serif;
+    padding: 2px 8px; cursor: pointer; border-radius: 2px;
+    font-weight: bold;
+  }
+  .upg-buy:hover { background: linear-gradient(to bottom, #669966, #447744); }
+  .upg-buy:disabled {
+    background: linear-gradient(to bottom, #c0c4d8, #a8acc4);
+    border-color: #8890b0; color: #aaa; cursor: not-allowed;
+  }
+  .upg-done {
+    font-size: 11px; color: #448844; font-weight: bold;
+  }
+
+  /* ── prestige section ── */
+  .prestige-section {
+    border: 2px solid #8833cc;
+    background: #f9f0ff;
+    padding: 10px 14px;
+    margin-top: 0;
+    border-top: none;
+  }
+  .prestige-header {
+    font-size: 12px; font-weight: bold; color: #6611aa;
+    margin-bottom: 6px;
+  }
+  .prestige-desc { font-size: 11px; color: #775599; margin-bottom: 8px; line-height: 1.5; }
+  .vb-btn-prestige {
+    background: linear-gradient(to bottom, #aa44cc, #771199);
+    color: #fff; font-weight: bold; border-color: #550088;
+    font-size: 12px; padding: 6px 16px; cursor: pointer;
+    border: 1px solid #550088; border-radius: 2px;
+    font-family: Verdana, sans-serif;
+    animation: pulse-purple 1.5s infinite;
+  }
+  @keyframes pulse-purple {
+    0%,100% { box-shadow: 0 0 4px rgba(150,0,220,0.4); }
+    50% { box-shadow: 0 0 14px rgba(150,0,220,0.8); }
+  }
+  .vb-btn-prestige:hover { background: linear-gradient(to bottom, #bb55dd, #8822aa); }
+
   /* ── post log ── */
-  .post-log { margin-top: 12px; border: 1px solid #a0a8c0; border-top: 2px solid #3d5080; background: #fff; }
+  .post-log { margin-top: 10px; border: 1px solid #a0a8c0; border-top: 2px solid #3d5080; background: #fff; }
   .post-log-header {
     background: linear-gradient(to bottom, #dce0ee, #c8cde0);
     padding: 4px 8px; font-weight: bold; font-size: 11px; color: #3d5080;
@@ -194,6 +401,9 @@
   .log-entry.new-rank { background: #fffbe6; border-left: 3px solid #e8c020; font-weight: bold; color: #664400; }
   .log-entry.ban-action { background: #fff0f0; border-left: 3px solid #cc0000; color: #660000; }
   .log-entry.penalty { background: #fff0f0; border-left: 3px solid #ff6600; color: #884400; }
+  .log-entry.good-action { background: #f0fff0; border-left: 3px solid #22aa22; color: #115511; }
+  .log-entry.prestige-action { background: #f5eeff; border-left: 3px solid #8833cc; color: #441188; font-weight: bold; }
+  .log-entry.auto-post { color: #888; }
 
   /* ── toast ── */
   .rank-toast {
@@ -202,6 +412,23 @@
     padding: 10px 20px; font-weight: bold; font-size: 13px; color: #664400;
     box-shadow: 2px 2px 8px rgba(0,0,0,0.3); z-index: 999;
     display: none; text-align: center; border-radius: 2px;
+  }
+
+  /* ── boost indicator ── */
+  .boost-indicator {
+    display: none;
+    background: linear-gradient(to right, #226622, #448844);
+    border: 1px solid #116611;
+    color: #fff; font-size: 10px; font-weight: bold;
+    padding: 2px 8px; text-align: center;
+    border-radius: 2px; margin-top: 4px;
+  }
+  .boost-indicator.active { display: block; }
+
+  /* ── responsive ── */
+  @media (max-width: 700px) {
+    .game-cols { flex-direction: column; }
+    .game-left, .game-right { flex: none; width: 100%; }
   }
 </style>
 </head>
@@ -218,93 +445,169 @@
     </div>
   </div>
 
-  <div class="forum-title">🖥️ General Discussion &rsaquo; Introduce Yourself + Free Post Count Thread</div>
-
-  <div class="thread-header">
-    <span>📌 <strong>Introduce Yourself + Post Count Thread (Merged)</strong></span>
-    <span>Page: <strong>1</strong> 2 3 ... 847</span>
+  <!-- stats bar -->
+  <div class="stats-bar" id="stats-bar">
+    <div class="stats-bar-item">
+      <div class="stats-bar-label">Posts / sec</div>
+      <div class="stats-bar-value" id="stat-pps">0.0</div>
+    </div>
+    <div class="stats-bar-item">
+      <div class="stats-bar-label">Posts / click</div>
+      <div class="stats-bar-value" id="stat-ppc">1</div>
+    </div>
+    <div class="stats-bar-item">
+      <div class="stats-bar-label">Lifetime posts</div>
+      <div class="stats-bar-value" id="stat-lifetime">0</div>
+    </div>
+    <div class="stats-bar-item prestige-stat" id="prestige-stat-box" style="display:none">
+      <div class="stats-bar-label">Prestige</div>
+      <div class="stats-bar-value" id="stat-prestige">-</div>
+    </div>
   </div>
 
-  <!-- YOUR postbit -->
-  <div class="postbit">
-    <div class="postbit-head">
-      <span id="post-date"></span>
-      <span class="post-num" id="post-num-display">#1</span>
-    </div>
-    <div class="postbit-body">
-      <div class="postbit-user">
-        <!-- avatar: click to change -->
-        <div class="avatar-wrap" id="avatar-wrap" onclick="triggerAvatarUpload()" title="Click to change avatar">
-          <span id="avatar-emoji">😶</span>
-          <img id="avatar-img" src="" style="display:none">
-        </div>
-        <input type="file" id="avatar-input" accept="image/*" onchange="handleAvatarUpload(event)">
+  <div class="forum-title">🖥️ General Discussion &rsaquo; Introduce Yourself + Free Post Count Thread</div>
 
-        <!-- username: click to edit -->
-        <span class="username-display" id="username-display" onclick="editUsername()">You <span class="online-dot"></span></span>
-        <input type="text" id="username-input" maxlength="24" onblur="saveUsername()" onkeydown="if(event.key==='Enter')saveUsername()">
+  <!-- two-column layout -->
+  <div class="game-cols">
 
-        <div class="user-rank" id="rank-display"></div>
-        <div class="star-row" id="stars-display"></div>
-        <div class="user-stats">
-          Join Date: <strong>Today</strong><br>
-          Posts: <strong id="post-count-sidebar">0</strong><br>
-          Rep: <strong id="rep-display">+0</strong>
+    <!-- LEFT: forum thread -->
+    <div class="game-left">
+
+      <div class="thread-header">
+        <span>📌 <strong>Introduce Yourself + Post Count Thread (Merged)</strong></span>
+        <span>Page: <strong>1</strong> 2 3 ... 847</span>
+      </div>
+
+      <!-- YOUR postbit -->
+      <div class="postbit">
+        <div class="postbit-head">
+          <span id="post-date"></span>
+          <span class="post-num" id="post-num-display">#1</span>
         </div>
-        <div class="rank-progress">
-          <span id="progress-label"></span>
-          <div class="progress-bar-outer">
-            <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
+        <div class="postbit-body">
+          <div class="postbit-user">
+            <div class="avatar-wrap" id="avatar-wrap" onclick="triggerAvatarUpload()" title="Click to change avatar">
+              <span id="avatar-emoji">😶</span>
+              <img id="avatar-img" src="" style="display:none">
+            </div>
+            <input type="file" id="avatar-input" accept="image/*" onchange="handleAvatarUpload(event)">
+
+            <span class="username-display" id="username-display" onclick="editUsername()">You <span class="online-dot"></span></span>
+            <input type="text" id="username-input" maxlength="24" onblur="saveUsername()" onkeydown="if(event.key==='Enter')saveUsername()">
+
+            <div class="user-rank" id="rank-display"></div>
+            <div class="star-row" id="stars-display"></div>
+            <div class="user-stats">
+              Join Date: <strong>Today</strong><br>
+              Posts: <strong id="post-count-sidebar">0</strong><br>
+              Rep: <strong id="rep-display">+0</strong>
+            </div>
+            <div class="rank-progress">
+              <span id="progress-label"></span>
+              <div class="progress-bar-outer">
+                <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="postbit-content">
+            <div class="post-message" id="post-message-display">
+              Click <strong>Post Reply</strong> below to make your first post. <em style="color:#888">(Click your name or avatar to edit them)</em>
+            </div>
+            <div class="post-sig" id="sig-display" style="display:none"></div>
+            <div class="post-actions">
+              <span class="vb-btn">Quote</span>
+              <span class="vb-btn">Edit</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="postbit-content">
-        <div class="post-message" id="post-message-display">
-          Click <strong>Post Reply</strong> below to make your first post. <em style="color:#888">(Click your name or avatar to edit them)</em>
+
+      <!-- BAN EVENT postbit (hidden until triggered) -->
+      <div class="ban-event postbit" id="ban-event">
+        <div class="ban-event-head">
+          <span>⚠️ REPORT: Inappropriate Post Detected</span>
+          <span id="ban-countdown-text">Ban within 10 clicks or lose 50 posts!</span>
         </div>
-        <div class="post-sig" id="sig-display" style="display:none"></div>
-        <div class="post-actions">
-          <span class="vb-btn">Quote</span>
-          <span class="vb-btn">Edit</span>
+        <div class="ban-event-body">
+          <div class="ban-user-col">
+            <div class="troll-avatar" id="troll-avatar"></div>
+            <div class="troll-name" id="troll-name"></div>
+            <div class="troll-role" id="troll-role">Junior Member</div>
+            <div style="font-size:10px;color:#aa4444;margin-top:4px">Posts: 3</div>
+          </div>
+          <div class="ban-content-col">
+            <div class="ban-post-text" id="ban-post-text"></div>
+            <div class="ban-timer">
+              Clicks remaining before penalty: <strong id="ban-clicks-left">10</strong>
+              <div class="ban-timer-bar-outer"><div class="ban-timer-bar" id="ban-timer-bar" style="width:100%"></div></div>
+            </div>
+            <div style="margin-top:8px">
+              <button class="vb-btn vb-btn-ban" onclick="banUser()">🔨 BAN USER</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- BAN EVENT postbit (hidden until triggered) -->
-  <div class="ban-event postbit" id="ban-event">
-    <div class="ban-event-head">
-      <span>⚠️ REPORT: Inappropriate Post Detected</span>
-      <span id="ban-countdown-text">Ban within 10 clicks or lose 50 posts!</span>
-    </div>
-    <div class="ban-event-body">
-      <div class="ban-user-col">
-        <div class="troll-avatar" id="troll-avatar"></div>
-        <div class="troll-name" id="troll-name"></div>
-        <div class="troll-role" id="troll-role">Junior Member</div>
-        <div style="font-size:10px;color:#aa4444;margin-top:4px">Posts: 3</div>
-      </div>
-      <div class="ban-content-col">
-        <div class="ban-post-text" id="ban-post-text"></div>
-        <div class="ban-timer">
-          Clicks remaining before penalty: <strong id="ban-clicks-left">10</strong>
-          <div class="ban-timer-bar-outer"><div class="ban-timer-bar" id="ban-timer-bar" style="width:100%"></div></div>
+      <!-- GOOD EVENT (hidden until triggered) -->
+      <div class="good-event postbit" id="good-event">
+        <div class="good-event-head">
+          <span id="good-event-title">📢 Forum Event!</span>
+          <span id="good-event-status"></span>
         </div>
-        <div style="margin-top:8px">
-          <button class="vb-btn vb-btn-ban" onclick="banUser()">🔨 BAN USER</button>
+        <div class="good-event-body">
+          <div class="good-event-icon-col" id="good-event-icon">🎉</div>
+          <div class="good-event-content">
+            <div class="good-event-name" id="good-event-name"></div>
+            <div class="good-event-desc" id="good-event-desc"></div>
+            <div class="good-event-timer" id="good-event-timer" style="display:none"></div>
+            <div style="margin-top:8px">
+              <button class="vb-btn vb-btn-collect" id="good-event-btn" onclick="collectGoodEvent()">✓ Collect</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- reply area -->
-  <div class="reply-box">
-    <textarea id="post-textarea" placeholder="Type your post here... (optional)"></textarea>
-    <button class="vb-btn vb-btn-post" onclick="makePost()">📝 Post Reply</button>
-    <div class="post-counter-display" id="total-posts-display">Total posts: 0</div>
-  </div>
+      <!-- reply area -->
+      <div class="reply-box">
+        <textarea id="post-textarea" placeholder="Type your post here... (optional)"></textarea>
+        <button class="vb-btn vb-btn-post" onclick="makePost()">📝 Post Reply</button>
+        <div class="boost-indicator" id="boost-indicator"></div>
+        <div class="post-counter-display" id="total-posts-display">Total posts: 0</div>
+      </div>
 
-  <!-- post log -->
+      <!-- prestige section (hidden until threshold reached) -->
+      <div class="prestige-section" id="prestige-section" style="display:none">
+        <div class="prestige-header">✨ PRESTIGE AVAILABLE</div>
+        <div class="prestige-desc">
+          You have reached <strong>Super Moderator</strong> status. You can prestige — reset your posts and buildings,
+          but gain a permanent <strong>+50% production multiplier</strong> per prestige level. Your rank history and
+          identity are preserved.
+        </div>
+        <button class="vb-btn-prestige" onclick="doPrestige()">⚡ PRESTIGE (Reset + ×<span id="prestige-mult-preview">1.5</span> all production)</button>
+      </div>
+
+    </div><!-- end .game-left -->
+
+    <!-- RIGHT: shop panel -->
+    <div class="game-right">
+      <div class="shop-panel">
+        <div class="shop-panel-header">🛒 Forum Upgrade Shop</div>
+        <div class="shop-tabs">
+          <div class="shop-tab active" id="tab-autoposters" onclick="switchTab('autoposters')">⚙️ Auto-Posters</div>
+          <div class="shop-tab" id="tab-upgrades" onclick="switchTab('upgrades')">⬆️ Upgrades</div>
+        </div>
+        <div class="shop-content active" id="content-autoposters">
+          <div class="shop-scroll" id="ap-list"></div>
+        </div>
+        <div class="shop-content" id="content-upgrades">
+          <div class="shop-scroll" id="upg-list"></div>
+        </div>
+      </div>
+    </div><!-- end .game-right -->
+
+  </div><!-- end .game-cols -->
+
+  <!-- activity log (full width below columns) -->
   <div class="post-log">
     <div class="post-log-header">📋 Activity Log</div>
     <div id="post-log-entries">
@@ -312,7 +615,7 @@
     </div>
   </div>
 
-</div>
+</div><!-- end .forum-wrap -->
 
 <div class="rank-toast" id="rank-toast"></div>
 
@@ -389,11 +692,59 @@ const MESSAGES = [
   "this is my job now",
 ];
 
+// ── auto-posters ──────────────────────────────────────────
+const AUTOPOSTERS = [
+  { id:'lurker',  name:'Forum Lurker',        desc:'Lurks. Occasionally posts.',              base_cost:15,     base_pps:0.1,  icon:'👤' },
+  { id:'kw',      name:'Keyboard Warrior',    desc:'Types furiously. About everything.',      base_cost:100,    base_pps:0.5,  icon:'⌨️' },
+  { id:'thread',  name:'Thread Starter',      desc:'Creates new threads 24/7.',               base_cost:500,    base_pps:2,    icon:'📌' },
+  { id:'bot',     name:'Bot Account',         desc:'Automated. Efficient. Soulless.',         base_cost:2000,   base_pps:8,    icon:'🤖' },
+  { id:'farm',    name:'Post Farm',           desc:'Industrial-scale content generation.',    base_cost:8000,   base_pps:25,   icon:'🏭' },
+  { id:'puppet',  name:'Sockpuppet Network',  desc:'Multiple accounts, one vision.',          base_cost:30000,  base_pps:80,   icon:'🧦' },
+  { id:'server',  name:'Dedicated Server',    desc:'Your own hardware. Your own rules.',      base_cost:100000, base_pps:250,  icon:'🖥️' },
+];
+
+// ── upgrades ──────────────────────────────────────────────
+const UPGRADES = [
+  { id:'mech_kb',     name:'Mechanical Keyboard',    desc:'Click power ×2',           cost:100,    type:'click',    mult:2,   icon:'⌨️', req_posts:0 },
+  { id:'touch_type',  name:'Touch Typing Course',    desc:'Click power ×2',           cost:500,    type:'click',    mult:2,   icon:'📝', req_posts:50 },
+  { id:'gaming_chair',name:'Gaming Chair',           desc:'Click power ×3',           cost:5000,   type:'click',    mult:3,   icon:'🪑', req_posts:400 },
+  { id:'energy_drink',name:'Energy Drink Habit',     desc:'Click power ×2',           cost:25000,  type:'click',    mult:2,   icon:'🥤', req_posts:2000 },
+  { id:'broadband',   name:'Broadband Upgrade',      desc:'Auto-posters ×2',          cost:1000,   type:'auto',     mult:2,   icon:'🌐', req_posts:150 },
+  { id:'dual_mon',    name:'Dual Monitor Setup',     desc:'Auto-posters ×2',          cost:10000,  type:'auto',     mult:2,   icon:'🖥️', req_posts:1200 },
+  { id:'sleep_dep',   name:'72hr Posting Marathon',  desc:'Auto-posters ×3',          cost:50000,  type:'auto',     mult:3,   icon:'😴', req_posts:6000 },
+  { id:'caffeine',    name:'Caffeine Dependency',    desc:'All production ×1.5',      cost:2000,   type:'global',   mult:1.5, icon:'☕', req_posts:250 },
+  { id:'no_life',     name:'No Social Life',         desc:'All production ×2',        cost:15000,  type:'global',   mult:2,   icon:'💻', req_posts:2500 },
+  { id:'quit_job',    name:'Quit Day Job',           desc:'All production ×3',        cost:75000,  type:'global',   mult:3,   icon:'📦', req_posts:10000 },
+  { id:'lurker_boost',name:'Lurker Encouragement',  desc:'Lurkers produce ×3',       cost:200,    type:'building', target:'lurker', mult:3, icon:'💬', req_posts:5 },
+  { id:'bot_v2',      name:'Bot Optimization v2',   desc:'Bot accounts produce ×4',  cost:12000,  type:'building', target:'bot',    mult:4, icon:'⚙️', req_posts:400 },
+];
+
+// ── positive events ───────────────────────────────────────
+const POSITIVE_EVENTS = [
+  { name:'Viral Thread! 🔥',    desc:"Your post exploded. ×2 all production for 20 seconds!", type:'boost',      duration:20000, mult:2 },
+  { name:'Thread of the Week!', desc:"Featured by mods. +500 posts!",                         type:'bonus',      bonus:500 },
+  { name:'Rep Windfall! ⭐',    desc:"+200 reputation points... i.e. +200 posts.",             type:'bonus',      bonus:200 },
+  { name:'Forum Sponsor 💰',    desc:"A VPN company found your thread. +1000 posts!",          type:'bonus',      bonus:1000 },
+  { name:'Trending Portal 📈',  desc:"×3 click power for 30 seconds!",                        type:'clickboost', duration:30000, mult:3 },
+];
+
 // ── state ────────────────────────────────────────────────
 let postCount   = parseInt(localStorage.getItem('cn_posts') || '0');
 let postLog     = JSON.parse(localStorage.getItem('cn_log') || '[]');
 let playerName  = localStorage.getItem('cn_name') || 'You';
 let playerAvatar = localStorage.getItem('cn_avatar') || '';
+
+let lifetimePosts  = parseInt(localStorage.getItem('cn_lifetime') || '0');
+let buildingCounts = JSON.parse(localStorage.getItem('cn_buildings') || '{}');
+let purchasedUpgrades = new Set(JSON.parse(localStorage.getItem('cn_upgrades') || '[]'));
+let prestigeLevel  = parseInt(localStorage.getItem('cn_prestige') || '0');
+let postAccumulator = 0;
+let boostActive = false, boostUntil = 0, boostMult = 1;
+let clickBoostActive = false, clickBoostUntil = 0, clickBoostMult = 1;
+
+// pending good event (collected via button)
+let pendingGoodEvent = null;
+let goodEventActive  = false;
 
 // ban event state
 let banActive      = false;
@@ -402,9 +753,233 @@ let banClicksLeft  = 10;
 let clicksSinceCheck = 0;
 const BAN_PENALTY  = 50;
 const BAN_GRACE    = 10;
-// next event after random 15-30 posts
+const PRESTIGE_THRESHOLD = 25000;
 let nextEventAt    = postCount + 15 + Math.floor(Math.random() * 16);
 
+// ── production math ───────────────────────────────────────
+function getBuildingPPS(ap) {
+  const count = buildingCounts[ap.id] || 0;
+  if (count === 0) return 0;
+  let pps = ap.base_pps * count;
+  // building-specific upgrades
+  const bUpg = UPGRADES.filter(u => u.type === 'building' && u.target === ap.id && purchasedUpgrades.has(u.id));
+  for (const u of bUpg) pps *= u.mult;
+  // auto upgrades
+  const autoUpg = UPGRADES.filter(u => u.type === 'auto' && purchasedUpgrades.has(u.id));
+  for (const u of autoUpg) pps *= u.mult;
+  return pps;
+}
+
+function calcPPS() {
+  let pps = 0;
+  for (const ap of AUTOPOSTERS) pps += getBuildingPPS(ap);
+  // global upgrades
+  const globalUpg = UPGRADES.filter(u => u.type === 'global' && purchasedUpgrades.has(u.id));
+  for (const u of globalUpg) pps *= u.mult;
+  // prestige multiplier
+  pps *= (1 + prestigeLevel * 0.5);
+  // active boost
+  const now = Date.now();
+  if (boostActive && now < boostUntil) pps *= boostMult;
+  return pps;
+}
+
+function calcPPC() {
+  let ppc = 1;
+  // click upgrades
+  const clickUpg = UPGRADES.filter(u => u.type === 'click' && purchasedUpgrades.has(u.id));
+  for (const u of clickUpg) ppc *= u.mult;
+  // global upgrades
+  const globalUpg = UPGRADES.filter(u => u.type === 'global' && purchasedUpgrades.has(u.id));
+  for (const u of globalUpg) ppc *= u.mult;
+  // prestige multiplier
+  ppc *= (1 + prestigeLevel * 0.5);
+  // active click boost
+  const now = Date.now();
+  if (clickBoostActive && now < clickBoostUntil) ppc *= clickBoostMult;
+  // active general boost also affects clicks
+  if (boostActive && now < boostUntil) ppc *= boostMult;
+  return ppc;
+}
+
+function buildingCost(ap) {
+  const count = buildingCounts[ap.id] || 0;
+  return Math.floor(ap.base_cost * Math.pow(1.15, count));
+}
+
+// ── shop tab switching ────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.shop-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.shop-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('content-' + tab).classList.add('active');
+}
+
+// ── shop rendering ────────────────────────────────────────
+function fmtNum(n) {
+  if (n >= 1e9) return (n/1e9).toFixed(2) + 'B';
+  if (n >= 1e6) return (n/1e6).toFixed(2) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
+  return Math.floor(n).toString();
+}
+
+function renderShop() {
+  // auto-posters
+  const apList = document.getElementById('ap-list');
+  apList.innerHTML = AUTOPOSTERS.map(ap => {
+    const count = buildingCounts[ap.id] || 0;
+    const cost  = buildingCost(ap);
+    const canAfford = postCount >= cost;
+    const ppsEach = ap.base_pps.toFixed(2);
+    const totalPPS = getBuildingPPS(ap);
+    return `<div class="ap-item ${canAfford ? 'affordable' : 'unaffordable'}">
+      <div class="ap-icon">${ap.icon}</div>
+      <div class="ap-info">
+        <div class="ap-name">${ap.name}</div>
+        <div class="ap-desc">${ap.desc}</div>
+        <div class="ap-stats">${ppsEach}/sec each${count > 0 ? ' · ' + totalPPS.toFixed(2) + '/sec total' : ''}</div>
+      </div>
+      <div class="ap-right">
+        <div class="ap-owned">${count}</div>
+        <div class="ap-cost-label">Cost:</div>
+        <div class="ap-cost-val">${fmtNum(cost)}</div>
+        <button class="ap-buy" onclick="buyBuilding('${ap.id}')" ${canAfford ? '' : 'disabled'}>BUY</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // upgrades
+  const upgList = document.getElementById('upg-list');
+  const lifeRef = Math.max(postCount, lifetimePosts);
+  upgList.innerHTML = UPGRADES.map(upg => {
+    const bought   = purchasedUpgrades.has(upg.id);
+    const unlocked = lifeRef >= upg.req_posts || postCount >= upg.req_posts;
+    const canAfford = postCount >= upg.cost;
+    let cls = 'upg-item ';
+    if (bought)        cls += 'purchased';
+    else if (!unlocked) cls += 'locked';
+    else                cls += 'available';
+
+    const reqText = !unlocked ? `<div class="upg-req">Requires ${fmtNum(upg.req_posts)} lifetime posts</div>` : '';
+    const rightBlock = bought
+      ? `<div class="upg-done">✓ Owned</div>`
+      : `<div class="upg-cost">${fmtNum(upg.cost)}</div>
+         <button class="upg-buy" onclick="buyUpgrade('${upg.id}')" ${(unlocked && canAfford) ? '' : 'disabled'}>BUY</button>`;
+
+    return `<div class="${cls}">
+      <div class="upg-icon">${upg.icon}</div>
+      <div class="upg-info">
+        <div class="upg-name">${upg.name}</div>
+        <div class="upg-desc">${upg.desc}</div>
+        ${reqText}
+      </div>
+      <div class="upg-right">${rightBlock}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── buy building ──────────────────────────────────────────
+function buyBuilding(id) {
+  const ap = AUTOPOSTERS.find(a => a.id === id);
+  if (!ap) return;
+  const cost = buildingCost(ap);
+  if (postCount < cost) return;
+  postCount -= cost;
+  buildingCounts[id] = (buildingCounts[id] || 0) + 1;
+  postLog.unshift({ n: postCount, msg: `🛒 Bought ${ap.icon} ${ap.name} (now ${buildingCounts[id]})`, date: formatDate(), type: 'post' });
+  save();
+  render();
+}
+
+// ── buy upgrade ───────────────────────────────────────────
+function buyUpgrade(id) {
+  const upg = UPGRADES.find(u => u.id === id);
+  if (!upg) return;
+  if (purchasedUpgrades.has(id)) return;
+  if (postCount < upg.cost) return;
+  postCount -= upg.cost;
+  purchasedUpgrades.add(id);
+  postLog.unshift({ n: postCount, msg: `⬆️ Purchased upgrade: ${upg.icon} ${upg.name}`, date: formatDate(), type: 'post' });
+  showToast(`${upg.icon} Upgrade unlocked: <b>${upg.name}</b>!`, '#f0fff0', '#116611');
+  save();
+  render();
+}
+
+// ── prestige ──────────────────────────────────────────────
+function doPrestige() {
+  if (postCount < PRESTIGE_THRESHOLD) return;
+  if (!confirm(`PRESTIGE: This will reset your posts to 0 and all buildings, but grant a permanent ×${(1 + (prestigeLevel+1)*0.5).toFixed(1)} production multiplier. Are you sure?`)) return;
+  prestigeLevel++;
+  postCount = 0;
+  buildingCounts = {};
+  purchasedUpgrades = new Set();
+  postAccumulator = 0;
+  boostActive = false; clickBoostActive = false;
+  postLog.unshift({ n: 0, msg: `✨ PRESTIGE LEVEL ${prestigeLevel}! Production ×${(1+prestigeLevel*0.5).toFixed(1)} permanently.`, date: formatDate(), type: 'prestige' });
+  nextEventAt = 15 + Math.floor(Math.random() * 16);
+  showToast(`✨ <b>Prestige Level ${prestigeLevel}!</b> All production ×${(1+prestigeLevel*0.5).toFixed(1)} permanently.`, '#f5eeff', '#441188');
+  save();
+  render();
+}
+
+// ── good events ───────────────────────────────────────────
+function triggerGoodEvent() {
+  if (goodEventActive) return;
+  pendingGoodEvent = POSITIVE_EVENTS[Math.floor(Math.random() * POSITIVE_EVENTS.length)];
+  goodEventActive = true;
+  const el = document.getElementById('good-event');
+  document.getElementById('good-event-title').textContent = '🎉 ' + pendingGoodEvent.name;
+  document.getElementById('good-event-icon').textContent = pendingGoodEvent.name.slice(-2); // emoji at end
+  document.getElementById('good-event-name').textContent = pendingGoodEvent.name;
+  document.getElementById('good-event-desc').textContent = pendingGoodEvent.desc;
+  const timerEl = document.getElementById('good-event-timer');
+  if (pendingGoodEvent.type === 'boost' || pendingGoodEvent.type === 'clickboost') {
+    timerEl.textContent = `Duration: ${pendingGoodEvent.duration/1000}s after collecting`;
+    timerEl.style.display = 'block';
+  } else {
+    timerEl.style.display = 'none';
+  }
+  document.getElementById('good-event-status').textContent = '';
+  document.getElementById('good-event-btn').style.display = 'inline-block';
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function collectGoodEvent() {
+  if (!pendingGoodEvent) return;
+  const ev = pendingGoodEvent;
+  pendingGoodEvent = null;
+  goodEventActive = false;
+
+  const now = Date.now();
+  if (ev.type === 'bonus') {
+    const gained = ev.bonus;
+    postCount += gained;
+    lifetimePosts += gained;
+    postLog.unshift({ n: postCount, msg: `✅ ${ev.name}: +${gained} posts!`, date: formatDate(), type: 'good' });
+    showToast(`🎉 <b>${ev.name}</b> +${gained} posts!`, '#f0fff0', '#116611');
+  } else if (ev.type === 'boost') {
+    boostActive = true;
+    boostMult = ev.mult;
+    boostUntil = now + ev.duration;
+    postLog.unshift({ n: postCount, msg: `🔥 ${ev.name}: ×${ev.mult} all production for ${ev.duration/1000}s!`, date: formatDate(), type: 'good' });
+    showToast(`🔥 <b>${ev.name}</b> ×${ev.mult} production for ${ev.duration/1000}s!`, '#f0fff0', '#116611');
+    setTimeout(() => { boostActive = false; renderShop(); }, ev.duration);
+  } else if (ev.type === 'clickboost') {
+    clickBoostActive = true;
+    clickBoostMult = ev.mult;
+    clickBoostUntil = now + ev.duration;
+    postLog.unshift({ n: postCount, msg: `📈 ${ev.name}: ×${ev.mult} click power for ${ev.duration/1000}s!`, date: formatDate(), type: 'good' });
+    showToast(`📈 <b>${ev.name}</b> ×${ev.mult} clicks for ${ev.duration/1000}s!`, '#f0fff0', '#116611');
+    setTimeout(() => { clickBoostActive = false; renderShop(); }, ev.duration);
+  }
+
+  document.getElementById('good-event').style.display = 'none';
+  save();
+  render();
+}
+
+// ── helpers ───────────────────────────────────────────────
 function getRank(p) {
   let r = RANKS[0];
   for (const rank of RANKS) { if (p >= rank.min) r = rank; }
@@ -419,6 +994,10 @@ function save() {
   localStorage.setItem('cn_log', JSON.stringify(postLog.slice(-50)));
   localStorage.setItem('cn_name', playerName);
   if (playerAvatar) localStorage.setItem('cn_avatar', playerAvatar);
+  localStorage.setItem('cn_lifetime', lifetimePosts);
+  localStorage.setItem('cn_buildings', JSON.stringify(buildingCounts));
+  localStorage.setItem('cn_upgrades', JSON.stringify([...purchasedUpgrades]));
+  localStorage.setItem('cn_prestige', prestigeLevel);
 }
 function formatDate() {
   const now = new Date();
@@ -475,12 +1054,12 @@ function triggerBanEvent() {
   banActive = true;
   banClicksLeft = BAN_GRACE;
   banEvent = TROLL_EVENTS[Math.floor(Math.random() * TROLL_EVENTS.length)];
-  const el = document.getElementById('ban-event');
   document.getElementById('troll-avatar').textContent = banEvent.avatar;
   document.getElementById('troll-name').textContent   = banEvent.name;
   document.getElementById('troll-role').textContent   = banEvent.role;
   document.getElementById('ban-post-text').textContent = '"' + banEvent.post + '"';
   updateBanTimer();
+  const el = document.getElementById('ban-event');
   el.style.display = 'block';
   el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -518,7 +1097,9 @@ function applyBanPenalty() {
 // ── main post action ─────────────────────────────────────
 function makePost() {
   const oldRank = getRank(postCount);
-  postCount++;
+  const gained  = Math.max(1, Math.floor(calcPPC()));
+  postCount += gained;
+  lifetimePosts += gained;
 
   const textarea = document.getElementById('post-textarea');
   const msg = textarea.value.trim() ||
@@ -533,15 +1114,23 @@ function makePost() {
     showToast(`${newRank.icon} Rank up! You are now <b style="color:${newRank.color}">${newRank.name}</b>`, '#fffbe6', '#664400');
   }
 
-  // ban mechanic: decrement grace if active
+  // ban mechanic: decrement grace if active (1 per click regardless of ppc)
   if (banActive) {
     banClicksLeft--;
     updateBanTimer();
     if (banClicksLeft <= 0) applyBanPenalty();
   }
 
-  // trigger ban event?
-  if (!banActive && postCount >= nextEventAt) triggerBanEvent();
+  // trigger event?
+  if (!banActive && !goodEventActive && postCount >= nextEventAt) {
+    const usePositive = Math.random() < 0.30;
+    if (usePositive) {
+      triggerGoodEvent();
+    } else {
+      triggerBanEvent();
+    }
+    nextEventAt = postCount + 15 + Math.floor(Math.random() * 16);
+  }
 
   save();
   render();
@@ -558,12 +1147,27 @@ function showToast(html, bg, color) {
 }
 
 // ── render ───────────────────────────────────────────────
+let _lastRenderPostCount = -1;
 function render() {
   const rank     = getRank(postCount);
   const nextRank = getNextRank(postCount);
+  const pps      = calcPPS();
+  const ppc      = calcPPC();
+  const now      = Date.now();
 
   document.getElementById('post-date').textContent = formatDate();
   document.getElementById('post-num-display').textContent = '#' + postCount;
+
+  // stats bar
+  document.getElementById('stat-pps').textContent = pps >= 10 ? fmtNum(pps) + '/s' : pps.toFixed(2) + '/s';
+  document.getElementById('stat-ppc').textContent = ppc >= 10 ? fmtNum(ppc) : ppc.toFixed(1);
+  document.getElementById('stat-lifetime').textContent = fmtNum(lifetimePosts);
+  if (prestigeLevel > 0) {
+    document.getElementById('prestige-stat-box').style.display = '';
+    document.getElementById('stat-prestige').textContent = 'L' + prestigeLevel + ' (×' + (1+prestigeLevel*0.5).toFixed(1) + ')';
+  } else {
+    document.getElementById('prestige-stat-box').style.display = 'none';
+  }
 
   // rank
   document.getElementById('rank-display').innerHTML =
@@ -601,7 +1205,32 @@ function render() {
   else { sd.style.display = 'none'; }
 
   document.getElementById('total-posts-display').textContent = `Total posts: ${postCount}`;
+
+  // boost indicator in reply box
+  const boostInd = document.getElementById('boost-indicator');
+  const activeBoosts = [];
+  if (boostActive && now < boostUntil)
+    activeBoosts.push(`🔥 ×${boostMult} all production (${Math.ceil((boostUntil-now)/1000)}s)`);
+  if (clickBoostActive && now < clickBoostUntil)
+    activeBoosts.push(`📈 ×${clickBoostMult} click power (${Math.ceil((clickBoostUntil-now)/1000)}s)`);
+  if (activeBoosts.length > 0) {
+    boostInd.textContent = activeBoosts.join(' · ');
+    boostInd.classList.add('active');
+  } else {
+    boostInd.classList.remove('active');
+  }
+
+  // prestige section
+  const psec = document.getElementById('prestige-section');
+  if (postCount >= PRESTIGE_THRESHOLD) {
+    psec.style.display = 'block';
+    document.getElementById('prestige-mult-preview').textContent = (1+(prestigeLevel+1)*0.5).toFixed(1);
+  } else {
+    psec.style.display = 'none';
+  }
+
   renderLog();
+  renderShop();
 }
 
 function renderLog() {
@@ -610,16 +1239,52 @@ function renderLog() {
     logEl.innerHTML = '<div class="log-entry" style="color:#aaa;font-style:italic;padding:8px 10px">No activity yet.</div>';
     return;
   }
-  logEl.innerHTML = postLog.slice(0, 25).map(e => {
-    if (e.rankUp) return `<div class="log-entry new-rank">🎉 #${e.n} — Rank up to <strong>${e.rankUp}</strong>! <span style="color:#aa8800;font-weight:normal;font-size:10px">${e.date}</span></div>`;
-    if (e.type === 'ban')     return `<div class="log-entry ban-action">🔨 #${e.n} — ${e.msg} <span style="font-size:10px;color:#888">${e.date}</span></div>`;
+  logEl.innerHTML = postLog.slice(0, 30).map(e => {
+    if (e.rankUp)         return `<div class="log-entry new-rank">🎉 #${e.n} — Rank up to <strong>${e.rankUp}</strong>! <span style="color:#aa8800;font-weight:normal;font-size:10px">${e.date}</span></div>`;
+    if (e.type === 'ban') return `<div class="log-entry ban-action">🔨 #${e.n} — ${e.msg} <span style="font-size:10px;color:#888">${e.date}</span></div>`;
     if (e.type === 'penalty') return `<div class="log-entry penalty">⚠️ ${e.msg} <span style="font-size:10px;color:#888">${e.date}</span></div>`;
+    if (e.type === 'good')    return `<div class="log-entry good-action">✅ ${e.msg} <span style="font-size:10px;color:#448844">${e.date}</span></div>`;
+    if (e.type === 'prestige') return `<div class="log-entry prestige-action">✨ ${e.msg} <span style="font-size:10px;color:#775599">${e.date}</span></div>`;
     const short = e.msg.length > 80 ? e.msg.slice(0,80)+'...' : e.msg;
-    return `<div class="log-entry"><span>#${e.n} — ${short}</span><span style="color:#aaa;flex-shrink:0;margin-left:8px;font-size:10px">${e.date}</span></div>`;
+    const cls = e.auto ? 'log-entry auto-post' : 'log-entry';
+    return `<div class="${cls}"><span>#${e.n} — ${short}</span><span style="color:#aaa;flex-shrink:0;margin-left:8px;font-size:10px">${e.date}</span></div>`;
   }).join('');
 }
 
-// init
+// ── auto-tick ────────────────────────────────────────────
+const AUTO_INTERVAL = 100; // ms
+let _ticksSinceRender = 0;
+setInterval(() => {
+  const pps = calcPPS();
+  if (pps <= 0) { _ticksSinceRender++; if (_ticksSinceRender >= 10) { _ticksSinceRender=0; renderShop(); } return; }
+
+  const gained = pps * (AUTO_INTERVAL / 1000);
+  postAccumulator += gained;
+
+  if (postAccumulator >= 1) {
+    const whole = Math.floor(postAccumulator);
+    postAccumulator -= whole;
+    const oldRank = getRank(postCount);
+    postCount += whole;
+    lifetimePosts += whole;
+    const newRank = getRank(postCount);
+    if (newRank.name !== oldRank.name) {
+      postLog.unshift({ n: postCount, msg: `Auto-post reached rank: ${newRank.name}`, date: formatDate(), type: 'post', rankUp: newRank.name, auto: true });
+      showToast(`${newRank.icon} Rank up! You are now <b style="color:${newRank.color}">${newRank.name}</b>`, '#fffbe6', '#664400');
+    }
+  }
+
+  _ticksSinceRender++;
+  if (_ticksSinceRender >= 10) {
+    _ticksSinceRender = 0;
+    render();
+  }
+}, AUTO_INTERVAL);
+
+// ── auto-save ─────────────────────────────────────────────
+setInterval(() => { save(); }, 5000);
+
+// ── init ──────────────────────────────────────────────────
 renderAvatar();
 render();
 document.getElementById('username-display').innerHTML = playerName + ' <span class="online-dot"></span>';
