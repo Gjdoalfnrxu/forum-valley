@@ -1,304 +1,505 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Forum Valley — Concept Art</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forum Valley</title>
 <style>
-  body { background: #1a1a2e; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: monospace; }
-  canvas { image-rendering: pixelated; image-rendering: crisp-edges; }
-  p { color: #666; font-size: 11px; margin-top: 8px; }
+  * { box-sizing: border-box; }
+  body {
+    background: #c5c5d5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23c5c5d5'/%3E%3Crect width='2' height='2' fill='%23bdbdce' opacity='0.4'/%3E%3C/svg%3E");
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 12px;
+    color: #333;
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  /* ── forum wrapper ── */
+  .forum-wrap { max-width: 740px; margin: 0 auto; }
+
+  /* ── title bar ── */
+  .forum-title {
+    background: linear-gradient(to bottom, #6b7898, #3d5080);
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: 1px solid #2a3a60;
+    border-bottom: none;
+    letter-spacing: 0.02em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+
+  /* ── thread header ── */
+  .thread-header {
+    background: linear-gradient(to bottom, #e4e8f2, #cdd2e8);
+    border: 1px solid #a0a8c0;
+    border-bottom: none;
+    padding: 4px 8px;
+    font-size: 11px;
+    color: #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ── postbit table ── */
+  .postbit {
+    border: 1px solid #a0a8c0;
+    background: #fff;
+    margin-bottom: 0;
+  }
+  .postbit-head {
+    background: linear-gradient(to bottom, #dce0ee, #c8cde0);
+    border-bottom: 1px solid #a0a8c0;
+    padding: 3px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #555;
+  }
+  .post-num {
+    font-weight: bold;
+    color: #3d5080;
+  }
+  .postbit-body {
+    display: flex;
+  }
+
+  /* ── left: user info ── */
+  .postbit-user {
+    width: 160px;
+    min-width: 160px;
+    border-right: 1px solid #d0d4e8;
+    padding: 10px 8px;
+    background: #f0f2f8;
+    vertical-align: top;
+  }
+  .username {
+    font-size: 14px;
+    font-weight: bold;
+    color: #3d5080;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .username:hover { text-decoration: underline; }
+  .online-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #44cc44;
+    border: 1px solid #22aa22;
+    margin-left: 3px;
+    vertical-align: middle;
+  }
+  .user-rank {
+    font-size: 11px;
+    font-weight: bold;
+    margin: 4px 0 6px;
+  }
+  .rank-icon { font-size: 16px; margin-right: 3px; vertical-align: middle; }
+  .star-row { margin: 3px 0; font-size: 13px; line-height: 1; }
+  .user-stats { font-size: 10px; color: #666; margin-top: 8px; line-height: 1.7; }
+  .user-stats strong { color: #444; }
+
+  /* ── right: post content ── */
+  .postbit-content {
+    flex: 1;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  .post-message {
+    font-size: 13px;
+    color: #333;
+    line-height: 1.5;
+    min-height: 60px;
+  }
+  .post-sig {
+    border-top: 1px solid #ddd;
+    margin-top: 10px;
+    padding-top: 6px;
+    font-size: 10px;
+    color: #888;
+    font-style: italic;
+  }
+  .post-actions {
+    text-align: right;
+    margin-top: 8px;
+  }
+
+  /* ── vBulletin style buttons ── */
+  .vb-btn {
+    display: inline-block;
+    background: linear-gradient(to bottom, #e8eaf6, #c8cce0);
+    border: 1px solid #8890b0;
+    color: #334;
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+    padding: 3px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 4px;
+    border-radius: 2px;
+  }
+  .vb-btn:hover { background: linear-gradient(to bottom, #f0f2ff, #d8dced); }
+  .vb-btn:active { background: linear-gradient(to bottom, #c0c4d8, #d8dced); }
+  .vb-btn-post {
+    background: linear-gradient(to bottom, #7080b8, #3d5080);
+    color: #fff;
+    font-weight: bold;
+    border-color: #2a3a60;
+    font-size: 13px;
+    padding: 6px 18px;
+  }
+  .vb-btn-post:hover { background: linear-gradient(to bottom, #8090c8, #4d6090); }
+
+  /* ── reply box ── */
+  .reply-box {
+    background: #f4f5fa;
+    border: 1px solid #a0a8c0;
+    border-top: none;
+    padding: 12px;
+    text-align: center;
+  }
+  .reply-box textarea {
+    width: 100%;
+    height: 70px;
+    border: 1px solid #b0b8d0;
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+    padding: 5px;
+    background: #fff;
+    resize: vertical;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .reply-box textarea:focus { outline: none; border-color: #7080b8; }
+  .post-counter-display {
+    font-size: 11px;
+    color: #666;
+    margin-top: 6px;
+  }
+
+  /* ── next rank bar ── */
+  .rank-progress {
+    margin-top: 8px;
+    font-size: 10px;
+    color: #666;
+  }
+  .progress-bar-outer {
+    background: #d0d4e8;
+    border: 1px solid #a0a8c0;
+    height: 7px;
+    margin-top: 2px;
+    border-radius: 1px;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    border-radius: 1px;
+    transition: width 0.3s;
+  }
+
+  /* ── post history feed ── */
+  .post-log {
+    margin-top: 12px;
+    border: 1px solid #a0a8c0;
+    border-top: 2px solid #3d5080;
+    background: #fff;
+  }
+  .post-log-header {
+    background: linear-gradient(to bottom, #dce0ee, #c8cde0);
+    padding: 4px 8px;
+    font-weight: bold;
+    font-size: 11px;
+    color: #3d5080;
+    border-bottom: 1px solid #a0a8c0;
+  }
+  .log-entry {
+    border-bottom: 1px solid #eef;
+    padding: 6px 10px;
+    font-size: 11px;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+  }
+  .log-entry:last-child { border-bottom: none; }
+  .log-entry.new-rank {
+    background: #fffbe6;
+    border-left: 3px solid #e8c020;
+    font-weight: bold;
+    color: #664400;
+  }
+
+  /* ── rank unlock notification ── */
+  .rank-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fffbe6;
+    border: 2px solid #e8c020;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #664400;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    z-index: 999;
+    display: none;
+    text-align: center;
+    border-radius: 2px;
+  }
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
-<p>Forum Valley — concept mockup</p>
+
+<div class="forum-wrap">
+
+  <div class="forum-title">🖥️ Forum Valley &mdash; General Discussion</div>
+
+  <div class="thread-header">
+    <span>📌 <strong>Introduce Yourself + Free Post Your Post Count Thread</strong> &mdash; by Administrator</span>
+    <span>Page: <strong>1</strong></span>
+  </div>
+
+  <!-- postbit -->
+  <div class="postbit">
+    <div class="postbit-head">
+      <span id="post-date"></span>
+      <span class="post-num" id="post-num-display">#1</span>
+    </div>
+    <div class="postbit-body">
+      <div class="postbit-user">
+        <a class="username" href="#">You <span class="online-dot"></span></a>
+        <div class="user-rank" id="rank-display"></div>
+        <div class="star-row" id="stars-display"></div>
+        <div class="user-stats">
+          Join Date: <strong>Today</strong><br>
+          Posts: <strong id="post-count-sidebar">0</strong><br>
+          Rep: <strong id="rep-display">+0</strong>
+        </div>
+        <div class="rank-progress">
+          <span id="progress-label"></span>
+          <div class="progress-bar-outer">
+            <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="postbit-content">
+        <div class="post-message" id="post-message-display">
+          Click <strong>Post Reply</strong> below to make your first post.
+        </div>
+        <div class="post-sig" id="sig-display"></div>
+        <div class="post-actions">
+          <span class="vb-btn">Quote</span>
+          <span class="vb-btn">Edit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- reply area -->
+  <div class="reply-box">
+    <textarea id="post-textarea" placeholder="Type your post here... (or just click Post Reply)"></textarea>
+    <button class="vb-btn vb-btn-post" onclick="makePost()">📝 Post Reply</button>
+    <div class="post-counter-display" id="total-posts-display">Total posts: 0</div>
+  </div>
+
+  <!-- post log -->
+  <div class="post-log">
+    <div class="post-log-header">📋 Your Post History</div>
+    <div id="post-log-entries">
+      <div class="log-entry" style="color:#aaa;font-style:italic">No posts yet. Get posting.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="rank-toast" id="rank-toast"></div>
+
 <script>
-const S = 3; // pixel scale
-const W = 320, H = 240;
-const canvas = document.getElementById('c');
-canvas.width  = W * S;
-canvas.height = H * S;
-const ctx = canvas.getContext('2d');
-ctx.imageSmoothingEnabled = false;
+// ── ranks (20 tiers) ──────────────────────────────────────
+const RANKS = [
+  { name: 'Lurker',          min:     0, color: '#999',    icon: '👤', stars: 0,  starColor: '#aaa',    sig: '' },
+  { name: 'Newbie',          min:     1, color: '#6688aa', icon: '🌱', stars: 1,  starColor: '#6688aa', sig: '' },
+  { name: 'Junior Member',   min:    10, color: '#4488bb', icon: '📄', stars: 1,  starColor: '#4488bb', sig: 'posting away...' },
+  { name: 'Member',          min:    25, color: '#3377cc', icon: '📋', stars: 2,  starColor: '#3377cc', sig: 'finding my feet' },
+  { name: 'Regular',         min:    50, color: '#2266bb', icon: '📌', stars: 2,  starColor: '#2266bb', sig: 'here every day' },
+  { name: 'Valued Member',   min:   100, color: '#119944', icon: '✅', stars: 3,  starColor: '#119944', sig: 'been around a while' },
+  { name: 'Senior Member',   min:   200, color: '#0e8833', icon: '⭐', stars: 3,  starColor: '#0e8833', sig: 'old enough to know better' },
+  { name: 'Active Member',   min:   350, color: '#228833', icon: '🔥', stars: 4,  starColor: '#228833', sig: 'can\'t stop won\'t stop' },
+  { name: 'Dedicated',       min:   500, color: '#667700', icon: '💪', stars: 4,  starColor: '#888800', sig: 'this is my home now' },
+  { name: 'Power User',      min:   750, color: '#886600', icon: '⚡', stars: 5,  starColor: '#ddaa00', sig: 'post count don\'t lie' },
+  { name: 'Elite Member',    min:  1000, color: '#cc8800', icon: '🏅', stars: 5,  starColor: '#ffbb00', sig: '4 digits. you know what it is.' },
+  { name: 'Veteran',         min:  1500, color: '#cc5500', icon: '🎖️', stars: 6,  starColor: '#ee7700', sig: 'veteran of the forum wars' },
+  { name: 'Forum Regular',   min:  2000, color: '#bb3300', icon: '🔰', stars: 6,  starColor: '#ff5500', sig: 'the forum runs through my veins' },
+  { name: 'Forum Legend',    min:  3000, color: '#aa0000', icon: '🏆', stars: 7,  starColor: '#ff2200', sig: 'they say legends never die' },
+  { name: 'Legendary',       min:  5000, color: '#880000', icon: '🌟', stars: 7,  starColor: '#ff0000', sig: 'i was here before the backup got wiped' },
+  { name: 'Forum Deity',     min:  7500, color: '#7700aa', icon: '👑', stars: 8,  starColor: '#cc44ff', sig: 'I AM THE FORUM' },
+  { name: 'Supreme Being',   min: 10000, color: '#5500cc', icon: '🔮', stars: 8,  starColor: '#8844ff', sig: 'transcended the physical keyboard' },
+  { name: 'Moderator',       min: 15000, color: '#0066aa', icon: '🛡️', stars: 9,  starColor: '#00aaff', sig: '||| keep it civil |||' },
+  { name: 'Super Moderator', min: 25000, color: '#004488', icon: '⚔️', stars: 10, starColor: '#0088ff', sig: '||| senior staff |||' },
+  { name: 'Administrator',   min: 50000, color: '#aa0000', icon: '💎', stars: 10, starColor: '#ffcc00', sig: '— site founder —' },
+];
 
-// Draw a single pixel in virtual space
-function px(x, y, col) {
-  ctx.fillStyle = col;
-  ctx.fillRect(x * S, y * S, S, S);
+const MESSAGES = [
+  "Hello there! Just wanted to introduce myself.",
+  "Great community here. Happy to be posting.",
+  "Just bumping my post count lol",
+  "Another day another post",
+  "Anyone else just here to watch the counter go up?",
+  "This thread is great for post count grinding",
+  "Been lurking for years. Finally posting.",
+  "Not sure what to say but +1",
+  "Post.",
+  "Watching my rank increase in real time",
+  "The grind never stops",
+  "Mid post",
+  "I have nothing to say but I will say it anyway",
+  "Just hit a new milestone fellas",
+  "gm",
+  "gn",
+  "Post number {n}. Feeling good.",
+  "Remember when forums were everything?",
+  "Anyway",
+  ".",
+  "Still here",
+  "The dedication is real",
+  "Power user energy",
+  "I am become post",
+  "The forum is my church",
+];
+
+function getRank(posts) {
+  let r = RANKS[0];
+  for (const rank of RANKS) {
+    if (posts >= rank.min) r = rank;
+  }
+  return r;
 }
 
-// Fill rect
-function rect(x, y, w, h, col) {
-  ctx.fillStyle = col;
-  ctx.fillRect(x * S, y * S, w * S, h * S);
+function getNextRank(posts) {
+  for (let i = 0; i < RANKS.length; i++) {
+    if (posts < RANKS[i].min) return RANKS[i];
+  }
+  return null;
 }
 
-// Pixel font — 5x7 bitmap
-const FONT = {
-  'A':[[0,1,1,0],[1,0,0,1],[1,1,1,1],[1,0,0,1],[1,0,0,1]],
-  'B':[[1,1,1,0],[1,0,0,1],[1,1,1,0],[1,0,0,1],[1,1,1,0]],
-  'C':[[0,1,1,1],[1,0,0,0],[1,0,0,0],[1,0,0,0],[0,1,1,1]],
-  'D':[[1,1,1,0],[1,0,0,1],[1,0,0,1],[1,0,0,1],[1,1,1,0]],
-  'E':[[1,1,1,1],[1,0,0,0],[1,1,1,0],[1,0,0,0],[1,1,1,1]],
-  'F':[[1,1,1,1],[1,0,0,0],[1,1,1,0],[1,0,0,0],[1,0,0,0]],
-  'G':[[0,1,1,1],[1,0,0,0],[1,0,1,1],[1,0,0,1],[0,1,1,1]],
-  'H':[[1,0,0,1],[1,0,0,1],[1,1,1,1],[1,0,0,1],[1,0,0,1]],
-  'I':[[1,1,1],[0,1,0],[0,1,0],[0,1,0],[1,1,1]],
-  'J':[[0,0,0,1],[0,0,0,1],[0,0,0,1],[1,0,0,1],[0,1,1,0]],
-  'K':[[1,0,0,1],[1,0,1,0],[1,1,0,0],[1,0,1,0],[1,0,0,1]],
-  'L':[[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,1,1,1]],
-  'M':[[1,0,0,0,1],[1,1,0,1,1],[1,0,1,0,1],[1,0,0,0,1],[1,0,0,0,1]],
-  'N':[[1,0,0,1],[1,1,0,1],[1,0,1,1],[1,0,0,1],[1,0,0,1]],
-  'O':[[0,1,1,0],[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0]],
-  'P':[[1,1,1,0],[1,0,0,1],[1,1,1,0],[1,0,0,0],[1,0,0,0]],
-  'R':[[1,1,1,0],[1,0,0,1],[1,1,1,0],[1,0,1,0],[1,0,0,1]],
-  'S':[[0,1,1,1],[1,0,0,0],[0,1,1,0],[0,0,0,1],[1,1,1,0]],
-  'T':[[1,1,1,1,1],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
-  'U':[[1,0,0,1],[1,0,0,1],[1,0,0,1],[1,0,0,1],[0,1,1,0]],
-  'V':[[1,0,0,0,1],[1,0,0,0,1],[0,1,0,1,0],[0,1,0,1,0],[0,0,1,0,0]],
-  'W':[[1,0,0,0,1],[1,0,0,0,1],[1,0,1,0,1],[1,1,0,1,1],[1,0,0,0,1]],
-  'X':[[1,0,0,1],[0,1,1,0],[0,1,1,0],[0,1,1,0],[1,0,0,1]],
-  'Y':[[1,0,0,0,1],[0,1,0,1,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0]],
-  'Z':[[1,1,1,1],[0,0,1,0],[0,1,0,0],[1,0,0,0],[1,1,1,1]],
-  ' ':[[0,0],[0,0],[0,0],[0,0],[0,0]],
-  ':':[[0],[1],[0],[1],[0]],
-  '.':[[0],[0],[0],[0],[1]],
-  '/':[[0,0,0,1],[0,0,1,0],[0,1,0,0],[1,0,0,0],[0,0,0,0]],
-  '0':[[0,1,1,0],[1,0,1,1],[1,1,0,1],[1,1,0,1],[0,1,1,0]],
-  '1':[[0,1,0],[1,1,0],[0,1,0],[0,1,0],[1,1,1]],
-  '2':[[0,1,1,0],[1,0,0,1],[0,0,1,0],[0,1,0,0],[1,1,1,1]],
-  '3':[[1,1,1,0],[0,0,0,1],[0,1,1,0],[0,0,0,1],[1,1,1,0]],
-  '4':[[1,0,0,1],[1,0,0,1],[1,1,1,1],[0,0,0,1],[0,0,0,1]],
-  '5':[[1,1,1,1],[1,0,0,0],[1,1,1,0],[0,0,0,1],[1,1,1,0]],
-  '6':[[0,1,1,0],[1,0,0,0],[1,1,1,0],[1,0,0,1],[0,1,1,0]],
-  '7':[[1,1,1,1],[0,0,0,1],[0,0,1,0],[0,1,0,0],[0,1,0,0]],
-  '8':[[0,1,1,0],[1,0,0,1],[0,1,1,0],[1,0,0,1],[0,1,1,0]],
-  '9':[[0,1,1,0],[1,0,0,1],[0,1,1,1],[0,0,0,1],[0,1,1,0]],
-  '+':[[0,0,0],[0,1,0],[1,1,1],[0,1,0],[0,0,0]],
-  '-':[[0,0,0],[0,0,0],[1,1,1],[0,0,0],[0,0,0]],
-  '"':[[1,0,1],[1,0,1],[0,0,0],[0,0,0],[0,0,0]],
-  '!':[[1],[1],[1],[0],[1]],
-  '?':[[0,1,1,0],[1,0,0,1],[0,0,1,0],[0,0,0,0],[0,0,1,0]],
-  '>':[[1,0,0],[0,1,0],[0,0,1],[0,1,0],[1,0,0]],
-  '<':[[0,0,1],[0,1,0],[1,0,0],[0,1,0],[0,0,1]],
-  '#':[[0,1,0,1,0],[1,1,1,1,1],[0,1,0,1,0],[1,1,1,1,1],[0,1,0,1,0]],
-  '[':[[1,1],[1,0],[1,0],[1,0],[1,1]],
-  ']':[[1,1],[0,1],[0,1],[0,1],[1,1]],
-  '|':[[1],[1],[1],[1],[1]],
-};
+// State
+let postCount = parseInt(localStorage.getItem('fv_posts') || '0');
+let postLog = JSON.parse(localStorage.getItem('fv_log') || '[]');
 
-function text(str, x, y, col) {
-  let cx = x;
-  for (const ch of str.toUpperCase()) {
-    const bmp = FONT[ch] || FONT[' '];
-    for (let row = 0; row < bmp.length; row++) {
-      for (let col2 = 0; col2 < bmp[row].length; col2++) {
-        if (bmp[row][col2]) px(cx + col2, y + row, col);
-      }
+function save() {
+  localStorage.setItem('fv_posts', postCount);
+  localStorage.setItem('fv_log', JSON.stringify(postLog.slice(-50)));
+}
+
+function formatDate() {
+  const now = new Date();
+  return now.toLocaleDateString('en-US', { month:'2-digit', day:'2-digit', year:'numeric' }) +
+    ', ' + now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+}
+
+function makePost() {
+  const oldRank = getRank(postCount);
+  postCount++;
+  const textarea = document.getElementById('post-textarea');
+  const msg = textarea.value.trim() || MESSAGES[Math.floor(Math.random() * MESSAGES.length)].replace('{n}', postCount);
+  textarea.value = '';
+
+  postLog.unshift({ n: postCount, msg, date: formatDate(), rankUp: null });
+
+  const newRank = getRank(postCount);
+  if (newRank.name !== oldRank.name) {
+    postLog[0].rankUp = newRank.name;
+    showRankToast(newRank);
+  }
+
+  save();
+  render();
+}
+
+function showRankToast(rank) {
+  const toast = document.getElementById('rank-toast');
+  toast.innerHTML = `${rank.icon} Rank up! You are now <span style="color:${rank.color};font-size:15px">${rank.name}</span>`;
+  toast.style.display = 'block';
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => { toast.style.display = 'none'; }, 3500);
+}
+
+function render() {
+  const rank = getRank(postCount);
+  const nextRank = getNextRank(postCount);
+
+  // post date
+  document.getElementById('post-date').textContent = formatDate();
+  document.getElementById('post-num-display').textContent = '#' + postCount;
+
+  // rank display
+  const rd = document.getElementById('rank-display');
+  rd.innerHTML = `<span class="rank-icon">${rank.icon}</span><span style="color:${rank.color};font-weight:bold">${rank.name}</span>`;
+
+  // stars
+  const sd = document.getElementById('stars-display');
+  const starChar = rank.stars > 0
+    ? `<span style="color:${rank.starColor}">` + '★'.repeat(Math.min(rank.stars, 5)) + '</span>'
+    + (rank.stars > 5 ? `<span style="color:${rank.starColor}">` + '★'.repeat(rank.stars - 5) + '</span>' : '')
+    : '';
+  sd.innerHTML = starChar;
+
+  // stats
+  document.getElementById('post-count-sidebar').textContent = postCount;
+  document.getElementById('rep-display').textContent = '+' + Math.floor(postCount * 0.7);
+
+  // progress
+  const pl = document.getElementById('progress-label');
+  const pb = document.getElementById('progress-bar');
+  if (nextRank) {
+    const prevMin = rank.min;
+    const pct = Math.min(100, Math.floor(((postCount - prevMin) / (nextRank.min - prevMin)) * 100));
+    pl.textContent = `Next rank: ${nextRank.icon} ${nextRank.name} (${nextRank.min - postCount} posts away)`;
+    pb.style.width = pct + '%';
+    pb.style.background = `linear-gradient(to right, ${rank.color}, ${nextRank.color})`;
+  } else {
+    pl.textContent = '✨ Maximum rank achieved';
+    pb.style.width = '100%';
+    pb.style.background = '#ffcc00';
+  }
+
+  // message
+  const lastMsg = postLog[0];
+  document.getElementById('post-message-display').innerHTML = lastMsg
+    ? lastMsg.msg
+    : 'Click <strong>Post Reply</strong> below to make your first post.';
+
+  // sig
+  document.getElementById('sig-display').textContent = rank.sig || '';
+  document.getElementById('sig-display').style.display = rank.sig ? 'block' : 'none';
+
+  // total posts
+  document.getElementById('total-posts-display').textContent = `Total posts: ${postCount}`;
+
+  // log
+  const logEl = document.getElementById('post-log-entries');
+  if (postLog.length === 0) {
+    logEl.innerHTML = '<div class="log-entry" style="color:#aaa;font-style:italic">No posts yet. Get posting.</div>';
+    return;
+  }
+  logEl.innerHTML = postLog.slice(0, 20).map(e => {
+    if (e.rankUp) {
+      return `<div class="log-entry new-rank">🎉 #${e.n} — Rank up to <strong>${e.rankUp}</strong>! &mdash; <em style="font-weight:normal">${e.date}</em></div>`;
     }
-    cx += (bmp[0]?.length || 2) + 1;
-  }
+    const short = e.msg.length > 80 ? e.msg.slice(0, 80) + '...' : e.msg;
+    return `<div class="log-entry"><span>#${e.n} — ${short}</span><span style="color:#aaa;flex-shrink:0;margin-left:10px">${e.date}</span></div>`;
+  }).join('');
 }
 
-// ─── palette ──────────────────────────────────────────────
-const BG       = '#0d1117';
-const HEADER   = '#1c2c4a';
-const HEADER2  = '#263d62';
-const PANEL    = '#161b27';
-const BORDER   = '#2e4070';
-const BORDER2  = '#1e2d50';
-const WHITE    = '#d0daf0';
-const LGRAY    = '#8899bb';
-const DGRAY    = '#3a4a6a';
-const YELLOW   = '#f5c842';
-const GREEN    = '#50e870';
-const RED      = '#e85050';
-const ORANGE   = '#f08040';
-const BLUE     = '#4090f0';
-const LBLUE    = '#80c0ff';
-const TEAL     = '#40c0b0';
-const PURPLE   = '#a060f0';
-const PINK     = '#f060a0';
-const AVATBG   = '#1a2540';
-const POSTROW  = '#111827';
-const POSTROW2 = '#0f1520';
-
-// ─── draw ─────────────────────────────────────────────────
-
-// background
-rect(0, 0, W, H, BG);
-
-// ── HEADER BAR ──────────────────────────────────────────
-for (let i = 0; i < 14; i++) {
-  rect(0, i, W, 1, i < 7 ? HEADER2 : HEADER);
-}
-// pixel border
-rect(0, 13, W, 1, BORDER);
-// site logo pixel art - small lightning bolt
-const bolt = [[0,0,1,1,0],[0,1,1,0,0],[1,1,1,1,0],[0,0,1,0,0],[0,1,0,0,0]];
-bolt.forEach((row, ry) => row.forEach((v, rx) => { if(v) px(6+rx, 4+ry, YELLOW); }));
-px(5, 5, YELLOW); // glow
-text('FORUM VALLEY', 16, 4, WHITE);
-// online dot
-rect(W-18, 5, 6, 5, DGRAY);
-rect(W-17, 6, 4, 3, GREEN);
-text('12 ONLINE', W-42, 5, GREEN);
-
-// ── LEFT SIDEBAR ────────────────────────────────────────
-rect(0, 14, 72, H-14, PANEL);
-rect(72, 14, 1, H-14, BORDER2);
-
-// profile card
-rect(3, 18, 66, 80, AVATBG);
-rect(3, 18, 66, 1, BORDER);
-rect(3, 97, 66, 1, BORDER);
-rect(3, 18, 1, 80, BORDER);
-rect(68, 18, 1, 80, BORDER);
-
-// avatar (24x24 pixel character)
-rect(24, 22, 24, 24, '#0d1117');
-// body
-const avatar = [
-  [0,0,1,1,1,1,0,0],
-  [0,1,1,1,1,1,1,0],
-  [0,1,0,1,1,0,1,0],
-  [0,1,1,1,1,1,1,0],
-  [0,0,1,0,0,1,0,0],
-  [0,1,1,1,1,1,1,0],
-  [1,1,0,1,1,0,1,1],
-  [1,0,0,1,1,0,0,1],
-];
-const ac = ['#f5c842','#f5c842','#4090f0','#4090f0','#d0daf0','#e07020','#e07020','#d0daf0'];
-avatar.forEach((row, ry) => row.forEach((v, rx) => {
-  if (v) px(28+rx, 26+ry, ac[ry]);
-}));
-// avatar border
-rect(27, 25, 10, 10, '#00000000');
-for(let i=0;i<10;i++){px(27,25+i,BORDER); px(36,25+i,BORDER); px(27+i,25,BORDER); px(27+i,34,BORDER);}
-
-// username
-text('GREMLIN', 10, 50, YELLOW);
-// rank badge
-rect(7, 58, 32, 7, '#2a1a40');
-rect(7, 58, 32, 1, PURPLE);
-rect(7, 64, 32, 1, PURPLE);
-rect(7, 58, 1, 7, PURPLE);
-rect(38, 58, 1, 7, PURPLE);
-text('VETERAN', 10, 60, PURPLE);
-
-// post count
-text('POSTS:', 7, 70, LGRAY);
-text('4192', 38, 70, WHITE);
-
-// join date
-text('JND: 03/11', 7, 78, LGRAY);
-text('2009', 38, 78, LGRAY);
-
-// rep/xp bar
-text('REP', 7, 88, LGRAY);
-rect(26, 88, 38, 5, '#1a1a2e');
-rect(27, 89, 28, 3, TEAL); // 73% rep
-rect(26, 88, 38, 1, BORDER2);
-rect(26, 92, 38, 1, BORDER2);
-
-// nav menu
-const navItems = [
-  ['> INDEX', WHITE],
-  ['  GENERAL', LGRAY],
-  ['  GAMING', LGRAY],
-  ['  OFF-TOPIC', LGRAY],
-  ['  TECH', LGRAY],
-  ['  MODS', ORANGE],
-];
-navItems.forEach(([label, col], i) => {
-  if (i === 0) rect(1, 103 + i*12, 70, 10, '#1e2d50');
-  text(label, 5, 105 + i*12, col);
-});
-
-// ── MAIN CONTENT ────────────────────────────────────────
-const MX = 75;
-const MW = W - MX - 2;
-
-// subforum header
-rect(MX, 14, MW, 10, HEADER);
-rect(MX, 14, MW, 1, BORDER);
-rect(MX, 23, MW, 1, BORDER);
-text('> GENERAL DISCUSSION', MX+4, 17, WHITE);
-text('NEW POST [+]', MX+MW-60, 16, GREEN);
-
-// column headers
-rect(MX, 24, MW, 8, '#0f1825');
-rect(MX, 31, MW, 1, BORDER2);
-text('THREAD', MX+4, 26, LGRAY);
-text('AUTH', MX+MW-72, 26, LGRAY);
-text('REP', MX+MW-42, 26, LGRAY);
-text('LAST', MX+MW-18, 26, LGRAY);
-
-// thread rows
-const threads = [
-  { title: 'WHAT ARE YOU PLAYING RN', auth: 'NASSEEM', hot: true,  rep: '+892', newp: true  },
-  { title: 'FAVOURITE PIZZA TOPICS',  auth: 'FUNGUS',  hot: false, rep: '+234', newp: true  },
-  { title: 'IM GOING TO EXPLODE',     auth: 'GREMLIN', hot: false, rep: '+67',  newp: false },
-  { title: 'DAILY REMINDER THREAD',   auth: 'CHUNGUS', hot: false, rep: '+41',  newp: false },
-  { title: 'POST YOUR SETUP 2009',    auth: 'NASSEEM', hot: false, rep: '+1.2K',newp: false },
-  { title: 'WHAT HAPPENED TO KAVEH',  auth: 'FUNGUS',  hot: false, rep: '+18',  newp: false },
-  { title: 'INTRODUCE YOURSELF',      auth: 'MOD',     hot: false, rep: '+303', newp: false },
-  { title: 'THE GREAT DEBATE PART 4', auth: 'GREMLIN', hot: true,  rep: '+776', newp: true  },
-];
-
-threads.forEach((t, i) => {
-  const ty = 33 + i*22;
-  const bg = i % 2 === 0 ? POSTROW : POSTROW2;
-  rect(MX, ty, MW, 22, bg);
-  rect(MX, ty+21, MW, 1, '#1a2030');
-
-  // hot icon (flame pixels)
-  if (t.hot) {
-    px(MX+3, ty+6, RED);
-    px(MX+4, ty+5, ORANGE);
-    px(MX+4, ty+6, YELLOW);
-    px(MX+4, ty+7, ORANGE);
-    px(MX+5, ty+5, RED);
-    px(MX+5, ty+6, ORANGE);
-    px(MX+5, ty+7, RED);
-    px(MX+3, ty+7, ORANGE);
-  }
-  // new badge
-  if (t.newp) {
-    rect(MX+10, ty+4, 12, 7, '#1a3050');
-    rect(MX+10, ty+4, 12, 1, BLUE);
-    rect(MX+10, ty+10, 12, 1, BLUE);
-    text('NEW', MX+12, ty+6, BLUE);
-  }
-
-  text(t.title, MX+26, ty+4, t.hot ? YELLOW : WHITE);
-  // little avatar dot
-  rect(MX+26, ty+12, 3, 3, t.auth === 'NASSEEM' ? TEAL : t.auth === 'FUNGUS' ? PURPLE : t.auth === 'GREMLIN' ? YELLOW : t.auth === 'MOD' ? ORANGE : BLUE);
-  text(t.auth, MX+32, ty+13, LGRAY);
-
-  // rep
-  const rc = t.rep.startsWith('+') ? GREEN : RED;
-  text(t.rep, MX+MW-46, ty+8, rc);
-
-  // last post time indicator (tiny bar)
-  rect(MX+MW-16, ty+5, 2, 12, DGRAY);
-  const barH = Math.floor(Math.random() * 10) + 2;
-  rect(MX+MW-16, ty+5+(12-barH), 2, barH, t.newp ? BLUE : DGRAY);
-});
-
-// ── BOTTOM STATUS BAR ────────────────────────────────────
-rect(0, H-12, W, 12, HEADER);
-rect(0, H-12, W, 1, BORDER);
-text('ENERGY: ', 4, H-8, LGRAY);
-// energy bar
-rect(42, H-9, 60, 7, '#0d1117');
-rect(43, H-8, 45, 5, ORANGE); // 75% energy
-rect(42, H-9, 60, 1, BORDER2);
-rect(42, H-2, 60, 1, BORDER2);
-text('XP: 2840 / 3000', 108, H-8, TEAL);
-text('DAY 47', W-42, H-8, YELLOW);
-
-ctx.save();
+// init
+render();
+document.getElementById('post-date').textContent = formatDate();
 </script>
 </body>
 </html>
