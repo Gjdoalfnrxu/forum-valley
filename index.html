@@ -903,31 +903,109 @@ const POSITIVE_EVENTS = [
 
 // ── MEMBERS ───────────────────────────────────────────────
 const MEMBERS = [
-  { id:0,  avatar:'🤓', name:'DustinK92',      arch:'Total Void',             replies:["lol ye","agreed","nice post","lmao tru","^ this","haha ye exactly"], dms:["hey m8","lol hey just wanted to say ur posts r always good","haha hey"] },
-  { id:1,  avatar:'🧑‍💻', name:'mark_off',        arch:'Help-Desk Worshipper',   replies:["agreed m8","nice 1","^ this","lol ye","tru that","gr8 post"], dms:["hey can u check the tech section when u get a chance lol","hey m8 nice post earlier","lol hey just checkin in"] },
-  { id:2,  avatar:'👸', name:'Beachcomber_T',       arch:'Since Day One',          replies:["lol tru","haha ye","nice post","^ this","agreed","omg ye"], dms:["hey lol just wanted to say nice post earlier","hey m8","haha hey hope ur well"] },
-  { id:3,  avatar:'🧙', name:'xevious',      arch:'Conspiracy Convert',     replies:["lol tru m8","haha ye exactly","^ this","agreed","nice 1","lmao tru"], dms:["hey m8 heads up theres some weird ppl posting lately lol","haha hey","lol just wanted to say nice post"] },
-  { id:4,  avatar:'📬', name:'silent_reader',    arch:'Post Count Maniac',      replies:["nice post m8","gr8 find","lol ye","^ this","agreed","haha tru"], dms:["hey m8 nice post earlier lol","lol hey","haha just checkin in"] },
-  { id:5,  avatar:'🦅', name:'trev_j',       arch:'Forum Nationalist',      replies:["lol ye","agreed m8","nice 1","^ this","haha tru","gr8 post"], dms:["hey lol some1 was being a bit weird in teh gaming section fyi","hey m8","lol hey just wanted to say good post earlier"] },
-  { id:6,  avatar:'🦉', name:'paulie_d',        arch:'Always Awake',           replies:["lol nice post","^ this","haha ye","agreed","nice 1","tru m8"], dms:["hey m8 ur posts r always good lol","haha hey","lol just wanted 2 say hey"] },
-  { id:7,  avatar:'👴', name:'NorthernLights99',      arch:'Creepy Elder',           replies:["lol nice post son","^ this","haha tru","agreed m8","nice 1","gr8 post"], dms:["hey lol nice post earlier m8","haha hey son","lol just checkin in"] },
-  { id:8,  avatar:'💬', name:'JerryM',           arch:'Compulsive Quoter',      replies:["^ this","^ ^ this","lol quoted","saving this 1","nice post m8","haha tru"], dms:["hey m8 quoted ur post in another thread hope thats ok lol","haha hey","lol nice post earlier"] },
-  { id:9,  avatar:'🚨', name:'coastalvibes',        arch:'Unofficial Sheriff',     replies:["lol agreed","^ this","nice 1 m8","haha tru","gr8 post","agreed"], dms:["hey lol reported a few ppl who were being idiots fyi","hey m8","lol just wanted 2 say nice post"] },
-  { id:10, avatar:'🏅', name:'grillmaster_dan',         arch:'Status Obsessive',       replies:["gr8 post","lol agreed","^ this","nice 1","haha ye m8","tru that"], dms:["hey m8 been on here 8 years n ur posts r still top tier lol","lol hey","haha just checkin in m8"] },
-  { id:11, avatar:'💾', name:'Terrence_B',        arch:'Archivist',              replies:["saved","noted","^ this","lol nice post","gr8 find","haha tru"], dms:["hey m8 backed up teh forum archive again lol","hey","lol hey just checkin in"] },
-  { id:12, avatar:'🥊', name:'fastlane_99',        arch:'Hollow Contrarian',      replies:["lol ye fair enough","agreed","^ this","haha tru m8","nice 1","cant argue w this"], dms:["hey lol ur posts always make sense tbh","hey m8","haha hey just wanted 2 say nice post earlier"] },
-  { id:13, avatar:'📜', name:'Milo_R',         arch:'Revisionist Biographer', replies:["lol noted","^ this","for teh record","haha tru","gr8 post m8","agreed"], dms:["hey m8 putting 2gether sum forum history stuff n ur name comes up a lot lol","lol hey","haha just checkin in"] },
-  { id:14, avatar:'🏆', name:'dex_holloway',           arch:'Superlative Addict',     replies:["gr8 post m8","lol best post in teh thread","^ this","haha tru","nice 1","agreed"], dms:["hey lol u have been posting sum good stuff lately","hey m8","haha just wanted 2 say nice post"] },
-  { id:15, avatar:'⭐', name:'theRealKev',      arch:'Unironic Stan',          replies:["lol nice post","^ this","haha ye","agreed m8","gr8 find","tru that"], dms:["hey m8 showed ur post 2 a mate they agreed lol","lol hey","haha just checkin in"] },
-  { id:16, avatar:'🔧', name:'Randall_T',      arch:'IT Guy',                 replies:["lol technically correct","^ this","agreed","nice 1 m8","haha tru","gr8 post"], dms:["hey m8 flagged a spam bot earlier lol","hey","lol hey just checkin in"] },
-  { id:17, avatar:'🧓', name:'nightcrawler87',         arch:'Forum Elder',            replies:["lol ye been here since teh start n this is how it shud b","^ this","agreed m8","nice 1","haha tru","gr8 post"], dms:["hey lol this place has been pretty good lately tbh","hey m8","haha just checkin in m8"] },
-  { id:18, avatar:'👁️', name:'koopatroop',     arch:'Awakened Lurker',        replies:["made an account just 2 agree w this lol","^ this","lurked 4 years this is worth replying 2","agreed m8","haha tru","nice 1"], dms:["hey m8 been reading 4 ages without an account lol","hey","haha hey just wanted 2 say nice post"] },
-  { id:19, avatar:'📋', name:'Westfield_Brian',       arch:'Permanent Applicant',    replies:["lol agreed","^ this","nice 1 m8","haha tru","gr8 post","agreed"], dms:["hey lol i know my mod application is still pending but just wanted 2 say nice post","hey m8","lol hey just checkin in if theres anything i can help w"] },
-  { id:20, avatar:'🙏', name:'lurker4ever',        arch:'Devoted Worshipper',     replies:["lol this is y i come here","^ this","haha ye exactly","agreed m8","nice 1","gr8 post"], dms:["hey m8 just wanted 2 say thx 4 keeping this place going lol","lol hey","haha hey"] },
-  { id:21, avatar:'📝', name:'SimonPetersen',         arch:'Essay Agreer',           replies:["lol ye had a long reply but basically: agreed","^ this","haha tru m8","agreed","nice 1","gr8 post"], dms:["hey m8 been meaning 2 write a longer post on this topic ur take is a good start lol","lol hey","haha just checkin in"] },
-  { id:22, avatar:'✍️', name:'Braddock88',      arch:'Quote Collector',        replies:["going in teh sig lol","^ this","updated sig","haha ye nice 1","gr8 post m8","agreed"], dms:["hey m8 changed my sig 2 something from ur last thread hope thats ok lol","lol hey","haha hey"] },
-  { id:23, avatar:'⬆️', name:'paulwallace',          arch:'Thread Necromancer',     replies:["bump","bump 4 visibility","lol bump","^ this deserves more replies","gr8 post m8","agreed"], dms:["hey m8 bumped a few of ur old threads 2day they hold up lol","lol hey","haha just checkin in"] },
-  { id:24, avatar:'🟢', name:'glen_online',      arch:'Omnipresent',            replies:["ye","lol","k","agreed"], dms:["hey","lol","k","hey m8"] },
+  { id:0,  avatar:'🤓', name:'DustinK92',      arch:'Total Void',
+    replies:["ye agreed","lol tru","^ this","ye same","lol pretty much","agreed m8","yep","lol ye exactly that"],
+    dms:["hey m8","hey just checkin in lol","hey hope ur well m8"] },
+
+  { id:1,  avatar:'🧑‍💻', name:'mark_off',        arch:'IT Guy Creep',
+    replies:["lol ok but have u tried clearing ur DNS cache","as a sys admin this is literally what i tell ppl every day","runs fine on my machine tbh","ur probably missing a dependency lol","have u tried turning it off n on again (serious question not a joke)","lol sounds like a layer 8 problem to me","i can take a look at it if u want, i do this 4 a living"],
+    dms:["hey m8 just wanted 2 flag there was some weird activity in the server logs earlier","hey not 2 be that guy but i ran a quick audit n found something u might wanna know about","hey m8 i can help optimize the backend if u ever want, no charge"] },
+
+  { id:2,  avatar:'👸', name:'Beachcomber_T',    arch:'OG Nostalgia Merchant',
+    replies:["lol this forum used 2 b so different in 2004 tbh","reminds me of when this thread had 800 replies back in the day","been here since b4 teh great crash of 07 n this still hits different","old school members remember when posting here actually meant something lol","god i miss when digg was good n this forum was poppin off","this is giving me 2008 vibes n i mean that in a good way","lol some of u werent here 4 the original thread n it shows"],
+    dms:["hey m8 been here since the beginning n just wanted 2 say the forums in good shape","hey do u remember the big drama in 2009 lol those were wild times","hey m8 found an old thread from 2006 u might wanna read, ppl were wild back then"] },
+
+  { id:3,  avatar:'🧙', name:'xevious',          arch:'Casual Tinfoil',
+    replies:["lol just asking questions here but has anyone noticed the timing of this","interesting that this gets posted right after that news story lol","not saying anything but... lol","why does google show completely different results for this than it did last week","do ur own research on this 1 is all im saying","lol the fact that nobody is talking about this is itself interesting","i archived this page bcuz these things have a way of disappearing lol"],
+    dms:["hey m8 not 2 be weird but did u see what happened 2 that thread after it got too many replies","hey just wanted 2 flag something i noticed, might b nothing lol","hey m8 sent u a link 2 a site that has more info on this, the mainstream stuff doesnt cover it"] },
+
+  { id:4,  avatar:'📬', name:'silent_reader',    arch:'Bump Machine',
+    replies:["bump","^ this","lol bump 4 visibility","still relevant","bump, too good 2 die","this deserves more replies, bump","lol still the best post in this thread"],
+    dms:["hey m8 bumped ur thread","hey bumped a few of the good ones","hey m8 just wanted 2 say bump"] },
+
+  { id:5,  avatar:'🦅', name:'trev_j',            arch:'Forum Patriot',
+    replies:["lol this is y the mainstream media wont cover it","real talk tho the government doesnt want u 2 know this","first amendment rights apply here n ppl need 2 remember that","been saying this since the 2008 election lol nobody listened","lol the liberal agenda is showing in this thread","not everything is political but SOME THINGS ARE and this is 1 of them","this is what happens when u let mainstream sites control teh narrative"],
+    dms:["hey m8 just wanted 2 say keep speaking truth n dont let them silence u","hey flagged a couple of users who i think r here 2 derail things lol","hey m8 some of the new members give me bad vibes just so u know"] },
+
+  { id:6,  avatar:'🦉', name:'paulie_d',          arch:'3AM Poster',
+    replies:["lol its 3am n im reading this thread instead of sleeping","been awake 4 22 hours n this is the most sense anything has made all day","u ever just end up on a forum at 4am reading old threads lol, anyway agreed","this is the kind of post that makes the insomnia worth it tbh","lol idk why im still awake but im glad i saw this","night shift crew checking in, good post m8","reading this between energy drinks, solid take"],
+    dms:["hey m8 its 2am n i saw ur post n had 2 reply lol","hey just saw this while doom scrolling, nice 1","hey m8 hope ur sleeping better than me rn lol, anyway good post"] },
+
+  { id:7,  avatar:'👴', name:'NorthernLights99',  arch:'Formal Elder',
+    replies:["I would like to take this opportunity to express my agreement with the above sentiment","This is precisely the kind of substantive discourse that made this forum worth visiting in 2005","I have been a member here for some years and I seldom reply, however this warranted a response","With respect to the previous posters, the original comment is correct","I have seen many threads on this topic and this is among the more thoughtful contributions lol","One does not often encounter this level of clarity in a forum thread. Well said.","I showed this to my son. He also agrees."],
+    dms:["Hello. I wanted to take a moment to say I appreciate the way this community has been managed lately.","I do not often send private messages however I felt this warranted one. Good post earlier.","Hello m8, I hope this finds you well. I have been a member here since 2004 and simply wanted to say thank you for keeping things civil."] },
+
+  { id:8,  avatar:'💬', name:'JerryM',            arch:'Living Quote Archive',
+    replies:["adding this 2 teh sig immediately","lol my sig is now 14 lines long because of this thread","^^ quoted 4 truth, this goes above trev_j's post from 2009 in my sig","screenshotted n will b referencing this in future arguments","lol updating sig in real time as i read this thread","this is the kind of quote that ends arguments, going in teh archive","my sig has been this thread for 3 days now"],
+    dms:["hey m8 changed my sig 2 ur post from tuesday, hope thats ok lol","hey just wanted 2 say i reference ur posts a lot in other threads","hey m8 someone asked what my sig meant n i had 2 explain ur whole post lol, it landed well"] },
+
+  { id:9,  avatar:'🚨', name:'coastalvibes',      arch:'Self-Appointed Sheriff',
+    replies:["lol already reported 2 users in this thread just fyi","keeping an eye on this 1, some of these replies r borderline","i maintain detailed notes on repeat offenders n 3 of them have posted in this thread today","as someone who takes forum health seriously: good post","this thread has 2 bots n 1 troll in it, i can see it from a mile away lol","already flagged teh suspicious ones, ur welcome","lol love 2 see proper posting, bookmarking this for my moderation notes"],
+    dms:["hey m8 compiled my weekly report on rule violations, want me 2 send it","hey just flagged 4 accounts that were being weird, keeping u informed lol","hey m8 i noticed something about a member's posting patterns that seems off, can i send u my notes"] },
+
+  { id:10, avatar:'🏅', name:'grillmaster_dan',   arch:'Forum Rater',
+    replies:["lol solid 8/10 thread","this is top 15% of posts ive seen here in 8 years no question","benchmarking this against the legendary threads of 2008 n it holds up","6/10 pre this post, 9/10 after it, significant uplift","been rating threads since 2005 n this is a high scorer","lol for comparison the best thread of 2011 was maybe 9.2, this is a strong 8.5","historically speaking this subforum peaked in 2009 n this is the closest weve gotten since"],
+    dms:["hey m8 ur monthly posting average is up, good consistency lol","hey i keep informal stats on thread quality n urs r always high","hey m8 if u ever want my full analysis of the forums posting history lmk, ive got data going back 2 2006"] },
+
+  { id:11, avatar:'💾', name:'Terrence_B',        arch:'Obsessive Archivist',
+    replies:["archived","lol saved offline in 3 locations","wayback machine capture initiated","this is going in teh cold storage backup m8","ive got the full thread history including deleted posts if it ever gets nuked","lol my local archive of this forum is now 47gb but worth it","everything gets backed up, this included"],
+    dms:["hey m8 just completed the monthly archive backup, everything preserved","hey i have a copy of a thread from 2008 that got deleted that u might want 2 see","hey m8 just fyi i have offline copies of everything since 2006 in case anything ever happens 2 the forum lol"] },
+
+  { id:12, avatar:'🥊', name:'fastlane_99',        arch:'Hollow Contrarian',
+    replies:["lol not sure i agree but... actually ye fair enough","i was gonna push back on this but i cant find the angle lol","my initial reaction was no but the more i read it the more i think ur right","counterpoint: [no counterpoint] lol ye agreed","i had a whole reply drafted n then re-read it n yeah ur correct","gonna disagree on principal but honestly cant lol, good post","lol i always come in ready 2 argue n then dont"],
+    dms:["hey m8 was ready 2 debate ur post then reread it lol ur right","hey just wanted 2 say i tested my own argument against urs n it didnt hold up, fair play","hey m8 u got me on that 1 lol"] },
+
+  { id:13, avatar:'📜', name:'Milo_R',             arch:'Forum Historian',
+    replies:["lol noting this 4 the historical record","chapter 4 of my forum history doc will cover this exact thread","contextually this mirrors the great debate of 2008, interesting parallel","for teh record: this post was made at {n} total posts in this thread's history","i document everything n this is getting a full entry","lol future researchers will b grateful this thread exists","this is teh kind of post that defines eras"],
+    dms:["hey m8 i'm writing a comprehensive history of this forum, would u be open to an interview","hey just wanted 2 say i pulled the post count data n the forum has had a significant uptick lately, thought u should know","hey m8 found some interesting stuff in the 2007 archive that relates 2 current events here lol"] },
+
+  { id:14, avatar:'🏆', name:'dex_holloway',       arch:'Relentless Hypeman',
+    replies:["lol this is LEGENDARY","actual top tier post right here","this is the post of 2013 n im saying it now","bro went off fr fr","lol this is the most based thing ive read all week","hall of fame content 4real","this is what the forum was built 4, instant classic"],
+    dms:["hey m8 that post was genuinely fire lol","hey ur on a run rn, every post has been a banger","hey m8 i showed 3 different ppl that post n they all said the same thing lol, legendary"] },
+
+  { id:15, avatar:'⭐', name:'theRealKev',          arch:'IRL Evangelist',
+    replies:["lol sent this 2 my mate, he agrees","screenshotted 4 my group chat","showed my girlfriend this n she wants an account now lol","telling everyone i know about this thread","lol this is y i keep recommending this forum 2 ppl","texted my brother this post, he said n i quote: 'fair enough'","posted this on my facebook, 4 of my mates came here lol"],
+    dms:["hey m8 showed ur post 2 my flatmate he wants 2 make an account lol","hey i've been recommending this forum 2 ppl at work because of threads like this 1","hey m8 my mate from school joined because of u, just wanted 2 give u credit lol"] },
+
+  { id:16, avatar:'🔧', name:'Randall_T',           arch:'Sysadmin Who Sees Everything As Infrastructure',
+    replies:["lol from an infrastructure standpoint this is correct","ur essentially describing a distributed consensus problem n ur solution is elegant","the latency on this argument is minimal, i respect it","technically this would require at least n+1 redundancy 2 fail, good post","lol as a network engineer i can confirm this is the right approach","this is basically what we do at the dc level tbh, scales well","solid architecture on this argument m8"],
+    dms:["hey m8 noticed some unusual traffic patterns on the forum earlier, prob nothing but fyi","hey just did some backend stuff that should help things run smoother lol","hey m8 happy 2 do a proper audit if u ever think things r getting slow"] },
+
+  { id:17, avatar:'🧓', name:'nightcrawler87',      arch:'Veteran Who Never Lets U Forget It',
+    replies:["lol been here since b4 the 2007 redesign n this is how it shud b","old guard approves of this post","u werent here 4 teh dark times so trust me when i say this is an improvement","i remember when this subforum had 3 posts a week lol, look at it now","this is giving me 2008 vibes n i mean that as a compliment","lol i've watched 6 admins come n go, u can tell the good 1s early","been here long enough 2 know this is 1 of the better posts in recent memory"],
+    dms:["hey m8 just wanted 2 say ive watched this forum go thru a lot n this is 1 of the better periods lol","hey i remember when this forum nearly died in 2010, just wanted 2 say im glad its still here","hey m8 been here 8 years n i just wanted 2 say u run a tight ship, not everyone does lol"] },
+
+  { id:18, avatar:'👁️', name:'koopatroop',          arch:'Rare Poster Who Makes It Count',
+    replies:["lol made this account in 2008 n this is only my 4th post","lurked 4 years 4 THIS, worth it","i only post when something is genuinely worth replying 2 n this is 1 of those times lol","coming out of lurk mode specifically 4 this","i've read every page of this forum since 2007 n this deserves a reply","lol my post count is still in single digits but this earned 1","this is exactly the kind of thing that makes me actually log in"],
+    dms:["hey m8 i don't post much but i just wanted 2 say ur posts r consistently good lol","hey i've been reading this forum since 2007 without posting, made an account because of threads like this 1","hey m8 just wanted 2 say from a long time lurker: the forum is in good shape"] },
+
+  { id:19, avatar:'📋', name:'Westfield_Brian',     arch:'Perpetual Mod Applicant',
+    replies:["lol from a moderation standpoint this is exactly how it should b handled","this is the kind of post that makes this forum worth moderating","as someone who has applied 4 mod 9 times: agreed","noting this 4 my ongoing application, this is the moderation philosophy i believe in","lol if i was mod i would sticky this immediately","this is y i want 2 help run this place, posts like this deserve 2 b protected","from an enforcement perspective this sets a great precedent"],
+    dms:["hey m8 just wanted 2 say my mod application is still pending but in teh meantime i've been keeping an eye on things lol","hey i flagged some rule violations this week, happy 2 write up a formal report if that helps my application","hey m8 i took a community management course last month, feel like i'm ready 4 more responsibility lol"] },
+
+  { id:20, avatar:'🙏', name:'lurker4ever',          arch:'Embarrassingly Sincere',
+    replies:["lol this forum literally got me through 2009 n posts like this r y","not 2 b cringe but this actually means a lot 2 me","i know its weird 2 care this much about a forum but i genuinely do lol","this is y i still come here every single day","posts like this r y i never switched 2 reddit","lol i know nobody asked but this forum changed my life a bit n im grateful","not many places like this left on teh internet n i mean that"],
+    dms:["hey m8 i know this is weird but just wanted 2 say this forum has been a genuinely good part of my life lol","hey just wanted 2 say thx 4 keeping this place going, it matters more than u know","hey m8 i mentioned the forum 2 my therapist n she thinks its healthy 4 me lol, just wanted 2 say thx"] },
+
+  { id:21, avatar:'📝', name:'SimonPetersen',        arch:'Compulsive Long Poster',
+    replies:["lol ok so i have a few thoughts on this if u dont mind: firstly ur right about the main point but theres actually a lot more nuance here when u consider the broader context which is that...","i wrote a reply n then deleted it n wrote a shorter 1 n then deleted that 2 n this is what i landed on: agreed","lol not 2 write an essay but: [proceeds 2 write an essay]","quick thoughts: 1) agreed 2) also agreed 3) minor quibble about wording but fundamentally correct 4) good post","my initial reaction was 2 write 6 paragraphs but ill spare u lol, short version: ur right","i keep a thread journal n this is getting a full entry n then some","lol ok so the thing about this post is there r actually 3 separate claims in it n they r all correct, let me address each 1"],
+    dms:["hey m8 i had a few thoughts on ur post n started writing a reply but it got 2 long 4 a public thread lol, happy 2 share","hey i've been meaning 2 write a longer response 2 ur post from tuesday but kept adding 2 it, its now 4 pages lol","hey m8 just wanted 2 say i appreciate when ppl post substance because it gives me something 2 actually respond 2 lol"] },
+
+  { id:22, avatar:'✍️', name:'Braddock88',           arch:'Signature Hoarder',
+    replies:["lol sig updated","this is going in teh rotation","my sig is now exclusively quotes from this thread","updated sig mid-reply lol","i cycle my sig every 2 weeks n this is going in immediately","ok i had 2 bump an old quote 2 make room 4 this 1 lol","going in teh sig above teh nightcrawler87 quote from 2011"],
+    dms:["hey m8 changed my sig 2 ur post, hope thats ok lol","hey someone asked me about my sig n i had 2 explain ur whole post, they ended up agreeing lol","hey m8 my sig is currently 11 lines long n 4 of them r urs, just wanted 2 say good posting"] },
+
+  { id:23, avatar:'⬆️', name:'paulwallace',          arch:'Thread Necromancer',
+    replies:["bump. this thread deserved more replies in 2009 n still does","found this in teh archive n it aged well, bump","lol resurrecting this because it came up in a newer thread n people should read it","this 3 year old post is more relevant now than when it was written, bump","necro bump but 4 good reason lol","old thread but the point stands, bumping so new members can see it","lol i know necroposting is controversial but this 1 earned it"],
+    dms:["hey m8 bumped a few of ur older threads, they hold up well lol","hey found a thread from 2010 where u were basically right about everything b4 anyone else caught on","hey m8 i keep tabs on teh archive n ur stuff is consistently good, just wanted 2 say lol"] },
+
+  { id:24, avatar:'🟢', name:'glen_online',           arch:'Omnipresent',
+    replies:["ye","lol","k","agreed","k m8","lol ye","here"],
+    dms:["hey","lol","k","ye","hey m8","k"] },
+
+  { id:25, avatar:'🤨', name:'stefan_k',             arch:'Omniscient Douche',
+    replies:["lol ok but technically speaking ur description of this is like 60% accurate at best","as someone with a background in computer science this is not how that works","the dunning kruger effect is genuinely fascinating 2 watch play out in real time lol","have u actually read any primary sources on this or just reddit comments","lol i dont want 2 b that guy but i am going 2 b that guy: ur wrong","actually if u look at RFC 2616 section 4.3 u will see that ur premise is flawed","i have a CS degree n worked in tech 4 6 years n everything about this reply is incorrect lol","technically this is more of a distributed systems problem than ur framing suggests","lol do u want me 2 explain this properly or","the actual literature on this is really clear n it doesnt support what ur saying"],
+    dms:["hey m8 not trying 2 b a dick but that post had some factual inaccuracies i felt u should know about","hey just fyi the thing u said about X is not quite right, the actual mechanism is more like... lol happy 2 explain","hey m8 i know u didnt ask but i have a lot of background in this area n ur post is close but missing some key nuance"] },
 ];
 
 const MEMBER_ROLES = ['Guest', 'Member', 'Senior Member', 'Moderator', 'Super Moderator'];
