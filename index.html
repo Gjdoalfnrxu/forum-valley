@@ -812,6 +812,10 @@ const RANKS = [
   { name: 'Super Moderator', min: 25000, color: '#004488', icon: '⚔️', stars: 10, starColor: '#0088ff', sig: '||| senior staff |||' },
   { name: 'Administrator',   min: 50000, color: '#aa0000', icon: '💎', stars: 10, starColor: '#ffcc00', sig: '— site founder —' },
   { id:25, avatar:'🤨', name:'stefan_k',        arch:'Omniscient Douche',      replies:["actually thats not entirely accurate lol","lol did u even google this before posting","im a software engineer n this is just wrong on multiple levels","the dunning kruger effect is real n its showing in this thread","technically speaking ur oversimplifying this","as someone who actually works in this field let me explain","lol source? because i actually know about this","ur not wrong but ur missing the bigger picture which is...","interesting take but have u read the wikipedia article on this lol","just gonna leave this here: [RFC 2616 section 4.3]"], dms:["hey m8 not trying 2 be a dick but that post had a few inaccuracies lol","hey just fyi the thing u said about that is not quite right, happy 2 explain","lol hey m8 interesting post but might wanna research that a bit more b4 posting"], sig:'<b>B.Sc Computer Science (Hons) | 6 years industry | CISSP</b><br>Currently reading: SICP &bull; Languages: C, C++, Python, Haskell, Lisp, Erlang, "and yes I\'ve used them all"<br><span style="font-size:9px">Not here to argue, just here to be correct</span>' },
+  { id:26, avatar:'🧐', name:'PhilipJT',            arch:'Grammar Nazi',
+    replies:["its 'a lot' not 'alot' lol","*you're","lol *their not there","actually its 'fewer' not 'less' in this context","*its not it's (it's = it is, its = possessive) lol","the word ur looking for is 'literally' not 'figuratively'","also: xkcd.com/37","lol did u mean 'could have' not 'could of'","minor point but 'irregardless' is not a word","*whom"],
+    dms:["hey m8 not trying 2 b annoying but there r a few grammar issues in ur post lol","hey just fyi 'alot' isnt a word, it's 'a lot', passing it on","hey m8 the grammar in this thread is giving me a headache lol but ur posts r fine"],
+    sig:'<b>Self-appointed grammar officer since 2005</b><br>"Alot is not a word. A lot. Two words. Always." | xkcd.com/37 | Oxford comma advocate' },
 ];
 
 // ── troll posts ──────────────────────────────────────────
@@ -831,6 +835,9 @@ const TROLL_EVENTS = [
 // ── sample posts ─────────────────────────────────────────
 const MESSAGES = [
   "lol first!!",
+  "cant believe alot of people dont know about this lol",
+  "i use firefox alot now since ie is terrible",
+  "been here alot lately tbh",
   "in b4 the lock",
   "bump",
   "anyone else saw that digg story lol",
@@ -1028,7 +1035,8 @@ const MEMBER_UNLOCK_POSTS = [
   1000, 1500, 2000, 3000, 4000,  // 10-14
   5000, 7000, 9000, 12000, 15000, // 15-19
   20000, 25000, 35000, 45000, 60000, // 20-24
-  75 // 25: stefan_k
+  75,   // 25: stefan_k
+  125   // 26: PhilipJT
 ];
 
 const SULKY_REPLIES = ["ok", "...", "sure I guess", "wow. cool post. 👍", "not that anyone asked my opinion"];
