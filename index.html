@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forum Valley</title>
+<title>CybarNexus Forums</title>
 <style>
   * { box-sizing: border-box; }
   body {
@@ -15,242 +15,193 @@
     padding: 20px;
     min-height: 100vh;
   }
-
-  /* ── forum wrapper ── */
   .forum-wrap { max-width: 740px; margin: 0 auto; }
 
-  /* ── title bar ── */
+  /* ── site header ── */
+  .site-header {
+    background: linear-gradient(to bottom, #1a1a2e, #2a2a4e);
+    border: 1px solid #0a0a1e;
+    border-bottom: 3px solid #4444aa;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .site-header img { width: 48px; height: 48px; image-rendering: pixelated; margin-right: 14px; }
+  .site-name { color: #aaccff; font-size: 22px; font-weight: bold; letter-spacing: 0.05em; text-shadow: 0 0 8px #4466ff; }
+  .site-tagline { color: #6688bb; font-size: 10px; margin-top: 2px; }
+
+  /* ── forum chrome ── */
   .forum-title {
     background: linear-gradient(to bottom, #6b7898, #3d5080);
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 8px 12px;
-    border: 1px solid #2a3a60;
-    border-bottom: none;
-    letter-spacing: 0.02em;
+    color: #fff; font-size: 14px; font-weight: bold;
+    padding: 6px 12px; border: 1px solid #2a3a60; border-bottom: none;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
   }
-
-  /* ── thread header ── */
   .thread-header {
     background: linear-gradient(to bottom, #e4e8f2, #cdd2e8);
-    border: 1px solid #a0a8c0;
-    border-bottom: none;
-    padding: 4px 8px;
-    font-size: 11px;
-    color: #444;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border: 1px solid #a0a8c0; border-bottom: none;
+    padding: 4px 8px; font-size: 11px; color: #444;
+    display: flex; justify-content: space-between;
   }
-
-  /* ── postbit table ── */
-  .postbit {
-    border: 1px solid #a0a8c0;
-    background: #fff;
-    margin-bottom: 0;
-  }
+  .postbit { border: 1px solid #a0a8c0; background: #fff; }
   .postbit-head {
     background: linear-gradient(to bottom, #dce0ee, #c8cde0);
-    border-bottom: 1px solid #a0a8c0;
-    padding: 3px 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: #555;
+    border-bottom: 1px solid #a0a8c0; padding: 3px 8px;
+    display: flex; justify-content: space-between; font-size: 11px; color: #555;
   }
-  .post-num {
-    font-weight: bold;
-    color: #3d5080;
-  }
-  .postbit-body {
-    display: flex;
-  }
+  .post-num { font-weight: bold; color: #3d5080; }
+  .postbit-body { display: flex; }
 
-  /* ── left: user info ── */
+  /* ── user sidebar ── */
   .postbit-user {
-    width: 160px;
-    min-width: 160px;
-    border-right: 1px solid #d0d4e8;
-    padding: 10px 8px;
+    width: 160px; min-width: 160px;
+    border-right: 1px solid #d0d4e8; padding: 10px 8px;
     background: #f0f2f8;
-    vertical-align: top;
   }
-  .username {
-    font-size: 14px;
-    font-weight: bold;
-    color: #3d5080;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 2px;
+  /* editable avatar */
+  .avatar-wrap {
+    width: 64px; height: 64px; margin: 0 auto 8px;
+    border: 2px solid #a0a8c0; background: #dde2f0;
+    cursor: pointer; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
   }
-  .username:hover { text-decoration: underline; }
+  .avatar-wrap:hover::after {
+    content: '✏️'; position: absolute; bottom: 0; right: 0;
+    font-size: 12px; background: rgba(0,0,0,0.5); color: #fff;
+    padding: 1px 3px;
+  }
+  .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  #avatar-input { display: none; }
+
+  .username-display {
+    font-size: 13px; font-weight: bold; color: #3d5080;
+    cursor: pointer; display: block; text-align: center; margin-bottom: 3px;
+    border: 1px solid transparent; padding: 1px 3px;
+  }
+  .username-display:hover { border-color: #a0a8c0; background: #fff; }
+  #username-input {
+    font-size: 13px; font-weight: bold; color: #3d5080;
+    width: 100%; border: 1px solid #7080b8; padding: 1px 3px;
+    font-family: Verdana, sans-serif; text-align: center;
+    display: none;
+  }
   .online-dot {
-    display: inline-block;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #44cc44;
-    border: 1px solid #22aa22;
-    margin-left: 3px;
-    vertical-align: middle;
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; background: #44cc44; border: 1px solid #22aa22;
+    margin-left: 3px; vertical-align: middle;
   }
-  .user-rank {
-    font-size: 11px;
-    font-weight: bold;
-    margin: 4px 0 6px;
-  }
-  .rank-icon { font-size: 16px; margin-right: 3px; vertical-align: middle; }
-  .star-row { margin: 3px 0; font-size: 13px; line-height: 1; }
+  .user-rank { font-size: 11px; font-weight: bold; margin: 4px 0 6px; text-align: center; }
+  .rank-icon { font-size: 15px; margin-right: 2px; vertical-align: middle; }
+  .star-row { text-align: center; margin: 3px 0; font-size: 12px; line-height: 1; }
   .user-stats { font-size: 10px; color: #666; margin-top: 8px; line-height: 1.7; }
   .user-stats strong { color: #444; }
+  .rank-progress { margin-top: 8px; font-size: 10px; color: #666; }
+  .progress-bar-outer {
+    background: #d0d4e8; border: 1px solid #a0a8c0; height: 7px;
+    margin-top: 2px; border-radius: 1px;
+  }
+  .progress-bar-inner { height: 100%; border-radius: 1px; transition: width 0.3s; }
 
-  /* ── right: post content ── */
-  .postbit-content {
-    flex: 1;
-    padding: 10px 12px;
-    vertical-align: top;
-  }
-  .post-message {
-    font-size: 13px;
-    color: #333;
-    line-height: 1.5;
-    min-height: 60px;
-  }
+  /* ── post content ── */
+  .postbit-content { flex: 1; padding: 10px 12px; }
+  .post-message { font-size: 13px; color: #333; line-height: 1.5; min-height: 60px; }
   .post-sig {
-    border-top: 1px solid #ddd;
-    margin-top: 10px;
-    padding-top: 6px;
-    font-size: 10px;
-    color: #888;
-    font-style: italic;
+    border-top: 1px solid #ddd; margin-top: 10px; padding-top: 6px;
+    font-size: 10px; color: #888; font-style: italic;
   }
-  .post-actions {
-    text-align: right;
-    margin-top: 8px;
-  }
+  .post-actions { text-align: right; margin-top: 8px; }
 
-  /* ── vBulletin style buttons ── */
+  /* ── buttons ── */
   .vb-btn {
     display: inline-block;
     background: linear-gradient(to bottom, #e8eaf6, #c8cce0);
-    border: 1px solid #8890b0;
-    color: #334;
-    font-size: 11px;
-    font-family: Verdana, sans-serif;
-    padding: 3px 10px;
-    cursor: pointer;
-    text-decoration: none;
-    margin-left: 4px;
-    border-radius: 2px;
+    border: 1px solid #8890b0; color: #334; font-size: 11px;
+    font-family: Verdana, sans-serif; padding: 3px 10px;
+    cursor: pointer; margin-left: 4px; border-radius: 2px;
   }
   .vb-btn:hover { background: linear-gradient(to bottom, #f0f2ff, #d8dced); }
-  .vb-btn:active { background: linear-gradient(to bottom, #c0c4d8, #d8dced); }
   .vb-btn-post {
     background: linear-gradient(to bottom, #7080b8, #3d5080);
-    color: #fff;
-    font-weight: bold;
-    border-color: #2a3a60;
-    font-size: 13px;
-    padding: 6px 18px;
+    color: #fff; font-weight: bold; border-color: #2a3a60;
+    font-size: 13px; padding: 6px 18px;
   }
   .vb-btn-post:hover { background: linear-gradient(to bottom, #8090c8, #4d6090); }
+  .vb-btn-ban {
+    background: linear-gradient(to bottom, #dd4444, #990000);
+    color: #fff; font-weight: bold; border-color: #660000;
+    font-size: 12px; padding: 5px 14px; animation: pulse-red 1s infinite;
+  }
+  @keyframes pulse-red {
+    0%,100% { box-shadow: 0 0 4px rgba(200,0,0,0.5); }
+    50% { box-shadow: 0 0 12px rgba(200,0,0,0.9); }
+  }
 
   /* ── reply box ── */
   .reply-box {
-    background: #f4f5fa;
-    border: 1px solid #a0a8c0;
-    border-top: none;
-    padding: 12px;
-    text-align: center;
+    background: #f4f5fa; border: 1px solid #a0a8c0; border-top: none;
+    padding: 12px; text-align: center;
   }
   .reply-box textarea {
-    width: 100%;
-    height: 70px;
-    border: 1px solid #b0b8d0;
-    font-family: Verdana, sans-serif;
-    font-size: 12px;
-    padding: 5px;
-    background: #fff;
-    resize: vertical;
-    margin-bottom: 8px;
-    display: block;
+    width: 100%; height: 60px; border: 1px solid #b0b8d0;
+    font-family: Verdana, sans-serif; font-size: 12px; padding: 5px;
+    background: #fff; resize: vertical; margin-bottom: 8px; display: block;
   }
   .reply-box textarea:focus { outline: none; border-color: #7080b8; }
-  .post-counter-display {
-    font-size: 11px;
-    color: #666;
-    margin-top: 6px;
-  }
+  .post-counter-display { font-size: 11px; color: #666; margin-top: 6px; }
 
-  /* ── next rank bar ── */
-  .rank-progress {
-    margin-top: 8px;
-    font-size: 10px;
-    color: #666;
+  /* ── BAN EVENT ── */
+  .ban-event {
+    border: 2px solid #cc0000; background: #fff5f5;
+    margin-top: 0; padding: 0; display: none;
   }
-  .progress-bar-outer {
-    background: #d0d4e8;
-    border: 1px solid #a0a8c0;
-    height: 7px;
-    margin-top: 2px;
-    border-radius: 1px;
+  .ban-event-head {
+    background: linear-gradient(to bottom, #cc0000, #880000);
+    color: #fff; padding: 4px 10px; font-weight: bold; font-size: 11px;
+    display: flex; justify-content: space-between; align-items: center;
   }
-  .progress-bar-inner {
-    height: 100%;
-    border-radius: 1px;
-    transition: width 0.3s;
+  .ban-event-body { display: flex; }
+  .ban-user-col {
+    width: 160px; min-width: 160px; border-right: 1px solid #fccaca;
+    padding: 8px; background: #fff0f0; text-align: center; font-size: 11px;
   }
+  .ban-user-col .troll-avatar { font-size: 32px; }
+  .ban-user-col .troll-name { color: #880000; font-weight: bold; margin-top: 4px; }
+  .ban-user-col .troll-role { color: #aa4444; font-size: 10px; }
+  .ban-content-col { flex: 1; padding: 10px 12px; }
+  .ban-post-text { font-size: 12px; color: #660000; line-height: 1.5; font-style: italic; }
+  .ban-timer {
+    font-size: 10px; color: #cc4444; margin-top: 6px;
+  }
+  .ban-timer-bar-outer {
+    background: #fccaca; border: 1px solid #cc8888; height: 5px; margin-top: 3px; border-radius: 1px;
+  }
+  .ban-timer-bar { height: 100%; background: #cc0000; transition: width 0.15s; border-radius: 1px; }
 
-  /* ── post history feed ── */
-  .post-log {
-    margin-top: 12px;
-    border: 1px solid #a0a8c0;
-    border-top: 2px solid #3d5080;
-    background: #fff;
-  }
+  /* ── post log ── */
+  .post-log { margin-top: 12px; border: 1px solid #a0a8c0; border-top: 2px solid #3d5080; background: #fff; }
   .post-log-header {
     background: linear-gradient(to bottom, #dce0ee, #c8cde0);
-    padding: 4px 8px;
-    font-weight: bold;
-    font-size: 11px;
-    color: #3d5080;
+    padding: 4px 8px; font-weight: bold; font-size: 11px; color: #3d5080;
     border-bottom: 1px solid #a0a8c0;
   }
   .log-entry {
-    border-bottom: 1px solid #eef;
-    padding: 6px 10px;
-    font-size: 11px;
-    color: #555;
-    display: flex;
-    justify-content: space-between;
+    border-bottom: 1px solid #eef; padding: 5px 10px; font-size: 11px; color: #555;
+    display: flex; justify-content: space-between;
   }
   .log-entry:last-child { border-bottom: none; }
-  .log-entry.new-rank {
-    background: #fffbe6;
-    border-left: 3px solid #e8c020;
-    font-weight: bold;
-    color: #664400;
-  }
+  .log-entry.new-rank { background: #fffbe6; border-left: 3px solid #e8c020; font-weight: bold; color: #664400; }
+  .log-entry.ban-action { background: #fff0f0; border-left: 3px solid #cc0000; color: #660000; }
+  .log-entry.penalty { background: #fff0f0; border-left: 3px solid #ff6600; color: #884400; }
 
-  /* ── rank unlock notification ── */
+  /* ── toast ── */
   .rank-toast {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #fffbe6;
-    border: 2px solid #e8c020;
-    padding: 10px 20px;
-    font-weight: bold;
-    font-size: 13px;
-    color: #664400;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-    z-index: 999;
-    display: none;
-    text-align: center;
-    border-radius: 2px;
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    background: #fffbe6; border: 2px solid #e8c020;
+    padding: 10px 20px; font-weight: bold; font-size: 13px; color: #664400;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3); z-index: 999;
+    display: none; text-align: center; border-radius: 2px;
   }
 </style>
 </head>
@@ -258,14 +209,23 @@
 
 <div class="forum-wrap">
 
-  <div class="forum-title">🖥️ Forum Valley &mdash; General Discussion</div>
-
-  <div class="thread-header">
-    <span>📌 <strong>Introduce Yourself + Free Post Your Post Count Thread</strong> &mdash; by Administrator</span>
-    <span>Page: <strong>1</strong></span>
+  <!-- site header -->
+  <div class="site-header">
+    <img src="logo.png" alt="CN">
+    <div>
+      <div class="site-name">CybarNexus</div>
+      <div class="site-tagline">Your home on the internet since 2003 &bull; Members: 48,291</div>
+    </div>
   </div>
 
-  <!-- postbit -->
+  <div class="forum-title">🖥️ General Discussion &rsaquo; Introduce Yourself + Free Post Count Thread</div>
+
+  <div class="thread-header">
+    <span>📌 <strong>Introduce Yourself + Post Count Thread (Merged)</strong></span>
+    <span>Page: <strong>1</strong> 2 3 ... 847</span>
+  </div>
+
+  <!-- YOUR postbit -->
   <div class="postbit">
     <div class="postbit-head">
       <span id="post-date"></span>
@@ -273,7 +233,17 @@
     </div>
     <div class="postbit-body">
       <div class="postbit-user">
-        <a class="username" href="#">You <span class="online-dot"></span></a>
+        <!-- avatar: click to change -->
+        <div class="avatar-wrap" id="avatar-wrap" onclick="triggerAvatarUpload()" title="Click to change avatar">
+          <span id="avatar-emoji">😶</span>
+          <img id="avatar-img" src="" style="display:none">
+        </div>
+        <input type="file" id="avatar-input" accept="image/*" onchange="handleAvatarUpload(event)">
+
+        <!-- username: click to edit -->
+        <span class="username-display" id="username-display" onclick="editUsername()">You <span class="online-dot"></span></span>
+        <input type="text" id="username-input" maxlength="24" onblur="saveUsername()" onkeydown="if(event.key==='Enter')saveUsername()">
+
         <div class="user-rank" id="rank-display"></div>
         <div class="star-row" id="stars-display"></div>
         <div class="user-stats">
@@ -290,9 +260,9 @@
       </div>
       <div class="postbit-content">
         <div class="post-message" id="post-message-display">
-          Click <strong>Post Reply</strong> below to make your first post.
+          Click <strong>Post Reply</strong> below to make your first post. <em style="color:#888">(Click your name or avatar to edit them)</em>
         </div>
-        <div class="post-sig" id="sig-display"></div>
+        <div class="post-sig" id="sig-display" style="display:none"></div>
         <div class="post-actions">
           <span class="vb-btn">Quote</span>
           <span class="vb-btn">Edit</span>
@@ -301,18 +271,44 @@
     </div>
   </div>
 
+  <!-- BAN EVENT postbit (hidden until triggered) -->
+  <div class="ban-event postbit" id="ban-event">
+    <div class="ban-event-head">
+      <span>⚠️ REPORT: Inappropriate Post Detected</span>
+      <span id="ban-countdown-text">Ban within 10 clicks or lose 50 posts!</span>
+    </div>
+    <div class="ban-event-body">
+      <div class="ban-user-col">
+        <div class="troll-avatar" id="troll-avatar"></div>
+        <div class="troll-name" id="troll-name"></div>
+        <div class="troll-role" id="troll-role">Junior Member</div>
+        <div style="font-size:10px;color:#aa4444;margin-top:4px">Posts: 3</div>
+      </div>
+      <div class="ban-content-col">
+        <div class="ban-post-text" id="ban-post-text"></div>
+        <div class="ban-timer">
+          Clicks remaining before penalty: <strong id="ban-clicks-left">10</strong>
+          <div class="ban-timer-bar-outer"><div class="ban-timer-bar" id="ban-timer-bar" style="width:100%"></div></div>
+        </div>
+        <div style="margin-top:8px">
+          <button class="vb-btn vb-btn-ban" onclick="banUser()">🔨 BAN USER</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- reply area -->
   <div class="reply-box">
-    <textarea id="post-textarea" placeholder="Type your post here... (or just click Post Reply)"></textarea>
+    <textarea id="post-textarea" placeholder="Type your post here... (optional)"></textarea>
     <button class="vb-btn vb-btn-post" onclick="makePost()">📝 Post Reply</button>
     <div class="post-counter-display" id="total-posts-display">Total posts: 0</div>
   </div>
 
   <!-- post log -->
   <div class="post-log">
-    <div class="post-log-header">📋 Your Post History</div>
+    <div class="post-log-header">📋 Activity Log</div>
     <div id="post-log-entries">
-      <div class="log-entry" style="color:#aaa;font-style:italic">No posts yet. Get posting.</div>
+      <div class="log-entry" style="color:#aaa;font-style:italic;padding:8px 10px">No activity yet.</div>
     </div>
   </div>
 
@@ -321,30 +317,45 @@
 <div class="rank-toast" id="rank-toast"></div>
 
 <script>
-// ── ranks (20 tiers) ──────────────────────────────────────
+// ── ranks ────────────────────────────────────────────────
 const RANKS = [
-  { name: 'Lurker',          min:     0, color: '#999',    icon: '👤', stars: 0,  starColor: '#aaa',    sig: '' },
-  { name: 'Newbie',          min:     1, color: '#6688aa', icon: '🌱', stars: 1,  starColor: '#6688aa', sig: '' },
-  { name: 'Junior Member',   min:    10, color: '#4488bb', icon: '📄', stars: 1,  starColor: '#4488bb', sig: 'posting away...' },
-  { name: 'Member',          min:    25, color: '#3377cc', icon: '📋', stars: 2,  starColor: '#3377cc', sig: 'finding my feet' },
-  { name: 'Regular',         min:    50, color: '#2266bb', icon: '📌', stars: 2,  starColor: '#2266bb', sig: 'here every day' },
-  { name: 'Valued Member',   min:   100, color: '#119944', icon: '✅', stars: 3,  starColor: '#119944', sig: 'been around a while' },
-  { name: 'Senior Member',   min:   200, color: '#0e8833', icon: '⭐', stars: 3,  starColor: '#0e8833', sig: 'old enough to know better' },
-  { name: 'Active Member',   min:   350, color: '#228833', icon: '🔥', stars: 4,  starColor: '#228833', sig: 'can\'t stop won\'t stop' },
-  { name: 'Dedicated',       min:   500, color: '#667700', icon: '💪', stars: 4,  starColor: '#888800', sig: 'this is my home now' },
-  { name: 'Power User',      min:   750, color: '#886600', icon: '⚡', stars: 5,  starColor: '#ddaa00', sig: 'post count don\'t lie' },
-  { name: 'Elite Member',    min:  1000, color: '#cc8800', icon: '🏅', stars: 5,  starColor: '#ffbb00', sig: '4 digits. you know what it is.' },
-  { name: 'Veteran',         min:  1500, color: '#cc5500', icon: '🎖️', stars: 6,  starColor: '#ee7700', sig: 'veteran of the forum wars' },
-  { name: 'Forum Regular',   min:  2000, color: '#bb3300', icon: '🔰', stars: 6,  starColor: '#ff5500', sig: 'the forum runs through my veins' },
-  { name: 'Forum Legend',    min:  3000, color: '#aa0000', icon: '🏆', stars: 7,  starColor: '#ff2200', sig: 'they say legends never die' },
-  { name: 'Legendary',       min:  5000, color: '#880000', icon: '🌟', stars: 7,  starColor: '#ff0000', sig: 'i was here before the backup got wiped' },
-  { name: 'Forum Deity',     min:  7500, color: '#7700aa', icon: '👑', stars: 8,  starColor: '#cc44ff', sig: 'I AM THE FORUM' },
-  { name: 'Supreme Being',   min: 10000, color: '#5500cc', icon: '🔮', stars: 8,  starColor: '#8844ff', sig: 'transcended the physical keyboard' },
-  { name: 'Moderator',       min: 15000, color: '#0066aa', icon: '🛡️', stars: 9,  starColor: '#00aaff', sig: '||| keep it civil |||' },
+  { name: 'Lurker',          min:     0, color: '#999',    icon: '👤', stars: 0, starColor: '#aaa',    sig: '' },
+  { name: 'Newbie',          min:     1, color: '#6688aa', icon: '🌱', stars: 1, starColor: '#6688aa', sig: '' },
+  { name: 'Junior Member',   min:    10, color: '#4488bb', icon: '📄', stars: 1, starColor: '#4488bb', sig: 'posting away...' },
+  { name: 'Member',          min:    25, color: '#3377cc', icon: '📋', stars: 2, starColor: '#3377cc', sig: 'finding my feet' },
+  { name: 'Regular',         min:    50, color: '#2266bb', icon: '📌', stars: 2, starColor: '#2266bb', sig: 'here every day' },
+  { name: 'Valued Member',   min:   100, color: '#119944', icon: '✅', stars: 3, starColor: '#119944', sig: 'been around a while' },
+  { name: 'Senior Member',   min:   200, color: '#0e8833', icon: '⭐', stars: 3, starColor: '#0e8833', sig: 'old enough to know better' },
+  { name: 'Active Member',   min:   350, color: '#228833', icon: '🔥', stars: 4, starColor: '#228833', sig: "can't stop won't stop" },
+  { name: 'Dedicated',       min:   500, color: '#667700', icon: '💪', stars: 4, starColor: '#888800', sig: 'this is my home now' },
+  { name: 'Power User',      min:   750, color: '#886600', icon: '⚡', stars: 5, starColor: '#ddaa00', sig: "post count don't lie" },
+  { name: 'Elite Member',    min:  1000, color: '#cc8800', icon: '🏅', stars: 5, starColor: '#ffbb00', sig: '4 digits. you know what it is.' },
+  { name: 'Veteran',         min:  1500, color: '#cc5500', icon: '🎖️', stars: 6, starColor: '#ee7700', sig: 'veteran of the forum wars' },
+  { name: 'Forum Regular',   min:  2000, color: '#bb3300', icon: '🔰', stars: 6, starColor: '#ff5500', sig: 'the forum runs through my veins' },
+  { name: 'Forum Legend',    min:  3000, color: '#aa0000', icon: '🏆', stars: 7, starColor: '#ff2200', sig: 'they say legends never die' },
+  { name: 'Legendary',       min:  5000, color: '#880000', icon: '🌟', stars: 7, starColor: '#ff0000', sig: 'i was here before the backup got wiped' },
+  { name: 'Forum Deity',     min:  7500, color: '#7700aa', icon: '👑', stars: 8, starColor: '#cc44ff', sig: 'I AM THE FORUM' },
+  { name: 'Supreme Being',   min: 10000, color: '#5500cc', icon: '🔮', stars: 8, starColor: '#8844ff', sig: 'transcended the physical keyboard' },
+  { name: 'Moderator',       min: 15000, color: '#0066aa', icon: '🛡️', stars: 9, starColor: '#00aaff', sig: '||| keep it civil |||' },
   { name: 'Super Moderator', min: 25000, color: '#004488', icon: '⚔️', stars: 10, starColor: '#0088ff', sig: '||| senior staff |||' },
   { name: 'Administrator',   min: 50000, color: '#aa0000', icon: '💎', stars: 10, starColor: '#ffcc00', sig: '— site founder —' },
 ];
 
+// ── troll posts ──────────────────────────────────────────
+const TROLL_EVENTS = [
+  { avatar:'🤡', name:'xX_T3CH_L0RD_Xx', role:'Junior Member', post: "WAKE UP SHEEPLE. The mods here are PAID by the government to silence truth tellers. I have IP logs. This forum is compromised. DO NOT TRUST THE ADMINS." },
+  { avatar:'😡', name:'ForumPatriot1488', role:'New Member', post: "Women should not be allowed to post in the Tech section. This is SCIENCE. Look it up. I will not apologize for stating facts. Downvote me all you want cowards." },
+  { avatar:'🧌', name:'Gr1mDark_real', role:'Junior Member', post: "I looked up the home addresses of the top 5 posters here and I'm going to print 10,000 copies of their post history and mail it to their employers. You've been warned." },
+  { avatar:'🐍', name:'TruthSeeker9000', role:'New Member', post: "NEW WORLD ORDER uses forums like this to track political dissidents. Every post you make is logged by three letter agencies. I have receipts. Reply if you want the truth. Don't say I didn't warn you." },
+  { avatar:'💩', name:'NotABot_DefinitelyNot', role:'Member', post: "BUY CRYPTOTOKEN NOW before it's too late. Limited supply. DM me. Don't ask questions. This will 1000x. Mods if you delete this you're part of the problem. www.totallylegit-getcrypto.biz" },
+  { avatar:'🤬', name:'OldSchool_Rage', role:'Junior Member', post: "Whoever reported my last post is a COWARD hiding behind the report button. I know who you are. I remember every username. This forum is infested with snitches and I will root you ALL out." },
+  { avatar:'👺', name:'AbsoluteTruth42', role:'New Member', post: "The admin of this forum is a convicted felon. I have the court documents. I'm posting them in 5 different threads unless they unban my main account. This is not a threat. This is a promise." },
+  { avatar:'🙄', name:'IncelPride2003', role:'Junior Member', post: "Reminder that women who post on gaming forums are only doing it for attention and beta orbiter coins. I've compiled a list of suspect female accounts and I'm tracking their post patterns. Science." },
+  { avatar:'🤮', name:'SpamKing_Eternal', role:'New Member', post: "MODS ARE NAZIS. FIRST AMENDMENT VIOLATIONS. I WILL SUE THIS WEBSITE. My lawyer is preparing a class action. Every user who has ever been warned is a potential plaintiff. DM me your real names and addresses." },
+  { avatar:'😤', name:'GamerGod_Supreme', role:'Junior Member', post: "I have hacked this forum's database and will release all emails unless the admins restore my 5 banned accounts and issue a public apology in the announcements section by midnight tonight." },
+];
+
+// ── sample posts ─────────────────────────────────────────
 const MESSAGES = [
   "Hello there! Just wanted to introduce myself.",
   "Great community here. Happy to be posting.",
@@ -371,86 +382,197 @@ const MESSAGES = [
   "Power user energy",
   "I am become post",
   "The forum is my church",
+  "another one",
+  "+1 to the count",
+  "just vibing",
+  "peak forum activity",
+  "this is my job now",
 ];
 
-function getRank(posts) {
+// ── state ────────────────────────────────────────────────
+let postCount   = parseInt(localStorage.getItem('cn_posts') || '0');
+let postLog     = JSON.parse(localStorage.getItem('cn_log') || '[]');
+let playerName  = localStorage.getItem('cn_name') || 'You';
+let playerAvatar = localStorage.getItem('cn_avatar') || '';
+
+// ban event state
+let banActive      = false;
+let banEvent       = null;
+let banClicksLeft  = 10;
+let clicksSinceCheck = 0;
+const BAN_PENALTY  = 50;
+const BAN_GRACE    = 10;
+// next event after random 15-30 posts
+let nextEventAt    = postCount + 15 + Math.floor(Math.random() * 16);
+
+function getRank(p) {
   let r = RANKS[0];
-  for (const rank of RANKS) {
-    if (posts >= rank.min) r = rank;
-  }
+  for (const rank of RANKS) { if (p >= rank.min) r = rank; }
   return r;
 }
-
-function getNextRank(posts) {
-  for (let i = 0; i < RANKS.length; i++) {
-    if (posts < RANKS[i].min) return RANKS[i];
-  }
+function getNextRank(p) {
+  for (const rank of RANKS) { if (p < rank.min) return rank; }
   return null;
 }
-
-// State
-let postCount = parseInt(localStorage.getItem('fv_posts') || '0');
-let postLog = JSON.parse(localStorage.getItem('fv_log') || '[]');
-
 function save() {
-  localStorage.setItem('fv_posts', postCount);
-  localStorage.setItem('fv_log', JSON.stringify(postLog.slice(-50)));
+  localStorage.setItem('cn_posts', postCount);
+  localStorage.setItem('cn_log', JSON.stringify(postLog.slice(-50)));
+  localStorage.setItem('cn_name', playerName);
+  if (playerAvatar) localStorage.setItem('cn_avatar', playerAvatar);
 }
-
 function formatDate() {
   const now = new Date();
-  return now.toLocaleDateString('en-US', { month:'2-digit', day:'2-digit', year:'numeric' }) +
-    ', ' + now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+  return now.toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'}) +
+    ', ' + now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 }
 
+// ── avatar edit ──────────────────────────────────────────
+function triggerAvatarUpload() { document.getElementById('avatar-input').click(); }
+function handleAvatarUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    playerAvatar = ev.target.result;
+    save();
+    renderAvatar();
+  };
+  reader.readAsDataURL(file);
+}
+function renderAvatar() {
+  const img = document.getElementById('avatar-img');
+  const em  = document.getElementById('avatar-emoji');
+  if (playerAvatar) {
+    img.src = playerAvatar; img.style.display = 'block'; em.style.display = 'none';
+  } else {
+    img.style.display = 'none'; em.style.display = 'block';
+  }
+}
+
+// ── username edit ────────────────────────────────────────
+function editUsername() {
+  const disp = document.getElementById('username-display');
+  const inp  = document.getElementById('username-input');
+  inp.value = playerName;
+  disp.style.display = 'none';
+  inp.style.display = 'block';
+  inp.focus(); inp.select();
+}
+function saveUsername() {
+  const inp  = document.getElementById('username-input');
+  const disp = document.getElementById('username-display');
+  const val  = inp.value.trim();
+  if (val) playerName = val;
+  inp.style.display = 'none';
+  disp.style.display = 'block';
+  disp.innerHTML = playerName + ' <span class="online-dot"></span>';
+  save();
+}
+
+// ── ban mechanic ─────────────────────────────────────────
+function triggerBanEvent() {
+  if (banActive) return;
+  banActive = true;
+  banClicksLeft = BAN_GRACE;
+  banEvent = TROLL_EVENTS[Math.floor(Math.random() * TROLL_EVENTS.length)];
+  const el = document.getElementById('ban-event');
+  document.getElementById('troll-avatar').textContent = banEvent.avatar;
+  document.getElementById('troll-name').textContent   = banEvent.name;
+  document.getElementById('troll-role').textContent   = banEvent.role;
+  document.getElementById('ban-post-text').textContent = '"' + banEvent.post + '"';
+  updateBanTimer();
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function updateBanTimer() {
+  document.getElementById('ban-clicks-left').textContent = banClicksLeft;
+  document.getElementById('ban-timer-bar').style.width = (banClicksLeft / BAN_GRACE * 100) + '%';
+  const color = banClicksLeft <= 3 ? '#ff0000' : banClicksLeft <= 6 ? '#ff8800' : '#cc0000';
+  document.getElementById('ban-timer-bar').style.background = color;
+}
+
+function banUser() {
+  if (!banActive) return;
+  banActive = false;
+  document.getElementById('ban-event').style.display = 'none';
+  postLog.unshift({ n: postCount, msg: `🔨 Banned ${banEvent.name} for: "${banEvent.post.slice(0,60)}..."`, date: formatDate(), type: 'ban' });
+  nextEventAt = postCount + 15 + Math.floor(Math.random() * 16);
+  save();
+  renderLog();
+  showToast(`🔨 ${banEvent.name} has been banned. Good moderation!`, '#ffe0e0', '#880000');
+}
+
+function applyBanPenalty() {
+  banActive = false;
+  document.getElementById('ban-event').style.display = 'none';
+  const lost = Math.min(BAN_PENALTY, postCount);
+  postCount -= lost;
+  postLog.unshift({ n: postCount, msg: `⚠️ PENALTY: Failed to ban ${banEvent.name}. Lost ${lost} posts.`, date: formatDate(), type: 'penalty' });
+  nextEventAt = postCount + 15 + Math.floor(Math.random() * 16);
+  save();
+  render();
+  showToast(`⚠️ You ignored a rule-breaker and lost ${lost} posts!`, '#fff0d0', '#884400');
+}
+
+// ── main post action ─────────────────────────────────────
 function makePost() {
   const oldRank = getRank(postCount);
   postCount++;
+
   const textarea = document.getElementById('post-textarea');
-  const msg = textarea.value.trim() || MESSAGES[Math.floor(Math.random() * MESSAGES.length)].replace('{n}', postCount);
+  const msg = textarea.value.trim() ||
+    MESSAGES[Math.floor(Math.random() * MESSAGES.length)].replace('{n}', postCount);
   textarea.value = '';
 
-  postLog.unshift({ n: postCount, msg, date: formatDate(), rankUp: null });
+  postLog.unshift({ n: postCount, msg, date: formatDate(), type: 'post' });
 
   const newRank = getRank(postCount);
   if (newRank.name !== oldRank.name) {
     postLog[0].rankUp = newRank.name;
-    showRankToast(newRank);
+    showToast(`${newRank.icon} Rank up! You are now <b style="color:${newRank.color}">${newRank.name}</b>`, '#fffbe6', '#664400');
   }
+
+  // ban mechanic: decrement grace if active
+  if (banActive) {
+    banClicksLeft--;
+    updateBanTimer();
+    if (banClicksLeft <= 0) applyBanPenalty();
+  }
+
+  // trigger ban event?
+  if (!banActive && postCount >= nextEventAt) triggerBanEvent();
 
   save();
   render();
 }
 
-function showRankToast(rank) {
-  const toast = document.getElementById('rank-toast');
-  toast.innerHTML = `${rank.icon} Rank up! You are now <span style="color:${rank.color};font-size:15px">${rank.name}</span>`;
-  toast.style.display = 'block';
+// ── toast ────────────────────────────────────────────────
+function showToast(html, bg, color) {
+  const t = document.getElementById('rank-toast');
+  t.innerHTML = html;
+  t.style.background = bg; t.style.color = color; t.style.borderColor = color;
+  t.style.display = 'block';
   clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(() => { toast.style.display = 'none'; }, 3500);
+  window._toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3500);
 }
 
+// ── render ───────────────────────────────────────────────
 function render() {
-  const rank = getRank(postCount);
+  const rank     = getRank(postCount);
   const nextRank = getNextRank(postCount);
 
-  // post date
   document.getElementById('post-date').textContent = formatDate();
   document.getElementById('post-num-display').textContent = '#' + postCount;
 
-  // rank display
-  const rd = document.getElementById('rank-display');
-  rd.innerHTML = `<span class="rank-icon">${rank.icon}</span><span style="color:${rank.color};font-weight:bold">${rank.name}</span>`;
-
-  // stars
-  const sd = document.getElementById('stars-display');
-  const starChar = rank.stars > 0
-    ? `<span style="color:${rank.starColor}">` + '★'.repeat(Math.min(rank.stars, 5)) + '</span>'
-    + (rank.stars > 5 ? `<span style="color:${rank.starColor}">` + '★'.repeat(rank.stars - 5) + '</span>' : '')
+  // rank
+  document.getElementById('rank-display').innerHTML =
+    `<span class="rank-icon">${rank.icon}</span><span style="color:${rank.color};font-weight:bold">${rank.name}</span>`;
+  document.getElementById('stars-display').innerHTML = rank.stars > 0
+    ? `<span style="color:${rank.starColor}">${'★'.repeat(Math.min(rank.stars,5))}</span>` +
+      (rank.stars > 5 ? `<span style="color:${rank.starColor}">${'★'.repeat(rank.stars-5)}</span>` : '')
     : '';
-  sd.innerHTML = starChar;
 
-  // stats
   document.getElementById('post-count-sidebar').textContent = postCount;
   document.getElementById('rep-display').textContent = '+' + Math.floor(postCount * 0.7);
 
@@ -458,48 +580,49 @@ function render() {
   const pl = document.getElementById('progress-label');
   const pb = document.getElementById('progress-bar');
   if (nextRank) {
-    const prevMin = rank.min;
-    const pct = Math.min(100, Math.floor(((postCount - prevMin) / (nextRank.min - prevMin)) * 100));
-    pl.textContent = `Next rank: ${nextRank.icon} ${nextRank.name} (${nextRank.min - postCount} posts away)`;
+    const pct = Math.min(100, Math.floor(((postCount - rank.min) / (nextRank.min - rank.min)) * 100));
+    pl.textContent = `→ ${nextRank.icon} ${nextRank.name} (${nextRank.min - postCount} posts)`;
     pb.style.width = pct + '%';
     pb.style.background = `linear-gradient(to right, ${rank.color}, ${nextRank.color})`;
   } else {
-    pl.textContent = '✨ Maximum rank achieved';
-    pb.style.width = '100%';
-    pb.style.background = '#ffcc00';
+    pl.textContent = '✨ Maximum rank';
+    pb.style.width = '100%'; pb.style.background = '#ffcc00';
   }
 
   // message
-  const lastMsg = postLog[0];
-  document.getElementById('post-message-display').innerHTML = lastMsg
-    ? lastMsg.msg
-    : 'Click <strong>Post Reply</strong> below to make your first post.';
+  const last = postLog[0];
+  document.getElementById('post-message-display').innerHTML = (last && last.type === 'post')
+    ? last.msg
+    : (postCount === 0 ? 'Click <strong>Post Reply</strong> below to make your first post. <em style="color:#888">(Click your name or avatar to edit them)</em>' : '...');
 
   // sig
-  document.getElementById('sig-display').textContent = rank.sig || '';
-  document.getElementById('sig-display').style.display = rank.sig ? 'block' : 'none';
+  const sd = document.getElementById('sig-display');
+  if (rank.sig) { sd.textContent = rank.sig; sd.style.display = 'block'; }
+  else { sd.style.display = 'none'; }
 
-  // total posts
   document.getElementById('total-posts-display').textContent = `Total posts: ${postCount}`;
+  renderLog();
+}
 
-  // log
+function renderLog() {
   const logEl = document.getElementById('post-log-entries');
   if (postLog.length === 0) {
-    logEl.innerHTML = '<div class="log-entry" style="color:#aaa;font-style:italic">No posts yet. Get posting.</div>';
+    logEl.innerHTML = '<div class="log-entry" style="color:#aaa;font-style:italic;padding:8px 10px">No activity yet.</div>';
     return;
   }
-  logEl.innerHTML = postLog.slice(0, 20).map(e => {
-    if (e.rankUp) {
-      return `<div class="log-entry new-rank">🎉 #${e.n} — Rank up to <strong>${e.rankUp}</strong>! &mdash; <em style="font-weight:normal">${e.date}</em></div>`;
-    }
-    const short = e.msg.length > 80 ? e.msg.slice(0, 80) + '...' : e.msg;
-    return `<div class="log-entry"><span>#${e.n} — ${short}</span><span style="color:#aaa;flex-shrink:0;margin-left:10px">${e.date}</span></div>`;
+  logEl.innerHTML = postLog.slice(0, 25).map(e => {
+    if (e.rankUp) return `<div class="log-entry new-rank">🎉 #${e.n} — Rank up to <strong>${e.rankUp}</strong>! <span style="color:#aa8800;font-weight:normal;font-size:10px">${e.date}</span></div>`;
+    if (e.type === 'ban')     return `<div class="log-entry ban-action">🔨 #${e.n} — ${e.msg} <span style="font-size:10px;color:#888">${e.date}</span></div>`;
+    if (e.type === 'penalty') return `<div class="log-entry penalty">⚠️ ${e.msg} <span style="font-size:10px;color:#888">${e.date}</span></div>`;
+    const short = e.msg.length > 80 ? e.msg.slice(0,80)+'...' : e.msg;
+    return `<div class="log-entry"><span>#${e.n} — ${short}</span><span style="color:#aaa;flex-shrink:0;margin-left:8px;font-size:10px">${e.date}</span></div>`;
   }).join('');
 }
 
 // init
+renderAvatar();
 render();
-document.getElementById('post-date').textContent = formatDate();
+document.getElementById('username-display').innerHTML = playerName + ' <span class="online-dot"></span>';
 </script>
 </body>
 </html>
