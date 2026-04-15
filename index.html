@@ -531,7 +531,35 @@
   }
   .vb-btn-prestige:hover { background: linear-gradient(to bottom, #bb55dd, #8822aa); }
 
-  /* ── post log ── */
+  /* ── thread posts ── */
+  .thread-posts {
+    max-height: 520px;
+    overflow-y: auto;
+    border: 1px solid #a0a8c0;
+    border-top: none;
+    background: #fff;
+  }
+
+  /* ── rank progress row ── */
+  .rank-progress-row {
+    background: linear-gradient(to bottom, #f0f2f8, #e8ecf4);
+    border: 1px solid #a0a8c0;
+    border-top: none;
+    padding: 4px 10px;
+    font-size: 10px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rank-progress-row .progress-bar-outer {
+    flex: 1; max-width: 160px;
+    background: #d0d4e8; border: 1px solid #a0a8c0; height: 7px;
+    border-radius: 1px;
+  }
+  .rank-progress-row .progress-bar-inner { height: 100%; border-radius: 1px; transition: width 0.3s; }
+
+  /* ── post log (kept for non-thread log entries) ── */
   .post-log { margin-top: 10px; border: 1px solid #a0a8c0; border-top: 2px solid #3d5080; background: #fff; }
   .post-log-header {
     background: linear-gradient(to bottom, #dce0ee, #c8cde0);
@@ -623,48 +651,14 @@
         <span>Page: <strong>1</strong> 2 3 ... 847</span>
       </div>
 
-      <!-- YOUR postbit -->
-      <div class="postbit">
-        <div class="postbit-head">
-          <span id="post-date"></span>
-          <span class="post-num" id="post-num-display">#1</span>
-        </div>
-        <div class="postbit-body">
-          <div class="postbit-user">
-            <div class="avatar-wrap" id="avatar-wrap" onclick="triggerAvatarUpload()" title="Click to change avatar">
-              <span id="avatar-emoji">😶</span>
-              <img id="avatar-img" src="" style="display:none">
-            </div>
-            <input type="file" id="avatar-input" accept="image/*" onchange="handleAvatarUpload(event)">
+      <!-- scrollable thread -->
+      <div class="thread-posts" id="thread-posts"></div>
 
-            <span class="username-display" id="username-display" onclick="editUsername()">You <span class="online-dot"></span></span>
-            <input type="text" id="username-input" maxlength="24" onblur="saveUsername()" onkeydown="if(event.key==='Enter')saveUsername()">
-
-            <div class="user-rank" id="rank-display"></div>
-            <div class="star-row" id="stars-display"></div>
-            <div class="site-admin-badge">★ Site Administrator ★</div>
-            <div class="user-stats">
-              Join Date: <strong>Today</strong><br>
-              Posts: <strong id="post-count-sidebar">0</strong><br>
-              Rep: <strong id="rep-display">+0</strong>
-            </div>
-            <div class="rank-progress">
-              <span id="progress-label"></span>
-              <div class="progress-bar-outer">
-                <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
-              </div>
-            </div>
-          </div>
-          <div class="postbit-content">
-            <div class="post-message" id="post-message-display">
-              Click <strong>Post Reply</strong> below to make your first post. <em style="color:#888">(Click your name or avatar to edit them)</em>
-            </div>
-            <div class="post-sig" id="sig-display" style="display:none"></div>
-            <div class="post-actions">
-              <span class="vb-btn">Quote</span>
-              <span class="vb-btn">Edit</span>
-            </div>
-          </div>
+      <!-- rank progress row -->
+      <div class="rank-progress-row" id="rank-progress-row">
+        <span id="progress-label">Loading...</span>
+        <div class="progress-bar-outer">
+          <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
         </div>
       </div>
 
@@ -732,6 +726,10 @@
 
       <!-- reply area -->
       <div class="reply-box">
+        <!-- hidden controls for avatar/username editing (accessed via thread postbit clicks) -->
+        <input type="file" id="avatar-input" accept="image/*" onchange="handleAvatarUpload(event)" style="display:none">
+        <span class="username-display" id="username-display" onclick="editUsername()" style="display:none">You</span>
+        <input type="text" id="username-input" maxlength="24" onblur="saveUsername()" onkeydown="if(event.key==='Enter')saveUsername()" style="display:none">
         <textarea id="post-textarea" placeholder="Type your post here... (optional)"></textarea>
         <button class="vb-btn vb-btn-post" onclick="makePost()">📝 Post Reply</button>
         <div class="boost-indicator" id="boost-indicator"></div>
@@ -774,13 +772,6 @@
 
   </div><!-- end .game-cols -->
 
-  <!-- activity log (full width below columns) -->
-  <div class="post-log">
-    <div class="post-log-header">📋 Activity Log</div>
-    <div id="post-log-entries">
-      <div class="log-entry" style="color:#aaa;font-style:italic;padding:8px 10px">No activity yet.</div>
-    </div>
-  </div>
 
 </div><!-- end .forum-wrap -->
 
@@ -1363,33 +1354,22 @@ function handleAvatarUpload(e) {
   reader.readAsDataURL(file);
 }
 function renderAvatar() {
-  const img = document.getElementById('avatar-img');
-  const em  = document.getElementById('avatar-emoji');
-  if (playerAvatar) {
-    img.src = playerAvatar; img.style.display = 'block'; em.style.display = 'none';
-  } else {
-    img.style.display = 'none'; em.style.display = 'block';
-  }
+  // Avatar is rendered inline in renderThread(); just invalidate the thread cache
+  _lastThreadLength = -1;
 }
 
 // ── username edit ────────────────────────────────────────
 function editUsername() {
-  const disp = document.getElementById('username-display');
-  const inp  = document.getElementById('username-input');
-  inp.value = playerName;
-  disp.style.display = 'none';
-  inp.style.display = 'block';
-  inp.focus(); inp.select();
+  const val = window.prompt('Enter your username:', playerName);
+  if (val && val.trim()) {
+    playerName = val.trim().slice(0, 24);
+    _lastThreadLength = -1; // force thread re-render with new name
+    save();
+    render();
+  }
 }
 function saveUsername() {
-  const inp  = document.getElementById('username-input');
-  const disp = document.getElementById('username-display');
-  const val  = inp.value.trim();
-  if (val) playerName = val;
-  inp.style.display = 'none';
-  disp.style.display = 'block';
-  disp.innerHTML = playerName + ' <span class="online-dot"></span>';
-  save();
+  // no-op: kept for compatibility
 }
 
 // ── ban mechanic ─────────────────────────────────────────
@@ -1656,6 +1636,13 @@ function showMemberReply() {
     sigEl.style.display = 'none';
   }
 
+  // log the reply to postLog so it shows in the thread view
+  postLog.unshift({
+    n: postCount, msg: replyText, date: formatDate(), type: 'reply',
+    memberId: m.id, memberName: m.name, memberAvatar: m.avatar,
+    memberRoleIdx: memberRoles[m.id], memberSig: (m.sig && !isSulking) ? m.sig : ''
+  });
+
   postbit.style.display = 'block';
 }
 
@@ -1717,6 +1704,87 @@ function showToast(html, bg, color) {
   window._toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3500);
 }
 
+// ── thread rendering ──────────────────────────────────────
+function playerAvatarHTMLFn() {
+  if (playerAvatar) return `<img src="${playerAvatar}" style="width:64px;height:64px;object-fit:cover">`;
+  return `<span style="font-size:28px">😶</span>`;
+}
+
+let _lastThreadLength = -1;
+function renderThread() {
+  const el = document.getElementById('thread-posts');
+  if (!el) return;
+  const threadEntries = postLog.filter(e => e.type === 'post' || e.type === 'reply');
+  if (threadEntries.length === _lastThreadLength) return;
+  _lastThreadLength = threadEntries.length;
+
+  if (threadEntries.length === 0) {
+    el.innerHTML = `<div style="padding:20px;text-align:center;color:#aaa;font-style:italic;font-size:12px">
+      Click <strong>Post Reply</strong> below to make your first post.
+      <br><em style="font-size:10px">(<span onclick="editUsername()" style="cursor:pointer;text-decoration:underline">Click here</span> to set your name, or click your avatar in any post)</em>
+    </div>`;
+    return;
+  }
+
+  const rank = getRank(postCount);
+  const rankIconHTML = `<span class="rank-icon">${rank.icon}</span><span style="color:${rank.color};font-weight:bold">${rank.name}</span>`;
+  const avatarHTML = playerAvatarHTMLFn();
+  const starHTML = rank.stars > 0
+    ? `<div class="star-row"><span style="color:${rank.starColor}">${'★'.repeat(Math.min(rank.stars, 10))}</span></div>`
+    : '';
+
+  const recent = threadEntries.slice(0, 50).reverse();
+
+  el.innerHTML = recent.map(e => {
+    if (e.type === 'post') {
+      return `<div class="postbit">
+  <div class="postbit-head">
+    <span>${e.date}</span>
+    <span class="post-num">#${e.n}</span>
+  </div>
+  <div class="postbit-body">
+    <div class="postbit-user">
+      <div class="avatar-wrap" onclick="triggerAvatarUpload()" title="Click to change avatar" style="margin:0 auto 8px">
+        ${avatarHTML}
+      </div>
+      <span class="username-display" onclick="editUsername()" style="display:block">${playerName} <span class="online-dot"></span></span>
+      <div class="user-rank">${rankIconHTML}</div>
+      ${starHTML}
+      <div class="site-admin-badge">★ Site Administrator ★</div>
+      <div class="user-stats">Posts: <strong>${e.n}</strong></div>
+    </div>
+    <div class="postbit-content">
+      <div class="post-message">${e.msg}</div>
+      ${rank.sig ? `<div class="post-sig">${rank.sig}</div>` : ''}
+      <div class="post-actions"><span class="vb-btn">Quote</span> <span class="vb-btn">Edit</span></div>
+    </div>
+  </div>
+</div>`;
+    } else {
+      // type === 'reply'
+      return `<div class="postbit" style="background:#fafbff">
+  <div class="postbit-head" style="background:linear-gradient(to bottom,#e8ecf8,#d4d9ec)">
+    <span>${e.date}</span>
+    <span class="post-num" style="color:#5566aa">#${e.n} (reply)</span>
+  </div>
+  <div class="postbit-body">
+    <div class="postbit-user" style="background:#f0f2fc">
+      <div class="avatar-wrap" style="cursor:default;font-size:28px;margin:0 auto 8px;border:2px solid #a0a8c0;width:64px;height:64px;display:flex;align-items:center;justify-content:center">${e.memberAvatar}</div>
+      <span class="username-display" style="cursor:default;display:block">${e.memberName}</span>
+      <span class="member-reply-role ${ROLE_CLASSES[e.memberRoleIdx]}">${MEMBER_ROLES[e.memberRoleIdx]}</span>
+    </div>
+    <div class="postbit-content">
+      <div class="post-message">${e.msg}</div>
+      ${e.memberSig ? `<div class="post-sig member-reply-sig">${e.memberSig}</div>` : ''}
+    </div>
+  </div>
+</div>`;
+    }
+  }).join('');
+
+  el.scrollTop = el.scrollHeight;
+}
+
 // ── render ───────────────────────────────────────────────
 let _lastRenderPostCount = -1;
 function render() {
@@ -1725,9 +1793,6 @@ function render() {
   const pps      = calcPPS();
   const ppc      = calcPPC();
   const now      = Date.now();
-
-  document.getElementById('post-date').textContent = formatDate();
-  document.getElementById('post-num-display').textContent = '#' + postCount;
 
   // stats bar
   document.getElementById('stat-pps').textContent = pps >= 10 ? fmtNum(pps) + '/s' : pps.toFixed(2) + '/s';
@@ -1740,40 +1805,18 @@ function render() {
     document.getElementById('prestige-stat-box').style.display = 'none';
   }
 
-  // rank
-  document.getElementById('rank-display').innerHTML =
-    `<span class="rank-icon">${rank.icon}</span><span style="color:${rank.color};font-weight:bold">${rank.name}</span>`;
-  document.getElementById('stars-display').innerHTML = rank.stars > 0
-    ? `<span style="color:${rank.starColor}">${'★'.repeat(Math.min(rank.stars,5))}</span>` +
-      (rank.stars > 5 ? `<span style="color:${rank.starColor}">${'★'.repeat(rank.stars-5)}</span>` : '')
-    : '';
-
-  document.getElementById('post-count-sidebar').textContent = postCount;
-  document.getElementById('rep-display').textContent = '+' + Math.floor(postCount * 0.7);
-
-  // progress
+  // rank progress row
   const pl = document.getElementById('progress-label');
   const pb = document.getElementById('progress-bar');
   if (nextRank) {
     const pct = Math.min(100, Math.floor(((postCount - rank.min) / (nextRank.min - rank.min)) * 100));
-    pl.textContent = `→ ${nextRank.icon} ${nextRank.name} (${nextRank.min - postCount} posts)`;
+    pl.textContent = `${rank.icon} ${rank.name} → ${nextRank.icon} ${nextRank.name} (${nextRank.min - postCount} to go)`;
     pb.style.width = pct + '%';
     pb.style.background = `linear-gradient(to right, ${rank.color}, ${nextRank.color})`;
   } else {
-    pl.textContent = '✨ Maximum rank';
+    pl.textContent = `${rank.icon} ${rank.name} ✨ Maximum rank`;
     pb.style.width = '100%'; pb.style.background = '#ffcc00';
   }
-
-  // message
-  const last = postLog[0];
-  document.getElementById('post-message-display').innerHTML = (last && last.type === 'post')
-    ? last.msg
-    : (postCount === 0 ? 'Click <strong>Post Reply</strong> below to make your first post. <em style="color:#888">(Click your name or avatar to edit them)</em>' : '...');
-
-  // sig
-  const sd = document.getElementById('sig-display');
-  if (rank.sig) { sd.textContent = rank.sig; sd.style.display = 'block'; }
-  else { sd.style.display = 'none'; }
 
   document.getElementById('total-posts-display').textContent = `Total posts: ${postCount}`;
 
@@ -1800,26 +1843,8 @@ function render() {
     psec.style.display = 'none';
   }
 
-  renderLog();
+  renderThread();
   renderShop();
-}
-
-function renderLog() {
-  const logEl = document.getElementById('post-log-entries');
-  if (postLog.length === 0) {
-    logEl.innerHTML = '<div class="log-entry" style="color:#aaa;font-style:italic;padding:8px 10px">No activity yet.</div>';
-    return;
-  }
-  logEl.innerHTML = postLog.slice(0, 30).map(e => {
-    if (e.rankUp)         return `<div class="log-entry new-rank">🎉 #${e.n} — Rank up to <strong>${e.rankUp}</strong>! <span style="color:#aa8800;font-weight:normal;font-size:10px">${e.date}</span></div>`;
-    if (e.type === 'ban') return `<div class="log-entry ban-action">🔨 #${e.n} — ${e.msg} <span style="font-size:10px;color:#888">${e.date}</span></div>`;
-    if (e.type === 'penalty') return `<div class="log-entry penalty">⚠️ ${e.msg} <span style="font-size:10px;color:#888">${e.date}</span></div>`;
-    if (e.type === 'good')    return `<div class="log-entry good-action">✅ ${e.msg} <span style="font-size:10px;color:#448844">${e.date}</span></div>`;
-    if (e.type === 'prestige') return `<div class="log-entry prestige-action">✨ ${e.msg} <span style="font-size:10px;color:#775599">${e.date}</span></div>`;
-    const short = e.msg.length > 80 ? e.msg.slice(0,80)+'...' : e.msg;
-    const cls = e.auto ? 'log-entry auto-post' : 'log-entry';
-    return `<div class="${cls}"><span>#${e.n} — ${short}</span><span style="color:#aaa;flex-shrink:0;margin-left:8px;font-size:10px">${e.date}</span></div>`;
-  }).join('');
 }
 
 // ── auto-tick ────────────────────────────────────────────
@@ -1861,9 +1886,7 @@ setInterval(() => {
 setInterval(() => { save(); }, 5000);
 
 // ── init ──────────────────────────────────────────────────
-renderAvatar();
 render();
-document.getElementById('username-display').innerHTML = playerName + ' <span class="online-dot"></span>';
 </script>
 </body>
 </html>
