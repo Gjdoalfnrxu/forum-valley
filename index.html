@@ -789,6 +789,13 @@
 <div id="dm-popup-container"></div>
 
 <script>
+// ── error overlay (debug) ─────────────────────────────────
+window.onerror = function(msg, src, line, col, err) {
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#c00;color:#fff;padding:12px;font:12px monospace;z-index:9999;white-space:pre-wrap';
+  d.textContent = 'JS ERROR: ' + msg + '\nLine ' + line + ' col ' + col + '\n' + (err ? err.stack : '');
+  document.body.appendChild(d);
+};
 // ── ranks ────────────────────────────────────────────────
 const RANKS = [
   { name: 'Lurker',          min:     0, color: '#999',    icon: '👤', stars: 0, starColor: '#aaa',    sig: '' },
@@ -811,11 +818,6 @@ const RANKS = [
   { name: 'Moderator',       min: 15000, color: '#0066aa', icon: '🛡️', stars: 9, starColor: '#00aaff', sig: '||| keep it civil |||' },
   { name: 'Super Moderator', min: 25000, color: '#004488', icon: '⚔️', stars: 10, starColor: '#0088ff', sig: '||| senior staff |||' },
   { name: 'Administrator',   min: 50000, color: '#aa0000', icon: '💎', stars: 10, starColor: '#ffcc00', sig: '— site founder —' },
-  { id:25, avatar:'🤨', name:'stefan_k',        arch:'Omniscient Douche',      replies:["actually thats not entirely accurate lol","lol did u even google this before posting","im a software engineer n this is just wrong on multiple levels","the dunning kruger effect is real n its showing in this thread","technically speaking ur oversimplifying this","as someone who actually works in this field let me explain","lol source? because i actually know about this","ur not wrong but ur missing the bigger picture which is...","interesting take but have u read the wikipedia article on this lol","just gonna leave this here: [RFC 2616 section 4.3]"], dms:["hey m8 not trying 2 be a dick but that post had a few inaccuracies lol","hey just fyi the thing u said about that is not quite right, happy 2 explain","lol hey m8 interesting post but might wanna research that a bit more b4 posting"], sig:'<b>B.Sc Computer Science (Hons) | 6 years industry | CISSP</b><br>Currently reading: SICP &bull; Languages: C, C++, Python, Haskell, Lisp, Erlang, "and yes I\'ve used them all"<br><span style="font-size:9px">Not here to argue, just here to be correct</span>' },
-  { id:26, avatar:'🧐', name:'PhilipJT',            arch:'Grammar Nazi',
-    replies:["lol agreed, also just fyi its 'a lot' not 'alot' m8","solid point, unrelated but someone in this thread keeps writing 'your' when they mean 'you're' n its driving me insane","ye good post. also not 2 derail but 'could of' is not a thing, its 'could have', drives me up the wall lol","agreed with everything here except whoever used 'irregardless' up the thread, thats not a word","lol tru, also minor thing but 'less people' should b 'fewer people', sorry i cant help it","good point actually. also the distinction between 'literally' n 'figuratively' is being absolutely murdered in this thread lol","ye this. also since im here: its 'i.e.' not 'ie' n they mean different things, i.e. means 'that is', e.g. means 'for example'"],
-    dms:["hey m8 not trying 2 b that guy but there were a couple of grammar things in the thread earlier that were bothering me, not urs tho","hey just passing on: someone keep writing 'alot' as one word in threads lol, not a huge deal just noticed","hey m8 the standard of writing in this forum is actually pretty good compared 2 most, just wanted 2 say lol"],
-    sig:'<b>Self-appointed grammar officer since 2005</b><br>"Alot is not a word. A lot. Two words. Always." | xkcd.com/37 | Oxford comma advocate' },
 ];
 
 // ── troll posts ──────────────────────────────────────────
@@ -977,7 +979,13 @@ const MEMBERS = [
 
   { id:25, avatar:'🤨', name:'stefan_k',             arch:'Omniscient Douche',
     replies:["lol ok but technically speaking ur description of this is like 60% accurate at best","as someone with a background in computer science this is not how that works","the dunning kruger effect is genuinely fascinating 2 watch play out in real time lol","have u actually read any primary sources on this or just reddit comments","lol i dont want 2 b that guy but i am going 2 b that guy: ur wrong","actually if u look at RFC 2616 section 4.3 u will see that ur premise is flawed","i have a CS degree n worked in tech 4 6 years n everything about this reply is incorrect lol","technically this is more of a distributed systems problem than ur framing suggests","lol do u want me 2 explain this properly or","the actual literature on this is really clear n it doesnt support what ur saying"],
-    dms:["hey m8 not trying 2 b a dick but that post had some factual inaccuracies i felt u should know about","hey just fyi the thing u said about X is not quite right, the actual mechanism is more like... lol happy 2 explain","hey m8 i know u didnt ask but i have a lot of background in this area n ur post is close but missing some key nuance"] },
+    dms:["hey m8 not trying 2 b a dick but that post had some factual inaccuracies i felt u should know about","hey just fyi the thing u said about X is not quite right, the actual mechanism is more like... lol happy 2 explain","hey m8 i know u didnt ask but i have a lot of background in this area n ur post is close but missing some key nuance"],
+    sig:'<b>B.Sc Computer Science (Hons) | 6 years industry | CISSP</b><br>Currently reading: SICP &bull; Languages: C, C++, Python, Haskell, Lisp, Erlang, "and yes I\'ve used them all"<br><span style="font-size:9px">Not here to argue, just here to be correct</span>' },
+
+  { id:26, avatar:'🧐', name:'PhilipJT',            arch:'Grammar Nazi',
+    replies:["lol agreed, also just fyi its 'a lot' not 'alot' m8","solid point, unrelated but someone in this thread keeps writing 'your' when they mean 'you're' n its driving me insane","ye good post. also not 2 derail but 'could of' is not a thing, its 'could have', drives me up the wall lol","agreed with everything here except whoever used 'irregardless' up the thread, thats not a word","lol tru, also minor thing but 'less people' should b 'fewer people', sorry i cant help it","good point actually. also the distinction between 'literally' n 'figuratively' is being absolutely murdered in this thread lol","ye this. also since im here: its 'i.e.' not 'ie' n they mean different things, i.e. means 'that is', e.g. means 'for example'"],
+    dms:["hey m8 not trying 2 b that guy but there were a couple of grammar things in the thread earlier that were bothering me, not urs tho","hey just passing on: someone keep writing 'alot' as one word in threads lol, not a huge deal just noticed","hey m8 the standard of writing in this forum is actually pretty good compared 2 most, just wanted 2 say lol"],
+    sig:'<b>Self-appointed grammar officer since 2005</b><br>"Alot is not a word. A lot. Two words. Always." | xkcd.com/37 | Oxford comma advocate' },
 ];
 
 const MEMBER_ROLES = ['Guest', 'Member', 'Senior Member', 'Moderator', 'Super Moderator'];
